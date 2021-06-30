@@ -2,29 +2,34 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
+/* class that handles changing level and the fade in fade out animation. */
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager Instance { get; private set; }
-    public Animator transition = null;
-    public float transitionTime = 1.0f;
+    /* animator for the fade in/fade out */
+    public          Animator        _transition = null;
+    /* tecnically the duration of the animation, can be changed if wanted*/
+    public          float           _transitionTime = 1.0f;
 
-    private void Awake()
+    private void Start()
     {
-        Instance = this;
-        transition = GetComponent<Animator>();
+        _transition = GetComponent<Animator>();
     }
 
-    public static void LoadLevel(int levelIndex)
+    public void LoadLevel(int levelIndex_)
     {
-        Instance.StartCoroutine(Instance.SmoothLoadLevel(levelIndex));
+        StartCoroutine(SmoothLoadLevel(levelIndex_));
     }
 
-    IEnumerator SmoothLoadLevel(int levelIndex)
+    IEnumerator SmoothLoadLevel(int levelIndex_)
     {
-        transition.SetTrigger("Start");
+        /* fade in animation start */
+        _transition.SetTrigger("Start");
 
-        yield return new WaitForSeconds(transitionTime);
+        /* wait for animation to finish */
+        yield return new WaitForSeconds(_transitionTime);
 
-        SceneManager.LoadScene(levelIndex);
+        /* load scene, the fade out animation should be done in the other scene as 
+         * they should all have a LevelManager and the animation is played on entry*/
+        SceneManager.LoadScene(levelIndex_);
     }
 }

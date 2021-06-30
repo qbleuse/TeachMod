@@ -179,7 +179,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &1555264415367171317
 MonoBehaviour:
@@ -252,4 +252,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba23d76fa274614ea00686e0821864b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transition: {fileID: 1555264415367171315}
+  _transition: {fileID: 0}
+  _transitionTime: 1

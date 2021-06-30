@@ -1358,6 +1358,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1555264415367171316, guid: 8b50fcde59c27b849be2055ca31bb671, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7989394263116745590, guid: 8b50fcde59c27b849be2055ca31bb671, type: 3}
       propertyPath: transitionTime
       value: 1

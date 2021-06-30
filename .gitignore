@@ -58,3 +58,11 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+/**/*.png
+/**/*.mp4
+/**/*.ttf
+/**/*.png.meta
+/**/*.mp4.meta
+/**/*.ttf.meta
+
+.vsconfig

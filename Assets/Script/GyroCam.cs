@@ -18,7 +18,6 @@ public class GyroCam : MonoBehaviour
 
 	private IEnumerator Start()
 	{
-
 		if (SystemInfo.deviceType == DeviceType.Desktop)
 		{
 			enabled = false;

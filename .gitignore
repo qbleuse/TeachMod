@@ -61,8 +61,12 @@ crashlytics-build.properties
 /**/*.png
 /**/*.mp4
 /**/*.ttf
+/**/*.mat
+/**/*.wav
 /**/*.png.meta
 /**/*.mp4.meta
 /**/*.ttf.meta
+/**/*.mat.meta
+/**/*.wav.meta
 
 .vsconfig

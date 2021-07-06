@@ -54,6 +54,8 @@ public class VideoController : MonoBehaviour
 
 	public void SetSequence()
     {
+
+
 		_player.clip	= sequences[currentVideoIndex].video;
 
 		if (sequences[currentVideoIndex].audio)
@@ -65,6 +67,7 @@ public class VideoController : MonoBehaviour
 		}
 		else
         {
+			_audio.clip = null;
 			_player.EnableAudioTrack(0, true);
 		}
 
@@ -87,8 +90,13 @@ public class VideoController : MonoBehaviour
 
 	private void OnMovieFinished(VideoPlayer player)
     {
-		
 		currentVideoIndex++;
+
+		if (currentVideoIndex >= sequences.Count)
+		{
+			EndMenu.Instance.gameObject.SetActive(true);
+			return;
+		}
 
 		LevelManager.Instance.StartCoroutine(LevelManager.Instance.FadeRestart(SetSequence));
 

@@ -58,5 +58,10 @@ public class LevelManager : MonoBehaviour
 		/* fade out animation start */
 		_transition.SetBool("Start", false);
 		_transition.SetBool("Restart",true);
+
+		///* wait for animation to at least begin */
+		yield return new WaitForSeconds(_transitionTime);
+
+		_transition.SetBool("Restart", false);
 	}
 }

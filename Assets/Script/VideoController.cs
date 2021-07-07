@@ -18,23 +18,26 @@ public class VideoController : MonoBehaviour
 	static public VideoController Instance = null;
 	
 	/*==== STATE ====*/
-	public int currentVideoIndex = 0;
-	private Camera mainCam = null;
+	public int _currentVideoIndex = 0;
+	private Camera _mainCam = null;
 
 	/*==== SETTINGS ====*/
-	[SerializeField] private List<Sequence> sequences = null;
+	[SerializeField] private List<Sequence> _sequences = null;
 
 	/*==== COMPONENTS ====*/
 	private VideoPlayer _player = null;
 	private AudioSource _audio = null;
 
-	// Start is called before the first frame update
-	private void Start()
-	{
+    private void Awake()
+    {
 		Instance = this;
+	}
 
+    // Start is called before the first frame update
+    private void Start()
+	{
 		/* caching the camera */
-		mainCam = Camera.main;
+		_mainCam = Camera.main;
 
 		/* getting and setting the components */
 		_player = GetComponent<VideoPlayer>();
@@ -53,20 +56,20 @@ public class VideoController : MonoBehaviour
 	}
 
 	public void SetSequence()
-    {
+	{
 
 
-		_player.clip	= sequences[currentVideoIndex].video;
+		_player.clip	= _sequences[_currentVideoIndex].video;
 
-		if (sequences[currentVideoIndex].audio)
+		if (_sequences[_currentVideoIndex].audio)
 		{
 			_player.EnableAudioTrack(0, false);
-			_audio.clip = sequences[currentVideoIndex].audio;
-			_audio.time = sequences[currentVideoIndex].audioDelay;
+			_audio.clip = _sequences[_currentVideoIndex].audio;
+			_audio.time = _sequences[_currentVideoIndex].audioDelay;
 			_audio.Play();
 		}
 		else
-        {
+		{
 			_audio.clip = null;
 			_player.EnableAudioTrack(0, true);
 		}
@@ -89,10 +92,10 @@ public class VideoController : MonoBehaviour
 	}
 
 	private void OnMovieFinished(VideoPlayer player)
-    {
-		currentVideoIndex++;
+	{
+		_currentVideoIndex++;
 
-		if (currentVideoIndex >= sequences.Count)
+		if (_currentVideoIndex >= _sequences.Count)
 		{
 			EndMenu.Instance.gameObject.SetActive(true);
 			return;

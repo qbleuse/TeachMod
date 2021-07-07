@@ -19,11 +19,13 @@ public class LevelManager : MonoBehaviour
 	[SerializeField] private float _transitionTime = 1.0f;
 
 	/*======== METHODS ========*/
+	private void Awake()
+	{
+		Instance = this;
+	}
 
 	private void Start()
 	{
-		Instance = this;
-
 		_transition = GetComponent<Animator>();
 	}
 

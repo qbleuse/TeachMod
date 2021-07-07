@@ -8,11 +8,11 @@ public class CircleAnimation : MonoBehaviour
 	/*======== COMPONENTS ========*/
 
 	/* the different circles */
-	public GameObject[] animObjects;
+	public GameObject[] _animObjects;
 
 	/*======== SETTINGS ========*/
 
-	[SerializeField] private float animSpeed = 50.0f;
+	[SerializeField] private float _animSpeed = 50.0f;
 
 	/*======== METHODS ========*/
 
@@ -27,13 +27,13 @@ public class CircleAnimation : MonoBehaviour
 	{
 		Vector3 angle = Vector3.zero;
 
-		for (int i = 0; i < animObjects.Length; i++)
+		for (int i = 0; i < _animObjects.Length; i++)
 		{
-			GameObject go = animObjects[i];
+			GameObject go = _animObjects[i];
 
 			angle = go.transform.eulerAngles;
 
-			angle.z += Time.deltaTime * animSpeed;
+			angle.z += Time.deltaTime * _animSpeed;
 
 			go.transform.eulerAngles = angle;
 		}

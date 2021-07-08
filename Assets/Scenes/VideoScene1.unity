@@ -183,6 +183,19 @@ PrefabInstance:
         Moi aussi j''en veux
         une!'
       objectReference: {fileID: 0}
+    - target: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
+      propertyPath: _question._answerNb
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
+      propertyPath: _question._question
+      value: 'Est-ce que la tablette est une tablette android?
+
+        A: Oui
+
+        B:
+        Non'
+      objectReference: {fileID: 0}
     - target: {fileID: 8222654210877218161, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -624,6 +637,14 @@ PrefabInstance:
     - target: {fileID: 2672148617520360636, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853408877836675775, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853408877836675775, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3424627122818071062, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: m_RootOrder

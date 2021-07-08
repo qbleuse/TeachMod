@@ -97,7 +97,7 @@ public class VideoController : MonoBehaviour
 
 		if (_currentVideoIndex >= _sequences.Count)
 		{
-			EndMenu.Instance.gameObject.SetActive(true);
+			EndMenu.Instance.WakeUp();
 			return;
 		}
 

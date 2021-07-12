@@ -31,6 +31,13 @@ public class EndMenu : MonoBehaviour
 	private MCQ		_currMCQ		= null;
 	private float	_canvasWidth	= 0.0f;
 
+	/* the score gained when finding the POI 
+	 * and having interpreted it the way it shoud */
+	public int _POI_Score = 0;
+
+	/* the score gained when answering good to the MCQ */
+	public int _MCQ_Score = 0;
+
 	/*==== COMPONENTS ====*/
 	private GameObject	_commentSection		= null;
 	private Text		_commentsText		= null;
@@ -39,9 +46,11 @@ public class EndMenu : MonoBehaviour
 	private Text		_buttonText			= null;
 
 	private GameObject		_questionPanel	= null;
-	private Toggle[]		_answers		= null;
 	private RectTransform[] _answersRect	= null;
 	private Text			_question		= null;
+
+	private GameObject	_scoreSection	= null;
+	private Text[]		_scoreText		= null;
 
 
 	/*==== STARTUP METHODS ====*/
@@ -71,20 +80,27 @@ public class EndMenu : MonoBehaviour
 
 		/* getting the gameobject of the question panel, to disbale it after we answered all of them */
 		_questionPanel	= transform.GetChild(0).transform.GetChild(3).gameObject;
+
 		/* we need to move them depending on the nulmber of question asked */
-		_answers		= _questionPanel.GetComponentsInChildren<Toggle>();
+		Toggle[] answers = _questionPanel.GetComponentsInChildren<Toggle>();
 
 		_answersRect = new RectTransform[4];
 
-		for (int i = 0; i<_answers.Length;i++)
-        {
-			_answersRect[i] = _answers[i].GetComponent<RectTransform>();
-        }
+		for (int i = 0; i < answers.Length;i++)
+		{
+			_answersRect[i] = answers[i].GetComponent<RectTransform>();
+		}
 
 		/* get the width of the canvas to move the toggle afterward */
 		_canvasWidth	= _questionPanel.GetComponent<RectTransform>().rect.width;
 		/* get the text to change the question */
 		_question		= _questionPanel.transform.GetChild(0).GetComponent<Text>();
+
+		/* get the score section to print score at te end */
+		_scoreSection	= transform.GetChild(0).transform.GetChild(4).gameObject;
+		_scoreText		= _scoreSection.GetComponentsInChildren<Text>();
+		_scoreSection.SetActive(false);
+
 
 		/* set EndMenu Inactive for the moment */
 		gameObject.SetActive(false);
@@ -148,20 +164,23 @@ public class EndMenu : MonoBehaviour
 	/* a method called by the _button to change what is showed by the endMenu */
 	public void ChangeState()
 	{
-		menuState++;
-		switch (menuState)
+		switch(menuState)
 		{
 			case State.QUESTION:
 				ManageQuestion();
-				
+				menuState++;
 				break;
 			case State.COMMENT:
 				_questionPanel.SetActive(false);
 				_commentSection.SetActive(true);
+				menuState++;
 				break;
 			case State.SCORE:
 				_commentSection.SetActive(false);
+				_scoreSection.SetActive(true);
+				SetScore();
 				_buttonText.text = "Quit";
+				menuState++;
 				break;
 			default:
 				LevelManager.Instance.LoadLevel(0);
@@ -193,73 +212,36 @@ public class EndMenu : MonoBehaviour
 			_currMCQ = POI_Manager.Instance._pois[_currQuestNb]._question;
 		}
 
-		/* we move the toggle depending on the number of answer the questi has.
+		/* we move the toggle depending on the number of answer the question has.
 		 * we could theoratically do an infinite number but realistically, such question will not appear.
 		 * so we will stick with the good old 4 MCQ, and we do it by hand (it will be faster this way).*/
 		switch (_currMCQ._answerNb)
 		{
 			case 2:
 				/* no need for C and D so disable them */
-				_answers[2].gameObject.SetActive(false);
-				_answers[3].gameObject.SetActive(false);
+				_answersRect[2].gameObject.SetActive(false);
+				_answersRect[3].gameObject.SetActive(false);
 
-				//Debug.LogError(-togglePlacement * _canvasWidth * 0.5f);
+				_answersRect[0].anchoredPosition = new Vector2(-togglePlacement * _canvasWidth * 0.5f, _answersRect[0].anchoredPosition.y);
 
-				_answersRect[0].rect.Set(-togglePlacement * _canvasWidth * 0.5f,
-							_answers[0].graphic.rectTransform.rect.y,
-							_answers[0].graphic.rectTransform.rect.width,
-							_answers[0].graphic.rectTransform.rect.height);
-
-				_answers[1].graphic.rectTransform.rect.Set(togglePlacement*_canvasWidth*0.5f,
-							_answers[1].graphic.rectTransform.rect.y,
-							_answers[1].graphic.rectTransform.rect.width,
-							_answers[1].graphic.rectTransform.rect.height);
+				_answersRect[1].anchoredPosition = new Vector2(togglePlacement * _canvasWidth * 0.5f, _answersRect[1].anchoredPosition.y);
 				break;
 			case 3:
 				/* need for C, not D */
-				_answers[2].gameObject.SetActive(true);
-				_answers[3].gameObject.SetActive(false);
+				_answersRect[2].gameObject.SetActive(true);
+				_answersRect[3].gameObject.SetActive(false);
 
-				_answers[0].graphic.rectTransform.rect.Set(-togglePlacement * _canvasWidth * 0.5f,
-							_answers[0].graphic.rectTransform.rect.y,
-							_answers[0].graphic.rectTransform.rect.width,
-							_answers[0].graphic.rectTransform.rect.height);
-
-				_answers[1].graphic.rectTransform.rect.Set(togglePlacement * _canvasWidth * 0.5f,
-							_answers[1].graphic.rectTransform.rect.y,
-							_answers[1].graphic.rectTransform.rect.width,
-							_answers[1].graphic.rectTransform.rect.height);
-
-				_answers[2].graphic.rectTransform.rect.Set(0,
-							_answers[2].graphic.rectTransform.rect.y,
-							_answers[2].graphic.rectTransform.rect.width,
-							_answers[2].graphic.rectTransform.rect.height);
+				_answersRect[2].anchoredPosition = new Vector2(0, _answersRect[2].anchoredPosition.y);
 
 				break;
 			case 4:
 				/* need for C and D */
-				_answers[2].gameObject.SetActive(true);
-				_answers[3].gameObject.SetActive(true);
+				_answersRect[2].gameObject.SetActive(true);
+				_answersRect[3].gameObject.SetActive(true);
 
-				_answers[0].graphic.rectTransform.rect.Set(-togglePlacement * _canvasWidth * 0.5f,
-							_answers[0].graphic.rectTransform.rect.y,
-							_answers[0].graphic.rectTransform.rect.width,
-							_answers[0].graphic.rectTransform.rect.height);
+				_answersRect[2].anchoredPosition = new Vector2(-togglePlacement * _canvasWidth * 0.5f, _answersRect[2].anchoredPosition.y);
+				_answersRect[3].anchoredPosition = new Vector2(togglePlacement * _canvasWidth * 0.5f, _answersRect[3].anchoredPosition.y);
 
-				_answers[1].graphic.rectTransform.rect.Set(togglePlacement * _canvasWidth * 0.5f,
-							_answers[1].graphic.rectTransform.rect.y,
-							_answers[1].graphic.rectTransform.rect.width,
-							_answers[1].graphic.rectTransform.rect.height);
-
-				_answers[2].graphic.rectTransform.rect.Set(-togglePlacement * _canvasWidth * 0.5f,
-							_answers[2].graphic.rectTransform.rect.y,
-							_answers[2].graphic.rectTransform.rect.width,
-							_answers[2].graphic.rectTransform.rect.height);
-
-				_answers[3].graphic.rectTransform.rect.Set(togglePlacement * _canvasWidth * 0.5f,
-							_answers[3].graphic.rectTransform.rect.y,
-							_answers[3].graphic.rectTransform.rect.width,
-							_answers[3].graphic.rectTransform.rect.height);
 				break;
 			/* if a question does not corresponds, 
 			 * we just ignore it and search an other that works*/
@@ -276,5 +258,15 @@ public class EndMenu : MonoBehaviour
 		}
 
 		_question.text = _currMCQ._question;
+	}
+
+	/* method that append the score to the string of the text score "_scoreText"*/
+	void SetScore()
+    {
+		/* append POI found/POI there was */
+		_scoreText[0].text += _POI_Score.ToString() + "/" + POI_Manager.Instance._pois.Count.ToString();
+
+		/* append MCQ well answered/MCQ there was (there should be as much POI than there is MCQ as they're contained in th POI) */
+		_scoreText[1].text += _MCQ_Score.ToString() + "/" + POI_Manager.Instance._pois.Count.ToString();
 	}
 }

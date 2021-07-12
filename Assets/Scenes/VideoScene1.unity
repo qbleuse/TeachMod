@@ -184,6 +184,10 @@ PrefabInstance:
         une!'
       objectReference: {fileID: 0}
     - target: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
+      propertyPath: _endTimestamp
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: _question._answerNb
       value: 2
       objectReference: {fileID: 0}

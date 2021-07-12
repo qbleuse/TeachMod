@@ -109,4 +109,11 @@ public class VideoController : MonoBehaviour
 	private void Update()
 	{
 	}
+
+	/*==== ACCESSOR ====*/
+	/* get the timestamp of the currently played sequence */
+	public float GetVideoTimeStamp()
+	{
+		return (float)_player.time;
+	}
 }

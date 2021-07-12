@@ -23,6 +23,30 @@ public class POI_Manager : MonoBehaviour
 
 	// Update is called once per frame
 	void Update()
-	{   
+	{
+		TryEnablePOI();
 	}
+
+	void TryEnablePOI()
+    {
+		for (int i = 0; i < _pois.Count; i++)
+        {
+			if (_pois[i]._timestamp <= VideoController.Instance.GetVideoTimeStamp() && i != (_pois.Count-1))
+            {
+				_pois[i].gameObject.SetActive(true);
+				
+				/* put the poi to the end of the list */
+				POI temp = _pois[i];
+				_pois.RemoveAt(i);
+				_pois.Add(temp);
+
+				/* the value of the current index has changed, we also want to check it */
+				i--;
+            }
+			else
+            {
+				break;
+            }
+        }
+    }
 }

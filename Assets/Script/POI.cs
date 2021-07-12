@@ -23,13 +23,13 @@ public class POI : MonoBehaviour, IComparable<POI>
 
 	/*==== SETTINGS ====*/
 	/* says when will it begin to appear */
-	[SerializeField]            private float      _timestamp       = 0.0f;
+	[SerializeField]            public float		_timestamp      = 0.0f;
 	/* says when will it disappear */
-	[SerializeField]            private float      _endTimestamp    = -1.0f;
+	[SerializeField]            public float		_endTimestamp   = -1.0f;
 	/* the comment that explain why this is a poi */
 	[SerializeField, Multiline]	public string		_comments		= null;
 	/* to know if it is good or not */
-	[SerializeField]            private Alignment  _fitting         = Alignment.UNKNOWN;
+	[SerializeField]            private Alignment	_fitting        = Alignment.UNKNOWN;
 	/* to know if it is good or not */
 	[SerializeField]			public  MCQ			_question		= null;
 
@@ -38,7 +38,7 @@ public class POI : MonoBehaviour, IComparable<POI>
 	// Start is called before the first frame update
 	void Start()
 	{
- 
+		StartCoroutine(EndToTimestamp());
 	}
 
 	// Update is called once per frame
@@ -57,4 +57,12 @@ public class POI : MonoBehaviour, IComparable<POI>
 
 		return 1;
 	}
+
+	/* Used to disable when it is the time to ends its timestamp */
+	IEnumerator EndToTimestamp()
+    {
+		yield return new WaitForSeconds(_endTimestamp - _timestamp);
+
+		gameObject.SetActive(false);
+    }
 }

@@ -29,9 +29,12 @@ public class POI : MonoBehaviour, IComparable<POI>
 	/* the comment that explain why this is a poi */
 	[SerializeField, Multiline]	public string		_comments		= null;
 	/* to know if it is good or not */
-	[SerializeField]            private Alignment	_fitting        = Alignment.UNKNOWN;
+	[SerializeField]			private Alignment	_fitting		= Alignment.UNKNOWN;
 	/* to know if it is good or not */
 	[SerializeField]			public  MCQ			_question		= null;
+
+	/*==== ACCESSOR ====*/
+	public Alignment _POI_Fitting { get { return _fitting; } }
 
 
 	/*==== METHODS ====*/

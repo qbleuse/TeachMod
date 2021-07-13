@@ -46,6 +46,7 @@ public class EndMenu : MonoBehaviour
 	private Text		_buttonText			= null;
 
 	private GameObject		_questionPanel	= null;
+	private Toggle[]		_answers		= null;
 	private RectTransform[] _answersRect	= null;
 	private Text			_question		= null;
 
@@ -82,13 +83,13 @@ public class EndMenu : MonoBehaviour
 		_questionPanel	= transform.GetChild(0).transform.GetChild(3).gameObject;
 
 		/* we need to move them depending on the nulmber of question asked */
-		Toggle[] answers = _questionPanel.GetComponentsInChildren<Toggle>();
+		_answers = _questionPanel.GetComponentsInChildren<Toggle>();
 
 		_answersRect = new RectTransform[4];
 
-		for (int i = 0; i < answers.Length;i++)
+		for (int i = 0; i < _answers.Length;i++)
 		{
-			_answersRect[i] = answers[i].GetComponent<RectTransform>();
+			_answersRect[i] = _answers[i].GetComponent<RectTransform>();
 		}
 
 		/* get the width of the canvas to move the toggle afterward */
@@ -269,4 +270,19 @@ public class EndMenu : MonoBehaviour
 		/* append MCQ well answered/MCQ there was (there should be as much POI than there is MCQ as they're contained in th POI) */
 		_scoreText[1].text += _MCQ_Score.ToString() + "/" + POI_Manager.Instance._pois.Count.ToString();
 	}
+
+	/* used to reset all other toggle to alse than the one that have been clicked on */
+	public void SetToggle(Toggle activated)
+    {
+		if (activated.isOn)
+		{
+			for (int i = 0; i < _answers.Length; i++)
+			{
+				if (_answers[i] == activated)
+					continue;
+
+				_answers[i].isOn = false;
+			}
+		}
+    }
 }

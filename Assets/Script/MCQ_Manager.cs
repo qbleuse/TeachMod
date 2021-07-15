@@ -47,7 +47,7 @@ public class MCQ_Manager : MonoBehaviour
 		/* get the text to change the question */
 		_question = _canvas.transform.GetChild(1).GetComponent<Text>();
 
-		_buttonText = _canvas.transform.GetChild(6).GetComponent<Text>();
+		_buttonText = _canvas.transform.GetChild(6).transform.GetChild(0).GetComponent<Text>();
 
 		/* don't need it right now */
 		gameObject.SetActive(false);
@@ -152,6 +152,7 @@ public class MCQ_Manager : MonoBehaviour
 		}
 
 		ClearState();
+		VideoController.Instance.PauseAndResume();
 		gameObject.SetActive(false);
 	}
 }

@@ -8,7 +8,9 @@ public class POI_Manager : MonoBehaviour
 	public static POI_Manager Instance = null;
 
 	/*==== STATE ====*/
-	[HideInInspector] public  List<POI> _pois = null;
+	[HideInInspector] public	List<POI> _pois = null;
+	[HideInInspector] public	List<POI> _pausePois = null;
+	private int _index = 0;
 
     private void Awake()
     {
@@ -32,23 +34,12 @@ public class POI_Manager : MonoBehaviour
 
 	void TryEnablePOI()
     {
-		for (int i = 0; i < _pois.Count; i++)
+		for (; _index < _pois.Count; _index++)
         {
-			if (_pois[i]._sequence == VideoController.Instance._currentVideoIndex && _pois[i]._timestamp <= VideoController.Instance.GetVideoTimeStamp())
+			if (_pois[_index]._sequence == VideoController.Instance._currentVideoIndex 
+				&& _pois[_index]._timestamp < VideoController.Instance.GetVideoTimeStamp())
             {
-				_pois[i].gameObject.SetActive(true);
-				
-				/* put the poi to the end of the list */
-				POI temp = _pois[i];
-				_pois.RemoveAt(i);
-				_pois.Add(temp);
-		
-				/* the value of the current index has changed, we also want to check it
-				 * but if this is the end we don't want to has it would result in infinite loop */
-				if (i < (_pois.Count - 1))
-				{
-					i--;
-				}
+				_pois[_index].WakeUp();
             }
 			else
             {

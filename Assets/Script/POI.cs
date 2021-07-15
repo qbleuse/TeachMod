@@ -21,6 +21,8 @@ public class POI : MonoBehaviour, IComparable<POI>
 	/*==== STATE ====*/
 	[HideInInspector] public Alignment _userJudgement = Alignment.GOOD;
 
+	[HideInInspector] public IEnumerator coroutine = null;
+
 	/*==== SETTINGS ====*/
 	/* says what sequence it is suppose to appear */
 	[SerializeField]			public int			_sequence		= 0;
@@ -34,13 +36,18 @@ public class POI : MonoBehaviour, IComparable<POI>
 	[SerializeField]			private Alignment	_fitting		= Alignment.UNKNOWN;
 	/* to know if it is good or not */
 	[SerializeField]			public  MCQ			_question		= null;
-	/* to know if we stop the video when this SM reached its timestamp */
+	/* to know if we ask the MCQ when this SM reached its timestamp */
 	[SerializeField]			private	bool		_pauseOnTime	= false;
+	/* to know if we ask the MCQ when this SM is being clicked on */
+	[SerializeField]			private bool		_askOnHit		= false;
 
 	/*==== ACCESSOR ====*/
 	public Alignment _POI_Fitting { get { return _fitting; } }
+	public bool _pause { get { return _pauseOnTime; } }
 
-	public event Action _onTimeEvent;
+	/*==== EVENTS ====*/
+	private event Action _onTimeEvent;
+	private event Action _onHitEvent;
 	
 	/*==== METHODS ====*/
 	void Awake()
@@ -54,6 +61,13 @@ public class POI : MonoBehaviour, IComparable<POI>
 		while (POI_Manager.Instance == null)
 		{
 			yield return null;
+		}
+
+		if (_pause)
+		{
+			/* register itself to the poi_Manager */
+			POI_Manager.Instance._pausePois.Add(this);
+			yield break;
 		}
 		/* register itself to the poi_Manager */
 		POI_Manager.Instance._pois.Add(this);
@@ -70,11 +84,16 @@ public class POI : MonoBehaviour, IComparable<POI>
 		}
     }
 
+	public void WakeUp()
+    {
+		gameObject.SetActive(true);
+		StartCoroutine(OnTime(_endTimestamp - _timestamp));
+	}
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		if (_pauseOnTime)
+		if (_pauseOnTime && !_askOnHit)
 		{
 			if (_question != null)
 			{
@@ -86,10 +105,14 @@ public class POI : MonoBehaviour, IComparable<POI>
 		}
         else
         {
-			StartCoroutine(OnTime(_endTimestamp - _timestamp));
 			gameObject.SetActive(false);
 		}
 		
+
+		if (_askOnHit)
+        {
+			_onHitEvent += SetQuestion;
+        }
 	}
 
 	// Update is called once per frame
@@ -100,7 +123,7 @@ public class POI : MonoBehaviour, IComparable<POI>
 
 	/*==== Comparison Interface ====*/
 	public int CompareTo(POI other)
-	{
+	{ 
 		if (other._sequence > _sequence || other._timestamp > _timestamp)
 		{
 			return -1;
@@ -117,6 +140,11 @@ public class POI : MonoBehaviour, IComparable<POI>
 		_onTimeEvent?.Invoke();
 
 		gameObject.SetActive(false);
+    }
+
+    public void OnHit()
+    {
+		_onHitEvent?.Invoke();
     }
 
 }

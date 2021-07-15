@@ -50,6 +50,8 @@ public class Player : MonoBehaviour
                 {
                     if (outHit.collider.gameObject.tag == "POI")
                     {
+                        POI temp = outHit.collider.gameObject.GetComponent<POI>();
+                        temp.OnHit();
                         EndMenu.Instance._POI_Score++;
                     }
                 }
@@ -68,6 +70,9 @@ public class Player : MonoBehaviour
             {
                 if (outHit.collider.tag == "POI")
                 {
+                    POI temp = outHit.collider.gameObject.GetComponent<POI>();
+                    temp.OnHit();
+                    outHit.collider.gameObject.SetActive(false);
                     EndMenu.Instance._POI_Score++;
                 }
             }

@@ -7,8 +7,8 @@ public class POI_Manager : MonoBehaviour
 	/*==== SINGLETON ====*/
 	public static POI_Manager Instance = null;
 
-	/*==== SETTINGS ====*/
-	[SerializeField] public List<POI> _pois = null;
+	/*==== STATE ====*/
+	[HideInInspector] public  List<POI> _pois = null;
 
     private void Awake()
     {
@@ -16,8 +16,11 @@ public class POI_Manager : MonoBehaviour
 	}
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
 	{
+		/* wait for all POI to register themselves */
+		yield return new WaitForSeconds(0.5f);
+
 		_pois.Sort();
 	}
 
@@ -31,7 +34,7 @@ public class POI_Manager : MonoBehaviour
     {
 		for (int i = 0; i < _pois.Count; i++)
         {
-			if (_pois[i]._timestamp <= VideoController.Instance.GetVideoTimeStamp() && i != (_pois.Count-1))
+			if (_pois[i]._sequence == VideoController.Instance._currentVideoIndex && _pois[i]._timestamp <= VideoController.Instance.GetVideoTimeStamp())
             {
 				_pois[i].gameObject.SetActive(true);
 				
@@ -39,9 +42,13 @@ public class POI_Manager : MonoBehaviour
 				POI temp = _pois[i];
 				_pois.RemoveAt(i);
 				_pois.Add(temp);
-
-				/* the value of the current index has changed, we also want to check it */
-				i--;
+		
+				/* the value of the current index has changed, we also want to check it
+				 * but if this is the end we don't want to has it would result in infinite loop */
+				if (i < (_pois.Count - 1))
+				{
+					i--;
+				}
             }
 			else
             {

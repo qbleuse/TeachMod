@@ -57,8 +57,6 @@ public class VideoController : MonoBehaviour
 
 	public void SetSequence()
 	{
-
-
 		_player.clip	= _sequences[_currentVideoIndex].video;
 
 		if (_sequences[_currentVideoIndex].audio)

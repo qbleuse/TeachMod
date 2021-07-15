@@ -22,6 +22,8 @@ public class POI : MonoBehaviour, IComparable<POI>
 	[HideInInspector] public Alignment _userJudgement = Alignment.GOOD;
 
 	/*==== SETTINGS ====*/
+	/* says what sequence it is suppose to appear */
+	[SerializeField]			public int			_sequence		= 0;
 	/* says when will it begin to appear */
 	[SerializeField]            public float		_timestamp      = 0.0f;
 	/* says when will it disappear */
@@ -32,16 +34,62 @@ public class POI : MonoBehaviour, IComparable<POI>
 	[SerializeField]			private Alignment	_fitting		= Alignment.UNKNOWN;
 	/* to know if it is good or not */
 	[SerializeField]			public  MCQ			_question		= null;
+	/* to know if we stop the video when this SM reached its timestamp */
+	[SerializeField]			private	bool		_pauseOnTime	= false;
 
 	/*==== ACCESSOR ====*/
 	public Alignment _POI_Fitting { get { return _fitting; } }
 
-
+	public event Action _onTimeEvent;
+	
 	/*==== METHODS ====*/
+	void Awake()
+    {
+		StartCoroutine(RegisterToManager());
+    }
+
+	/* the Awake instances can begin in different orders so we try multiple times to register ourselves */
+	IEnumerator RegisterToManager()
+    {
+		while (POI_Manager.Instance == null)
+		{
+			yield return null;
+		}
+		/* register itself to the poi_Manager */
+		POI_Manager.Instance._pois.Add(this);
+	}
+
+	void SetQuestion()
+    {
+		VideoController.Instance.PauseAndResume();
+		MCQ_Manager.Instance.gameObject.SetActive(true);
+		if (!MCQ_Manager.Instance.SetMCQ(_question))
+        {
+			MCQ_Manager.Instance.gameObject.SetActive(false);
+			VideoController.Instance.PauseAndResume();
+		}
+    }
+
+
 	// Start is called before the first frame update
 	void Start()
 	{
-		StartCoroutine(EndToTimestamp());
+		if (_pauseOnTime)
+		{
+			if (_question != null)
+			{
+				_onTimeEvent += SetQuestion;
+			}
+
+			StartCoroutine(OnTime(_timestamp));
+			gameObject.transform.GetChild(0).gameObject.SetActive(false);
+		}
+        else
+        {
+			StartCoroutine(OnTime(_endTimestamp - _timestamp));
+			gameObject.SetActive(false);
+		}
+		
 	}
 
 	// Update is called once per frame
@@ -53,7 +101,7 @@ public class POI : MonoBehaviour, IComparable<POI>
 	/*==== Comparison Interface ====*/
 	public int CompareTo(POI other)
 	{
-		if (other._timestamp > _timestamp)
+		if (other._sequence > _sequence || other._timestamp > _timestamp)
 		{
 			return -1;
 		}
@@ -62,10 +110,13 @@ public class POI : MonoBehaviour, IComparable<POI>
 	}
 
 	/* Used to disable when it is the time to ends its timestamp */
-	IEnumerator EndToTimestamp()
+	IEnumerator OnTime(float waitTime)
     {
-		yield return new WaitForSeconds(_endTimestamp - _timestamp);
+		yield return new WaitForSeconds(waitTime);
+
+		_onTimeEvent?.Invoke();
 
 		gameObject.SetActive(false);
     }
+
 }

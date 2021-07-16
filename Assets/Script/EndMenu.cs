@@ -18,9 +18,6 @@ public class EndMenu : MonoBehaviour
 	/*==== SINGLETON ====*/
 	public static EndMenu Instance = null;
 
-	/*==== SETTINGS ====*/
-	[SerializeField, Range(0.0f, 0.5f)] private float togglePlacement = 0.25f;
-
 	/*==== STATE ====*/
 	/* we start with the question, it usually corresponds more to the next state 
 	 * we will be in rather than the current one. Look at ChangeState for more precision */
@@ -29,7 +26,6 @@ public class EndMenu : MonoBehaviour
 	/* the nb in the array of the POI question that is asked right now. */
 	private int		_currQuestNb	= 0;
 	private MCQ		_currMCQ		= null;
-	private float	_canvasWidth	= 0.0f;
 
 	/* the score gained when finding the POI 
 	 * and having interpreted it the way it shoud */
@@ -44,11 +40,6 @@ public class EndMenu : MonoBehaviour
 
 	private GameObject	_buttonGo			= null;
 	private Text		_buttonText			= null;
-
-	private GameObject		_questionPanel	= null;
-	private Toggle[]		_answers		= null;
-	private RectTransform[] _answersRect	= null;
-	private Text			_question		= null;
 
 	private GameObject	_scoreSection	= null;
 	private Text[]		_scoreText		= null;
@@ -78,27 +69,10 @@ public class EndMenu : MonoBehaviour
 		_buttonText = _buttonGo.GetComponentInChildren<Text>();
 
 		_buttonText.text = "Next";
-
-		/* getting the gameobject of the question panel, to disbale it after we answered all of them */
-		_questionPanel	= transform.GetChild(0).transform.GetChild(3).gameObject;
-
-		/* we need to move them depending on the nulmber of question asked */
-		_answers = _questionPanel.GetComponentsInChildren<Toggle>();
-
-		_answersRect = new RectTransform[4];
-
-		for (int i = 0; i < _answers.Length;i++)
-		{
-			_answersRect[i] = _answers[i].GetComponent<RectTransform>();
-		}
-
-		/* get the width of the canvas to move the toggle afterward */
-		_canvasWidth	= _questionPanel.GetComponent<RectTransform>().rect.width;
-		/* get the text to change the question */
-		_question		= _questionPanel.transform.GetChild(0).GetComponent<Text>();
+		_buttonGo.SetActive(false);
 
 		/* get the score section to print score at te end */
-		_scoreSection	= transform.GetChild(0).transform.GetChild(4).gameObject;
+		_scoreSection	= transform.GetChild(0).transform.GetChild(3).gameObject;
 		_scoreText		= _scoreSection.GetComponentsInChildren<Text>();
 		_scoreSection.SetActive(false);
 
@@ -111,6 +85,8 @@ public class EndMenu : MonoBehaviour
 	public void WakeUp()
 	{
 		gameObject.SetActive(true);
+		MCQ_Manager.Instance.OnSubmitEvent -= VideoController.Instance.PauseAndResume;
+		MCQ_Manager.Instance.OnSubmitEvent += SetQuestion;
 		SetQuestion();
 	}
 
@@ -168,11 +144,11 @@ public class EndMenu : MonoBehaviour
 		switch(menuState)
 		{
 			case State.QUESTION:
-				ManageQuestion();
-				menuState++;
+				SetQuestion();
 				break;
 			case State.COMMENT:
-				_questionPanel.SetActive(false);
+				_buttonGo.SetActive(true);
+				MCQ_Manager.Instance.gameObject.SetActive(false);
 				_commentSection.SetActive(true);
 				menuState++;
 				break;
@@ -189,100 +165,43 @@ public class EndMenu : MonoBehaviour
 		}
 	}
 
-	private void ManageQuestion()
-	{
-		if (!_currMCQ.answered)
-		{
-			_currMCQ.answered = true;
-			return;
-		}
-
-		SetQuestion();
-	}
-
 	/* helper to setup the question panel depending on the nb o question */
 	private void SetQuestion()
 	{
 		int poiCount	= POI_Manager.Instance._pois.Count;
-		_currMCQ		= POI_Manager.Instance._pois[_currQuestNb]._question;
+
+Search:
+		/* this methods is called multiple times, 
+		 * every time we want to print the MCQ of a POI
+		 * so this is possible/intended */
+		if (_currQuestNb >= poiCount)
+		{
+			menuState++;
+			ChangeState();
+		}
 
 		/* look for a POI that has a question */
-		while (_currMCQ == null && _currQuestNb < poiCount)
+		while (_currQuestNb < poiCount && (_currMCQ == null || _currMCQ.answered))
 		{
-			_currQuestNb++;
 			_currMCQ = POI_Manager.Instance._pois[_currQuestNb]._question;
+			_currQuestNb++;
 		}
 
-		/* we move the toggle depending on the number of answer the question has.
-		 * we could theoratically do an infinite number but realistically, such question will not appear.
-		 * so we will stick with the good old 4 MCQ, and we do it by hand (it will be faster this way).*/
-		switch (_currMCQ._answerNb)
-		{
-			case 2:
-				/* no need for C and D so disable them */
-				_answersRect[2].gameObject.SetActive(false);
-				_answersRect[3].gameObject.SetActive(false);
-
-				_answersRect[0].anchoredPosition = new Vector2(-togglePlacement * _canvasWidth * 0.5f, _answersRect[0].anchoredPosition.y);
-
-				_answersRect[1].anchoredPosition = new Vector2(togglePlacement * _canvasWidth * 0.5f, _answersRect[1].anchoredPosition.y);
-				break;
-			case 3:
-				/* need for C, not D */
-				_answersRect[2].gameObject.SetActive(true);
-				_answersRect[3].gameObject.SetActive(false);
-
-				_answersRect[2].anchoredPosition = new Vector2(0, _answersRect[2].anchoredPosition.y);
-
-				break;
-			case 4:
-				/* need for C and D */
-				_answersRect[2].gameObject.SetActive(true);
-				_answersRect[3].gameObject.SetActive(true);
-
-				_answersRect[2].anchoredPosition = new Vector2(-togglePlacement * _canvasWidth * 0.5f, _answersRect[2].anchoredPosition.y);
-				_answersRect[3].anchoredPosition = new Vector2(togglePlacement * _canvasWidth * 0.5f, _answersRect[3].anchoredPosition.y);
-
-				break;
-			/* if a question does not corresponds, 
-			 * we just ignore it and search an other that works*/
-			default:
-				if (_currQuestNb < poiCount)
-				{
-					_currQuestNb++;
-					SetQuestion();
-					return;
-				}
-				/* if there's no question that match, just leave */
-				ChangeState();
-				return;
-		}
-
-		_question.text = _currMCQ._question;
+		/* we found one that can be ok, we check if it is applicable,
+		 if it is not we go to search for one that works */
+		if (!MCQ_Manager.Instance.SetMCQ(_currMCQ))
+			goto Search;
 	}
 
 	/* method that append the score to the string of the text score "_scoreText"*/
 	void SetScore()
     {
+		int poiCount = POI_Manager.Instance._pois.Count;
 		/* append POI found/POI there was */
-		_scoreText[0].text += _POI_Score.ToString() + "/" + POI_Manager.Instance._pois.Count.ToString();
+		_scoreText[0].text += _POI_Score.ToString() + "/" + poiCount.ToString();
 
 		/* append MCQ well answered/MCQ there was (there should be as much POI than there is MCQ as they're contained in th POI) */
-		_scoreText[1].text += _MCQ_Score.ToString() + "/" + POI_Manager.Instance._pois.Count.ToString();
+		_scoreText[1].text += _MCQ_Score.ToString() + "/" + (poiCount + POI_Manager.Instance._pausePois.Count).ToString();
 	}
 
-	/* used to reset all other toggle to alse than the one that have been clicked on */
-	public void SetToggle(Toggle activated)
-    {
-		if (activated.isOn)
-		{
-			for (int i = 0; i < _answers.Length; i++)
-			{
-				if (_answers[i] == activated)
-					continue;
-
-				_answers[i].isOn = false;
-			}
-		}
-    }
 }

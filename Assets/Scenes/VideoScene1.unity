@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &67129138 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5328695509287424095, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
-  m_PrefabInstance: {fileID: 2007012595}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &310857059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -238,27 +227,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8222654210877218161, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.2492964
+      value: 0.24929644
       objectReference: {fileID: 0}
     - target: {fileID: 8222654210877218161, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.16815259
+      value: 0.16815256
       objectReference: {fileID: 0}
     - target: {fileID: 8222654210877218161, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7906671
+      value: -0.79066724
       objectReference: {fileID: 0}
     - target: {fileID: 8222654210877218161, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.53331184
+      value: 0.5333117
       objectReference: {fileID: 0}
     - target: {fileID: 8222654210877218161, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -68
+      value: 68
       objectReference: {fileID: 0}
     - target: {fileID: 8222654210877218161, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 145
+      value: -145
       objectReference: {fileID: 0}
     - target: {fileID: 8222654210877218161, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -764,17 +753,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &1206385511 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9011054306078804533, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
-  m_PrefabInstance: {fileID: 2007012595}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1388025645
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -991,28 +969,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
---- !u!114 &1905653904 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2526690764786596418, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
-  m_PrefabInstance: {fileID: 2007012595}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1908294879 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5559337073469291353, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
-  m_PrefabInstance: {fileID: 2007012595}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2007012595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1043,7 +999,7 @@ PrefabInstance:
     - target: {fileID: 2526690764786596418, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 67129138}
+      objectReference: {fileID: 0}
     - target: {fileID: 2526690764786596418, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1059,7 +1015,7 @@ PrefabInstance:
     - target: {fileID: 2526690764786596418, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1905653904}
+      objectReference: {fileID: 0}
     - target: {fileID: 2526690764786596418, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.UI.Toggle, UnityEngine.UI
@@ -1159,7 +1115,7 @@ PrefabInstance:
     - target: {fileID: 5328695509287424095, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1206385511}
+      objectReference: {fileID: 0}
     - target: {fileID: 5328695509287424095, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1175,7 +1131,7 @@ PrefabInstance:
     - target: {fileID: 5328695509287424095, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 67129138}
+      objectReference: {fileID: 0}
     - target: {fileID: 5328695509287424095, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.UI.Toggle, UnityEngine.UI
@@ -1223,7 +1179,7 @@ PrefabInstance:
     - target: {fileID: 5559337073469291353, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 67129138}
+      objectReference: {fileID: 0}
     - target: {fileID: 5559337073469291353, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1239,7 +1195,7 @@ PrefabInstance:
     - target: {fileID: 5559337073469291353, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1908294879}
+      objectReference: {fileID: 0}
     - target: {fileID: 5559337073469291353, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.UI.Toggle, UnityEngine.UI
@@ -1263,7 +1219,7 @@ PrefabInstance:
     - target: {fileID: 9011054306078804533, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 67129138}
+      objectReference: {fileID: 0}
     - target: {fileID: 9011054306078804533, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1279,7 +1235,7 @@ PrefabInstance:
     - target: {fileID: 9011054306078804533, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1206385511}
+      objectReference: {fileID: 0}
     - target: {fileID: 9011054306078804533, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.UI.Toggle, UnityEngine.UI

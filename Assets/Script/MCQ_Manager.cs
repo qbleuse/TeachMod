@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +19,15 @@ public class MCQ_Manager : MonoBehaviour
     private Text            _question       = null;
 	private Text			_buttonText		= null;
 
+	/*==== CACHE ====*/
+	MonoBehaviour	_camera	= null;
+	Player			_player = null;
+	AnimationCam	_anim	= null;
+
+
+
+	public event Action OnSubmitEvent;
+
     private void Awake()
     {
 		Instance = this;
@@ -28,6 +36,16 @@ public class MCQ_Manager : MonoBehaviour
 	/* you may want to look at the prefabs associated with this to understand what is being done here */
 	void Start()
     {
+		/* caching the user input script to disable them */
+		Camera camera = Camera.main;
+		_player = camera.GetComponent<Player>();
+		_anim	= camera.GetComponent<AnimationCam>();
+
+		if (SystemInfo.deviceType == DeviceType.Handheld)
+			_camera = camera.GetComponent<GyroCam>();
+		else
+			_camera = camera.GetComponent<DesktopCam>();
+
 		/* get the canvas */
 		_canvas = transform.GetChild(0).gameObject;
 
@@ -41,8 +59,7 @@ public class MCQ_Manager : MonoBehaviour
             _answersRect[i] = _answers[i].GetComponent<RectTransform>();
         }
 
-		/* get the width of the canvas to move the toggle afterward */
-		//_canvasTrs = GetComponent<RectTransform>();
+		OnSubmitEvent = VideoController.Instance.PauseAndResume;
 
 		/* get the text to change the question */
 		_question = _canvas.transform.GetChild(1).GetComponent<Text>();
@@ -66,7 +83,7 @@ public class MCQ_Manager : MonoBehaviour
             {
 				if (_answers[i].isOn)
                 {
-					_answers[_currMCQ._rightAnswerNb].graphic.material.SetColor("Tint", Color.red);
+					_answers[i].targetGraphic.color = Color.red;
 				}
             }
         }
@@ -75,14 +92,15 @@ public class MCQ_Manager : MonoBehaviour
 			EndMenu.Instance._MCQ_Score++;
         }
 
-		_answers[_currMCQ._rightAnswerNb].graphic.material.SetColor("Tint", Color.green);
+		_answers[_currMCQ._rightAnswerNb].targetGraphic.color = Color.green;
     }
 
 	private void ClearState()
     {
 		for (int i = 0; i < _answers.Length; i++)
 		{
-			_answers[_currMCQ._rightAnswerNb].graphic.material.SetColor("Tint", Color.white);
+			_answers[i].targetGraphic.color = Color.white;
+			_answers[i].isOn = false;
 		}
 
 		_buttonText.text = "Submit";
@@ -92,6 +110,13 @@ public class MCQ_Manager : MonoBehaviour
 
     public bool SetMCQ(MCQ mcq_)
     {
+		/* disabling user input */
+		_camera.enabled = false;
+		_player.enabled = false;
+
+		/* show the MCQ interface */
+		gameObject.SetActive(true);
+
 		/* get back state to answer question */
 		_currMCQ = mcq_;
 
@@ -120,6 +145,12 @@ public class MCQ_Manager : MonoBehaviour
 			/* if a question does not corresponds, 
 			 * we just ignore it and search an other that works*/
 			default:
+				/* reenabling user input */
+				_camera.enabled = true;
+				_player.enabled = true;
+
+				/* hiding interface */
+				gameObject.SetActive(false);
 				return false;
 		}
 
@@ -127,6 +158,17 @@ public class MCQ_Manager : MonoBehaviour
 		return true;
 	}
 
+	public bool SetMCQAndRotate(MCQ mcq_, Quaternion rot)
+	{
+		bool worked = SetMCQ(mcq_);
+		if (worked)
+        {
+			_anim.RotateToTarget(rot);
+        }
+		return worked;
+	}
+
+	/* used to reset all other toggle to alse than the one that have been clicked on */
 	public void SetToggle(Toggle activated)
 	{
 		if (activated.isOn)
@@ -152,7 +194,11 @@ public class MCQ_Manager : MonoBehaviour
 		}
 
 		ClearState();
-		VideoController.Instance.PauseAndResume();
+		OnSubmitEvent?.Invoke();
 		gameObject.SetActive(false);
+
+		/* reenabling user input */
+		_camera.enabled = true;
+		_player.enabled = true;
 	}
 }

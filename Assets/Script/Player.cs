@@ -6,6 +6,7 @@ using UnityEngine;
 /* class that represents the player and its possible inputs */
 public class Player : MonoBehaviour
 {
+
     /*==== STATE ====*/
     private Action _raycastCheck = null;
 

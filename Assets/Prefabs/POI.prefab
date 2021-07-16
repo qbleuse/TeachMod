@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _userJudgement: 1
+  _sequence: 0
   _timestamp: 0
   _endTimestamp: -1
   _comments: 
@@ -151,6 +152,8 @@ MonoBehaviour:
     _answerNb: 0
     _rightAnswerNb: 0
     answered: 0
+  _pauseOnTime: 0
+  _askOnHit: 0
 --- !u!65 &1777225320209679925
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -76,10 +76,8 @@ public class POI : MonoBehaviour, IComparable<POI>
 	void SetQuestion()
     {
 		VideoController.Instance.PauseAndResume();
-		MCQ_Manager.Instance.gameObject.SetActive(true);
-		if (!MCQ_Manager.Instance.SetMCQ(_question))
+		if (_pauseOnTime ? !MCQ_Manager.Instance.SetMCQ(_question) : !MCQ_Manager.Instance.SetMCQAndRotate(_question,transform.rotation))
         {
-			MCQ_Manager.Instance.gameObject.SetActive(false);
 			VideoController.Instance.PauseAndResume();
 		}
     }

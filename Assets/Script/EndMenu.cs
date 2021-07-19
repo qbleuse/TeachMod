@@ -85,8 +85,8 @@ public class EndMenu : MonoBehaviour
 	public void WakeUp()
 	{
 		gameObject.SetActive(true);
-		MCQ_Manager.Instance.OnSubmitEvent -= VideoController.Instance.PauseAndResume;
-		MCQ_Manager.Instance.OnSubmitEvent += SetQuestion;
+		MCQ_Manager.Instance._OnSubmitEvent -= VideoController.Instance.PauseAndResume;
+		MCQ_Manager.Instance._OnSubmitEvent += SetQuestion;
 		SetQuestion();
 	}
 

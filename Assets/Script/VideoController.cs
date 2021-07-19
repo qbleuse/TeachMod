@@ -81,11 +81,15 @@ public class VideoController : MonoBehaviour
 		{
 			_player.Play();
 			_audio.Play();
+			/* we want everything to resume */
+			Time.timeScale = 1;
 		}
 		else
 		{
 			_player.Pause();
 			_audio.Pause();
+			/* we want everything to wait */
+			Time.timeScale = 0;
 		}
 	}
 

@@ -18,7 +18,7 @@ public class AnimationCam : MonoBehaviour
     void Start()
     {
         Camera cam              = GetComponent<Camera>();
-        Vector3 forwardOffset   = cam.ScreenToWorldPoint(new Vector3(screenOffset.x, screenOffset.y, 1.0f));
+        Vector3 forwardOffset   = cam.ViewportToWorldPoint(new Vector3(1 - screenOffset.x, screenOffset.y, 1.0f));
         _offsetRot              = Quaternion.LookRotation(forwardOffset, Vector3.up);
 
         /* is only used in particular situation, so disable it as we don't use it now */
@@ -28,7 +28,6 @@ public class AnimationCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void RotateToTarget(Quaternion targetRot_)
@@ -36,7 +35,12 @@ public class AnimationCam : MonoBehaviour
         /* the rotation provided should be compared to a look at:
          * the prefabs of the POI consists in a rotation and the circle being moved 0,0,1 from this rotation
          * wich is basically the same thing we would obtain computing with the point minus the float imprecisions */
-        _targetRot = targetRot_;
+        _targetRot = targetRot_ * _offsetRot;
+
+        /* removing any roll (tends to appear because of the float imprecision)*/
+        _targetRot = Quaternion.Euler(_targetRot.eulerAngles.x,_targetRot.eulerAngles.y, 0.0f);
+
+        Debug.Log(_targetRot.eulerAngles);
 
         enabled = true;
 
@@ -50,10 +54,10 @@ public class AnimationCam : MonoBehaviour
 
         while (animCountDown > 0.0f)
         {
-            animCountDown -= Time.deltaTime;
+            animCountDown -= Time.unscaledDeltaTime;
 
             /* goes from b to a because we count backward */
-            transform.rotation = Quaternion.Slerp(_targetRot, currRot, animCountDown);
+            transform.rotation = Quaternion.Slerp(_targetRot, currRot, animCountDown/animDuration);
 
             yield return null;
         }

@@ -42,7 +42,5 @@ public class DesktopCam : MonoBehaviour
 		_tempRot = Quaternion.Euler(_xRot, _yRot, 0.0f);
 
 		transform.rotation = Quaternion.Slerp(transform.rotation,_tempRot, _smoothing);
-
-
 	}
 }

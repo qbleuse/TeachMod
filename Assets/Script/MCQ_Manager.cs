@@ -10,6 +10,8 @@ public class MCQ_Manager : MonoBehaviour
 
 	/*==== STATE ====*/
 	private MCQ _currMCQ = null;
+	private bool[]	_rightAnswerCache	= null;
+	bool			_answeredRightOnce	= false;
 
 	/*==== COMPONENT ====*/
 	//private RectTransform   _canvasTrs      = null;
@@ -26,7 +28,7 @@ public class MCQ_Manager : MonoBehaviour
 
 
 
-	public event Action OnSubmitEvent;
+	public event Action _OnSubmitEvent;
 
     private void Awake()
     {
@@ -52,19 +54,23 @@ public class MCQ_Manager : MonoBehaviour
         /* we need to move them depending on the number of question asked */
         _answers = GetComponentsInChildren<Toggle>();
 
-        _answersRect = new RectTransform[4];
+		/* five is the most answer it can have (see Prefabs if needed)*/
+        _answersRect = new RectTransform[5];
+
+		/* used to precompute the answer */
+		_rightAnswerCache = new bool[5];
 
         for (int i = 0; i < _answers.Length; i++)
         {
             _answersRect[i] = _answers[i].GetComponent<RectTransform>();
         }
 
-		OnSubmitEvent = VideoController.Instance.PauseAndResume;
+		_OnSubmitEvent = VideoController.Instance.PauseAndResume;
 
 		/* get the text to change the question */
 		_question = _canvas.transform.GetChild(1).GetComponent<Text>();
 
-		_buttonText = _canvas.transform.GetChild(6).transform.GetChild(0).GetComponent<Text>();
+		_buttonText = _canvas.transform.GetChild(7).transform.GetChild(0).GetComponent<Text>();
 
 		/* don't need it right now */
 		gameObject.SetActive(false);
@@ -73,27 +79,62 @@ public class MCQ_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    }
+		_answers[2].targetGraphic.material.color = Color.white;
 
-	private void CheckAnswer()
+	}
+
+	/* check the answer of the player and return if it has been answered or not */
+	private bool CheckAnswer()
     {
-		if (!_answers[_currMCQ._rightAnswerNb].isOn)
-        {
-			for (int i = 0; i < _answers.Length; i++)
-            {
-				if (_answers[i].isOn)
-                {
-					_answers[i].targetGraphic.color = Color.red;
-				}
-            }
-        }
-		else
+		bool answered		= false;
+		_answeredRightOnce	= false;
+		int answersRight = 0;
+
+		/* the user can give only from an answer he has been given so depending on _answerNb */
+		for (int i = 0; i < _currMCQ._answerNb; i++)
+		{
+			if (_answers[i].isOn && _rightAnswerCache[i])
+		    {
+				answered			= true;
+				_answeredRightOnce	= true;
+				answersRight++;
+			}
+			else if (_answers[i].isOn)
+			{
+				answered = true;
+			}
+		}
+
+		if (!answered)
+			return false;
+
+		if (answersRight == _currMCQ._rightAnswerNb.Length)
         {
 			EndMenu.Instance._MCQ_Score++;
         }
 
-		_answers[_currMCQ._rightAnswerNb].targetGraphic.color = Color.green;
+		return true;
     }
+
+	private void ShowAnswer()
+    {
+		for (int i = 0; i < _currMCQ._answerNb; i++)
+		{
+			if (!_answers[i].isOn && _rightAnswerCache[i] && _answeredRightOnce)
+			{
+				_answers[i].targetGraphic.color = Color.yellow;
+			}
+			else if (_rightAnswerCache[i])
+			{
+				_answers[i].targetGraphic.color = Color.green;
+			}
+			else if (_answers[i].isOn)
+			{
+				_answers[i].targetGraphic.color = Color.red;
+			}
+
+		}
+	}
 
 	private void ClearState()
     {
@@ -110,6 +151,10 @@ public class MCQ_Manager : MonoBehaviour
 
     public bool SetMCQ(MCQ mcq_)
     {
+		if (mcq_._rightAnswerNb == null)
+			return false;
+
+
 		/* disabling user input */
 		_camera.enabled = false;
 		_player.enabled = false;
@@ -122,24 +167,34 @@ public class MCQ_Manager : MonoBehaviour
 
 		/* we move the toggle depending on the number of answer the question has.
 		 * we could theoratically do an infinite number but realistically, such question will not appear.
-		 * so we will stick with the good old 4 MCQ, and we do it by hand (it will be faster this way).*/
+		 * 5 has been chosen to be the most we'll get, and we do it by hand (it will be faster this way).*/
 		switch (_currMCQ._answerNb)
 		{
 			case 2:
-				/* no need for C and D so disable them */
+				/* no need for C, D and E so disable them */
 				_answersRect[2].gameObject.SetActive(false);
 				_answersRect[3].gameObject.SetActive(false);
+				_answersRect[4].gameObject.SetActive(false);
 				break;
 			case 3:
-				/* need for C, not D */
+				/* need for C, not D and E */
 				_answersRect[2].gameObject.SetActive(true);
 				_answersRect[3].gameObject.SetActive(false);
+				_answersRect[4].gameObject.SetActive(false);
 
 				break;
 			case 4:
+				/* need for C and D, not E*/
+				_answersRect[2].gameObject.SetActive(true);
+				_answersRect[3].gameObject.SetActive(true);
+				_answersRect[4].gameObject.SetActive(false);
+
+				break;
+			case 5:
 				/* need for C and D */
 				_answersRect[2].gameObject.SetActive(true);
 				_answersRect[3].gameObject.SetActive(true);
+				_answersRect[4].gameObject.SetActive(true);
 
 				break;
 			/* if a question does not corresponds, 
@@ -155,6 +210,19 @@ public class MCQ_Manager : MonoBehaviour
 		}
 
 		_question.text = _currMCQ._question;
+
+		/* clearing previous state */
+		for (int i = 0; i < _rightAnswerCache.Length; i++)
+        {
+			_rightAnswerCache[i] = false;
+        }
+		/* filling the right answer to true */
+		for (int i = 0; i < _currMCQ._rightAnswerNb.Length; i++)
+        {
+			_rightAnswerCache[_currMCQ._rightAnswerNb[i]] = true;
+        }
+		
+
 		return true;
 	}
 
@@ -171,7 +239,7 @@ public class MCQ_Manager : MonoBehaviour
 	/* used to reset all other toggle to alse than the one that have been clicked on */
 	public void SetToggle(Toggle activated)
 	{
-		if (activated.isOn)
+		if (activated.isOn && _currMCQ.singleAnswer)
 		{
 			for (int i = 0; i < _answers.Length; i++)
 			{
@@ -187,14 +255,18 @@ public class MCQ_Manager : MonoBehaviour
     {
 		if (!_currMCQ.answered)
 		{
-			CheckAnswer();
-			_currMCQ.answered	= true;
-			_buttonText.text	= "Continue";
+			/* check if the question has been answered, 
+			 * and make the point go up accordingly */
+			if (_currMCQ.answered = CheckAnswer())
+            {
+				ShowAnswer();
+				_buttonText.text = "Continue";
+			}
 			return;
 		}
 
 		ClearState();
-		OnSubmitEvent?.Invoke();
+		_OnSubmitEvent?.Invoke();
 		gameObject.SetActive(false);
 
 		/* reenabling user input */

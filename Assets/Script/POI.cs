@@ -76,8 +76,8 @@ public class POI : MonoBehaviour, IComparable<POI>
 	void SetQuestion()
     {
 		VideoController.Instance.PauseAndResume();
-		if (_pauseOnTime ? !MCQ_Manager.Instance.SetMCQ(_question) : !MCQ_Manager.Instance.SetMCQAndRotate(_question,transform.rotation))
-        {
+		if (_askOnHit ? !MCQ_Manager.Instance.SetMCQAndRotate(_question, transform.rotation) : !MCQ_Manager.Instance.SetMCQ(_question))
+		{
 			VideoController.Instance.PauseAndResume();
 		}
     }
@@ -88,16 +88,29 @@ public class POI : MonoBehaviour, IComparable<POI>
 		StartCoroutine(OnTime(_endTimestamp - _timestamp));
 	}
 
+	public void PutToSleep()
+	{
+		gameObject.SetActive(false);
+	}
+
+	public void UnSubscribeSelf()
+    {
+		MCQ_Manager.Instance._OnSubmitEvent -= PutToSleep;
+    }
+
 	// Start is called before the first frame update
 	void Start()
 	{
+		/* the special behavior of the paused POI */
 		if (_pauseOnTime && !_askOnHit)
 		{
+			/* we put the set question when the waiting time is completed */
 			if (_question != null)
 			{
 				_onTimeEvent += SetQuestion;
 			}
 
+			/* we make it that it should begin when  the timestamp */
 			StartCoroutine(OnTime(_timestamp));
 			gameObject.transform.GetChild(0).gameObject.SetActive(false);
 		}
@@ -110,6 +123,12 @@ public class POI : MonoBehaviour, IComparable<POI>
 		if (_askOnHit)
         {
 			_onHitEvent += SetQuestion;
+			_onHitEvent += StopAllCoroutines;
+			MCQ_Manager.Instance._OnSubmitEvent += PutToSleep;
+		}
+		else
+        {
+			_onHitEvent += PutToSleep;
         }
 	}
 

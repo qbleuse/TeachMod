@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 591cf2d6b60ee4d4185c3f34aaa61102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animDuration: 0
+  animDuration: 1
   screenOffset: {x: 0.33333334, y: 0.5}
 --- !u!114 &215060370093243666
 MonoBehaviour:

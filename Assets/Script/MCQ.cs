@@ -24,11 +24,14 @@ public class MCQ
     [Multiline]     public string   _question = null;
 
     /* The nb of answer your MCQ offers. in the above example it would be 3. */
-    [Range(2,4)]    public uint     _answerNb = 0;
+    [Range(2,5)]    public uint     _answerNb = 0;
 
-    /* the number that corrsponds to the right answer, beginning from 0.
-     * in the above example it is 2 for C */
-    public uint _rightAnswerNb = 0;
+    /* the numbers that corrsponds to the right answers, beginning from 0.
+     * in the above example, there is only one, it is 2 for C */
+    public uint[] _rightAnswerNb = null;
 
     public bool answered = false;
+
+    /* is the mcq an mcq where only one answer is allowed */
+    public bool singleAnswer = false;
 }

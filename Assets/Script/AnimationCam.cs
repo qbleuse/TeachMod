@@ -40,8 +40,6 @@ public class AnimationCam : MonoBehaviour
         /* removing any roll (tends to appear because of the float imprecision)*/
         _targetRot = Quaternion.Euler(_targetRot.eulerAngles.x,_targetRot.eulerAngles.y, 0.0f);
 
-        Debug.Log(_targetRot.eulerAngles);
-
         enabled = true;
 
         StartCoroutine(ToTarget());
@@ -57,7 +55,7 @@ public class AnimationCam : MonoBehaviour
             animCountDown -= Time.unscaledDeltaTime;
 
             /* goes from b to a because we count backward */
-            transform.rotation = Quaternion.Slerp(_targetRot, currRot, animCountDown/animDuration);
+            transform.rotation = Quaternion.Lerp(_targetRot, currRot, animCountDown/animDuration);
 
             yield return null;
         }

@@ -6,9 +6,12 @@ using UnityEngine;
 /* class that represents the player and its possible inputs */
 public class Player : MonoBehaviour
 {
+    /*==== SETTINGS ====*/
+    [SerializeField] private GameObject gameMenu = null;
 
     /*==== STATE ====*/
-    private Action _raycastCheck = null;
+    private Action  _raycastCheck   = null;
+    private POI     _currPOI        = null;
 
     /*==== COMPONENT ====*/
     private Camera _cam = null;
@@ -28,12 +31,55 @@ public class Player : MonoBehaviour
 
         /* caching the camera inside */
         _cam = GetComponent<Camera>();
+
+        /* no need for now */
+        if (gameMenu != null)
+            gameMenu.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         _raycastCheck();
+    }
+
+    public void SetCurrGood()
+    {
+        _currPOI._userJudgement = POI.Alignment.GOOD;
+
+        if (_currPOI._ask)
+            _currPOI.SetQuestion();
+        else
+        {
+            VideoController.Instance.PauseAndResume();
+        }
+
+        if (gameMenu != null)
+            gameMenu.SetActive(false);
+
+        _currPOI = null;
+    }
+
+    public void SetCurrBad()
+    {
+        _currPOI._userJudgement = POI.Alignment.BAD;
+
+        if (_currPOI._ask)
+            _currPOI.SetQuestion();
+        else
+        {
+            VideoController.Instance.PauseAndResume();
+        }
+
+        if (gameMenu != null)
+            gameMenu.SetActive(false);
+
+        _currPOI = null;
+    }
+
+    public void SetQuestionCurr()
+    {
+
     }
 
     public void HandheldRaycast()
@@ -79,6 +125,11 @@ public class Player : MonoBehaviour
 
     private void OnRaycastHitWithPOI(POI poi_)
     {
+        /* no need for now */
+        if (gameMenu != null)
+            gameMenu.SetActive(true);
+
+        _currPOI = poi_;
         poi_.OnHit();
         EndMenu.Instance._POI_Score++;
     }

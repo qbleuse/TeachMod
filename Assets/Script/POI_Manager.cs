@@ -37,7 +37,7 @@ public class POI_Manager : MonoBehaviour
 		for (; _index < _pois.Count; _index++)
         {
 			if (_pois[_index]._sequence == VideoController.Instance._currentVideoIndex 
-				&& _pois[_index]._timestamp < VideoController.Instance.GetVideoTimeStamp())
+				&& _pois[_index]._movement[0].timestamp < VideoController.Instance.GetVideoTimeStamp())
             {
 				_pois[_index].WakeUp();
             }

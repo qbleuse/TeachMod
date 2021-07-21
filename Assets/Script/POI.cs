@@ -37,8 +37,14 @@ public class POI : MonoBehaviour, IComparable<POI>
 	[HideInInspector] public Alignment _userJudgement = Alignment.GOOD;
 
 	/*==== SETTINGS ====*/
+	/* identifier for each poi to find itself in the POI_Manager*/
+	[SerializeField]			public int				_number			= 0;
 	/* says what sequence it is suppose to appear */
 	[SerializeField]			public int				_sequence		= 0;
+	/* the timestamp when the poi starts acting */
+	[SerializeField]			public float			_timestamp		= 0.0f;
+	/* the timestamp when the poi ends acting */
+	[SerializeField]			public float			_endTimestamp	= 0.0f;
 	/* make the animation of the POI, 
 	 * the timestamps are used to activate/deactivate the POI */
 	[SerializeField]			public List<KeyFrame>	_movement		= null;
@@ -49,14 +55,12 @@ public class POI : MonoBehaviour, IComparable<POI>
 	/* to know if it is good or not */
 	[SerializeField]			public  MCQ				_question		= null;
 	/* to know if we ask the MCQ when this SM reached its timestamp */
-	[SerializeField]			private	bool			_pauseOnTime	= false;
+	[SerializeField]			public bool				_pauseOnTime	= false;
 	/* to know if we ask the MCQ when this SM is being clicked on */
-	[SerializeField]			private bool			_askOnHit		= false;
+	[SerializeField]			public bool				_askOnHit		= false;
 
 	/*==== ACCESSOR ====*/
 	public Alignment _POI_Fitting { get { return _fitting; } }
-	public bool _pause { get { return _pauseOnTime; } }
-	public bool _ask { get { return _askOnHit; } }
 
 	/*==== EVENTS ====*/
 	private event Action _onTimeEvent;
@@ -76,7 +80,7 @@ public class POI : MonoBehaviour, IComparable<POI>
 			yield return null;
 		}
 
-		if (_pause)
+		if (_pauseOnTime)
 		{
 			/* register itself to the poi_Manager */
 			POI_Manager.Instance._pausePois.Add(this);
@@ -98,9 +102,8 @@ public class POI : MonoBehaviour, IComparable<POI>
 	{
 		if (_movement != null)
 		{
-			float duration = _movement[_movement.Count - 1].timestamp - _movement[0].timestamp;
 			gameObject.SetActive(true);
-			StartCoroutine(OnTime(duration));
+			StartCoroutine(OnTime(_endTimestamp - _timestamp));
 			if (_movement.Count > 1)
 			{
 				StartCoroutine(Move());
@@ -176,7 +179,7 @@ public class POI : MonoBehaviour, IComparable<POI>
 			}
 
 			/* we make it that it should begin when  the timestamp */
-			StartCoroutine(OnTime(_movement[0].timestamp));
+			StartCoroutine(OnTime(_timestamp));
 			gameObject.transform.GetChild(0).gameObject.SetActive(false);
 		}
 		else
@@ -207,10 +210,7 @@ public class POI : MonoBehaviour, IComparable<POI>
 	/*==== Comparison Interface ====*/
 	public int CompareTo(POI other)
 	{
-		if (_movement == null)
-			return 1;
-
-		if (other._movement == null || other._sequence > _sequence || other._movement[0].timestamp > _movement[0].timestamp)
+		if (_number < other._number)
 		{
 			return -1;
 		}

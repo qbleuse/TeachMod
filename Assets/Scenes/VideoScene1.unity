@@ -151,6 +151,10 @@ PrefabInstance:
       value: POI
       objectReference: {fileID: 0}
     - target: {fileID: 924099220619933332, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 924099220619933332, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: m_TagString
       value: POI
       objectReference: {fileID: 0}
@@ -219,7 +223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: _movement.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: _question.singleAnswer
@@ -338,6 +342,10 @@ PrefabInstance:
       value: POI (1)
       objectReference: {fileID: 0}
     - target: {fileID: 924099220619933332, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 924099220619933332, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: m_TagString
       value: POI
       objectReference: {fileID: 0}
@@ -361,6 +369,10 @@ PrefabInstance:
       propertyPath: animObjects.Array.data[3]
       value: 
       objectReference: {fileID: 567058710}
+    - target: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
+      propertyPath: _number
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: fitting
       value: 2
@@ -407,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: _movement.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: _movement.Array.data[0].timestamp
@@ -598,6 +610,10 @@ PrefabInstance:
       value: POI (2)
       objectReference: {fileID: 0}
     - target: {fileID: 924099220619933332, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 924099220619933332, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: m_TagString
       value: POI
       objectReference: {fileID: 0}
@@ -621,6 +637,10 @@ PrefabInstance:
       propertyPath: animObjects.Array.data[3]
       value: 
       objectReference: {fileID: 981708896}
+    - target: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
+      propertyPath: _number
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
       propertyPath: fitting
       value: 2
@@ -890,6 +910,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: POI_Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 5998241603640021975, guid: 94391d35b7c9bb14aa97da6e4e870cb9, type: 3}
+      propertyPath: _poiList
+      value: Sheet/poi.csv
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998241603640021975, guid: 94391d35b7c9bb14aa97da6e4e870cb9, type: 3}
+      propertyPath: _serializer
+      value: 
+      objectReference: {fileID: 11400000, guid: fe281578df09a7e458c543744bde216f, type: 2}
     - target: {fileID: 5998241603640021975, guid: 94391d35b7c9bb14aa97da6e4e870cb9, type: 3}
       propertyPath: pois.Array.size
       value: 1

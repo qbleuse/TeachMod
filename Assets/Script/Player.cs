@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
     {
         _currPOI._userJudgement = POI.Alignment.GOOD;
 
-        if (_currPOI._ask)
+        if (_currPOI._askOnHit)
             _currPOI.SetQuestion();
         else
         {
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
     {
         _currPOI._userJudgement = POI.Alignment.BAD;
 
-        if (_currPOI._ask)
+        if (_currPOI._askOnHit)
             _currPOI.SetQuestion();
         else
         {
@@ -97,6 +97,7 @@ public class Player : MonoBehaviour
                 {
                     if (outHit.collider.gameObject.tag == "POI")
                     {
+                        outHit.collider.enabled = false;
                         POI temp = outHit.collider.gameObject.GetComponent<POI>();
                         OnRaycastHitWithPOI(temp);
                     }
@@ -116,6 +117,7 @@ public class Player : MonoBehaviour
             {
                 if (outHit.collider.tag == "POI")
                 {
+                    outHit.collider.enabled = false;
                     POI temp = outHit.collider.gameObject.GetComponent<POI>();
                     OnRaycastHitWithPOI(temp);
                 }

@@ -239,7 +239,7 @@ public class MCQ_Manager : MonoBehaviour
 	/* used to reset all other toggle to alse than the one that have been clicked on */
 	public void SetToggle(Toggle activated)
 	{
-		if (activated.isOn && _currMCQ.singleAnswer)
+		if (activated.isOn && _currMCQ._singleAnswer)
 		{
 			for (int i = 0; i < _answers.Length; i++)
 			{
@@ -253,11 +253,11 @@ public class MCQ_Manager : MonoBehaviour
 
 	public void OnSubmit()
     {
-		if (!_currMCQ.answered)
+		if (!_currMCQ._answered)
 		{
 			/* check if the question has been answered, 
 			 * and make the point go up accordingly */
-			if (_currMCQ.answered = CheckAnswer())
+			if (_currMCQ._answered = CheckAnswer())
             {
 				ShowAnswer();
 				_buttonText.text = "Continue";

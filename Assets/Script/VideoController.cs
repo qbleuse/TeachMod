@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
-[System.Serializable]
-public struct Sequence
-{
-	public AudioClip audio;
-	public VideoClip video;
-	public float audioDelay;
-}
-
 /* class that handles the video displayed on the skybox, and synchronize the audio with it */
 public class VideoController : MonoBehaviour
 {
@@ -22,7 +14,7 @@ public class VideoController : MonoBehaviour
 	private Camera _mainCam = null;
 
 	/*==== SETTINGS ====*/
-	[SerializeField] private List<Sequence> _sequences = null;
+	[SerializeField] private List<VideoClip> _sequences = null;
 
 	/*==== COMPONENTS ====*/
 	private VideoPlayer _player = null;
@@ -52,25 +44,11 @@ public class VideoController : MonoBehaviour
 
 		/* hitting play */
 		_player.Play();
-		_audio.Play();
 	}
 
 	public void SetSequence()
 	{
-		_player.clip	= _sequences[_currentVideoIndex].video;
-
-		if (_sequences[_currentVideoIndex].audio)
-		{
-			_player.EnableAudioTrack(0, false);
-			_audio.clip = _sequences[_currentVideoIndex].audio;
-			_audio.time = _sequences[_currentVideoIndex].audioDelay;
-			_audio.Play();
-		}
-		else
-		{
-			_audio.clip = null;
-			_player.EnableAudioTrack(0, true);
-		}
+		_player.clip	= _sequences[_currentVideoIndex];
 
 		_player.Play();
 	}
@@ -80,14 +58,12 @@ public class VideoController : MonoBehaviour
 		if (_player.isPaused)
 		{
 			_player.Play();
-			_audio.Play();
 			/* we want everything to resume */
 			Time.timeScale = 1;
 		}
 		else
 		{
 			_player.Pause();
-			_audio.Pause();
 			/* we want everything to wait */
 			Time.timeScale = 0;
 		}

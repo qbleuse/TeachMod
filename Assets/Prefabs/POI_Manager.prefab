@@ -43,4 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a8ec2276fd71947be0ad03a4b7f45a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pois: []
+  _poiGo: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
+  _poiList: 
+  _mcqList: 
+  _animList: 
+  _pois: []
+  _mcqs: []
+  _comments: []
+  _mcqNb: 0

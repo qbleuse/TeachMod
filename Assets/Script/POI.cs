@@ -18,21 +18,6 @@ public class POI : MonoBehaviour, IComparable<POI>
 		NB
 	}
 
-	[Serializable]
-	public struct KeyFrame
-	{
-		public float timestamp;
-
-		/* the rotation will actually move the feedback, 
-		 * so this is the only info we need to move it */
-		public float yaw;
-		public float pitch;
-
-		/* we scale it uniformly on the x and y axis,
-		 * so we only need one value */
-		public float size;
-	}
-
 	/*==== STATE ====*/
 	[HideInInspector] public Alignment _userJudgement = Alignment.GOOD;
 
@@ -45,11 +30,6 @@ public class POI : MonoBehaviour, IComparable<POI>
 	[SerializeField]			public float			_timestamp		= 0.0f;
 	/* the timestamp when the poi ends acting */
 	[SerializeField]			public float			_endTimestamp	= 0.0f;
-	/* make the animation of the POI, 
-	 * the timestamps are used to activate/deactivate the POI */
-	[SerializeField]			public List<KeyFrame>	_movement		= null;
-	/* the comment that explain why this is a poi */
-	[SerializeField, Multiline]	public string			_comments		= null;
 	/* to know if it is good or not */
 	[SerializeField]			private Alignment		_fitting		= Alignment.UNKNOWN;
 	/* to know if it is good or not */
@@ -67,28 +47,6 @@ public class POI : MonoBehaviour, IComparable<POI>
 	private event Action _onHitEvent;
 	
 	/*==== METHODS ====*/
-	void Awake()
-	{
-		StartCoroutine(RegisterToManager());
-	}
-
-	/* the Awake instances can begin in different orders so we try multiple times to register ourselves */
-	IEnumerator RegisterToManager()
-	{
-		while (POI_Manager.Instance == null)
-		{
-			yield return null;
-		}
-
-		if (_pauseOnTime)
-		{
-			/* register itself to the poi_Manager */
-			POI_Manager.Instance._pausePois.Add(this);
-			yield break;
-		}
-		/* register itself to the poi_Manager */
-		POI_Manager.Instance._pois.Add(this);
-	}
 
 	public void SetQuestion()
 	{
@@ -100,60 +58,11 @@ public class POI : MonoBehaviour, IComparable<POI>
 
 	public void WakeUp()
 	{
-		if (_movement != null)
-		{
-			gameObject.SetActive(true);
-			StartCoroutine(OnTime(_endTimestamp - _timestamp));
-			if (_movement.Count > 1)
-			{
-				StartCoroutine(Move());
-			}
-		}
+		gameObject.SetActive(true);
+		StartCoroutine(OnTime(_endTimestamp - _timestamp));
 	}
 
-	private IEnumerator Move()
-	{
-		int i = 0;
-		KeyFrame curr		= _movement[i];
-		KeyFrame next		= _movement[i + 1];
-		float dur			= next.timestamp - curr.timestamp;
-		Quaternion currRot	= Quaternion.Euler(curr.yaw, curr.pitch, 0.0f);
-		Quaternion nextRot	= Quaternion.Euler(next.yaw, next.pitch, 0.0f);
-		Vector3 currScale = new Vector3(curr.size, curr.size, 1.0f);
-		Vector3 nextScale	= new Vector3(next.size, next.size, 1.0f);
 
-		float time = VideoController.Instance.GetVideoTimeStamp();
-		float lerp = 0;
-
-		while (i < _movement.Count - 1)
-		{
-			if (time > next.timestamp)
-			{
-				curr		= _movement[i];
-				next		= _movement[i + 1];
-				dur			= next.timestamp - curr.timestamp;
-				currRot		= Quaternion.Euler(curr.yaw, curr.pitch, 0.0f);
-				nextRot		= Quaternion.Euler(next.yaw, next.pitch, 0.0f);
-				currScale	= new Vector3(curr.size, curr.size, 1.0f);
-				nextScale	= new Vector3(next.size, next.size, 1.0f);
-			}
-
-			lerp = (time - curr.timestamp) / dur;
-
-			transform.rotation		= Quaternion.Slerp(currRot, nextRot, lerp);
-			transform.localScale	= Vector3.Lerp(currScale, nextScale, lerp);
-
-			yield return null;
-
-
-			time = VideoController.Instance.GetVideoTimeStamp();
-
-			if (time > next.timestamp)
-			{
-				i++;
-			}
-		}
-	}
 
 	public void PutToSleep()
 	{
@@ -169,7 +78,7 @@ public class POI : MonoBehaviour, IComparable<POI>
 	void Start()
 	{
 		/* the special behavior of the paused POI */
-		if (_pauseOnTime && !_askOnHit && _movement != null)
+		if (_pauseOnTime && !_askOnHit)
 		{
 			/* we put the set question when the waiting time is completed */
 			if (_question != null)

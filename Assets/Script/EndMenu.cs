@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -94,19 +94,23 @@ public class EndMenu : MonoBehaviour
 	private void FillComment()
 	{
 		/* getting the list of the pois */
-		List<POI> poisRef = POI_Manager.Instance._pois;
+		List<string> comments = POI_Manager.Instance._comments;
 
 		/* make the string empty */
 		_commentsText.text = "";
+		StringBuilder stringBuilder = new StringBuilder();
 
-		for (int i = 0; i < poisRef.Count; i++)
+		for (int i = 0; i < comments.Count; i++)
 		{
-			if (poisRef[i]._comments.Length > 0)
+			if (comments[i] != null && comments[i].Length > 0)
 			{
-				_commentsText.text += poisRef[i]._comments;
-				_commentsText.text += "\n\n";
+				stringBuilder.Append(comments[i]);
+				stringBuilder.AppendLine();
+				stringBuilder.AppendLine();
 			}
 		}
+
+		_commentsText.text = stringBuilder.ToString();
 
 		/* extending height of the text in order to show all the comments */
 		int lineNb = 0;
@@ -168,20 +172,20 @@ public class EndMenu : MonoBehaviour
 	/* helper to setup the question panel depending on the nb o question */
 	private void SetQuestion()
 	{
-		int poiCount	= POI_Manager.Instance._pois.Count;
+		int mcqCount	= POI_Manager.Instance._mcqs.Count;
 
 Search:
 		/* this methods is called multiple times, 
 		 * every time we want to print the MCQ of a POI
 		 * so this is possible/intended */
-		if (_currQuestNb >= poiCount)
+		if (_currQuestNb >= mcqCount)
 		{
 			menuState++;
 			ChangeState();
 		}
 
 		/* look for a POI that has a question */
-		while (_currQuestNb < poiCount && (_currMCQ == null || _currMCQ.answered))
+		while (_currQuestNb < mcqCount && (_currMCQ == null || _currMCQ._answered))
 		{
 			_currMCQ = POI_Manager.Instance._pois[_currQuestNb]._question;
 			_currQuestNb++;
@@ -196,12 +200,11 @@ Search:
 	/* method that append the score to the string of the text score "_scoreText"*/
 	void SetScore()
     {
-		int poiCount = POI_Manager.Instance._pois.Count;
 		/* append POI found/POI there was */
-		_scoreText[0].text += _POI_Score.ToString() + "/" + poiCount.ToString();
+		_scoreText[0].text += _POI_Score.ToString() + "/" + POI_Manager.Instance._pois.Count.ToString();
 
 		/* append MCQ well answered/MCQ there was (there should be as much POI than there is MCQ as they're contained in th POI) */
-		_scoreText[1].text += _MCQ_Score.ToString() + "/" + (poiCount + POI_Manager.Instance._pausePois.Count).ToString();
+		_scoreText[1].text += _MCQ_Score.ToString() + "/" + POI_Manager.Instance._mcqNb.ToString();
 	}
 
 }

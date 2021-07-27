@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 1777225320209679925}
   m_Layer: 0
   m_Name: POI
-  m_TagString: Untagged
+  m_TagString: POI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,16 +142,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _userJudgement: 1
+  _number: 0
   _sequence: 0
   _timestamp: 0
   _endTimestamp: -1
-  _comments: 
   _fitting: 0
   _question:
     _question: 
     _answerNb: 0
-    _rightAnswerNb: 0
-    answered: 0
+    _rightAnswerNb: 
+    _answered: 0
+    _singleAnswer: 0
   _pauseOnTime: 0
   _askOnHit: 0
 --- !u!65 &1777225320209679925

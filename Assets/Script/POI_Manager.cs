@@ -8,12 +8,18 @@ public class POI_Manager : MonoBehaviour
 	public static POI_Manager Instance = null;
 
 	/*==== SETTINGS ====*/
-	[SerializeField]	CSVSerializer	_serializer = null;
+	[SerializeField] private POI _poiGo = null;
+
 	[SerializeField]	string			_poiList	= null;
+	[SerializeField]	string			_mcqList	= null;
+	[SerializeField]	string			_animList	= null;
 
 	/*==== STATE ====*/
-	[HideInInspector] public	List<POI> _pois = null;
-	[HideInInspector] public	List<POI> _pausePois = null;
+	[HideInInspector] public	List<POI>		_pois		= null;
+	[HideInInspector] public	List<MCQ>		_mcqs		= null;
+	[HideInInspector] public	List<string>	_comments	= null;
+
+	public	int _mcqNb = 0;
 	private int _index = 0;
 
 	private void Awake()
@@ -22,15 +28,20 @@ public class POI_Manager : MonoBehaviour
 	}
 
 	// Start is called before the first frame update
-	IEnumerator Start()
+	void Start()
 	{
-		/* wait for all POI to register themselves */
-		yield return new WaitForSeconds(0.5f);
+		CSVSerializer serializer = new CSVSerializer();
 
-		if (_serializer != null && _poiList.Length > 1)
+		if (_poiList.Length > 1)
 		{
-			_serializer.LoadFile(_poiList);
-			_serializer.PopulatePOI(this);
+			serializer.LoadFile(_poiList);
+			serializer.PopulatePOI(this);
+		}
+
+		if (_mcqList.Length > 1)
+		{
+			serializer.LoadFile(_mcqList);
+			serializer.PopulateMCQ(this);
 		}
 
 		_pois.Sort();
@@ -40,6 +51,7 @@ public class POI_Manager : MonoBehaviour
 	void Update()
 	{
 		TryEnablePOI();
+		
 	}
 
 	void TryEnablePOI()
@@ -57,4 +69,10 @@ public class POI_Manager : MonoBehaviour
 			}
 		}
 	}
+
+	public POI InstantiatePOI(int i_)
+    {
+		_pois.Insert(i_,Instantiate(_poiGo));
+		return _pois[i_];
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /* MCQ stands for Multiple Choice Questions.
+ * It also handles the case of a single choice.
  * Those can be asked or not at the end of all sequences, 
  * depending on the POI. 
  * The choice of a class over a struct is because a POI can not have those
@@ -30,8 +31,8 @@ public class MCQ
      * in the above example, there is only one, it is 2 for C */
     public uint[] _rightAnswerNb = null;
 
-    public bool answered = false;
+    public bool _answered = false;
 
     /* is the mcq an mcq where only one answer is allowed */
-    public bool singleAnswer = false;
+    public bool _singleAnswer = false;
 }

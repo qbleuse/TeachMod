@@ -187,7 +187,7 @@ Search:
 		/* look for a POI that has a question */
 		while (_currQuestNb < mcqCount && (_currMCQ == null || _currMCQ._answered))
 		{
-			_currMCQ = POI_Manager.Instance._pois[_currQuestNb]._question;
+			_currMCQ = POI_Manager.Instance._mcqs[_currQuestNb];
 			_currQuestNb++;
 		}
 

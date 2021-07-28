@@ -32,12 +32,12 @@ public class POI : MonoBehaviour, IComparable<POI>
 	[SerializeField]			public float			_endTimestamp	= 0.0f;
 	/* to know if it is good or not */
 	[SerializeField]			private Alignment		_fitting		= Alignment.UNKNOWN;
-	/* to know if it is good or not */
-	[SerializeField]			public  MCQ				_question		= null;
 	/* to know if we ask the MCQ when this SM reached its timestamp */
 	[SerializeField]			public bool				_pauseOnTime	= false;
 	/* to know if we ask the MCQ when this SM is being clicked on */
 	[SerializeField]			public bool				_askOnHit		= false;
+	/* the index of the MCQ associated with this POI */
+	[SerializeField]			public int				_mcqId			= -1;
 
 	/*==== ACCESSOR ====*/
 	public Alignment _POI_Fitting { get { return _fitting; } }
@@ -50,9 +50,12 @@ public class POI : MonoBehaviour, IComparable<POI>
 
 	public void SetQuestion()
 	{
-		if (_askOnHit ? !MCQ_Manager.Instance.SetMCQAndRotate(_question, transform.rotation) : !MCQ_Manager.Instance.SetMCQ(_question))
-		{
-			VideoController.Instance.PauseAndResume();
+		if (_mcqId >= 0)
+        {
+			if (_askOnHit)
+				POI_Manager.Instance.SetMCQAndRotate(_mcqId,transform.rotation);
+			else
+				POI_Manager.Instance.SetMCQ(_mcqId);
 		}
 	}
 
@@ -78,14 +81,11 @@ public class POI : MonoBehaviour, IComparable<POI>
 	void Start()
 	{
 		/* the special behavior of the paused POI */
-		if (_pauseOnTime && !_askOnHit)
+		if (_pauseOnTime && !_askOnHit && _mcqId >= 0)
 		{
 			/* we put the set question when the waiting time is completed */
-			if (_question != null)
-			{
-				_onTimeEvent += VideoController.Instance.PauseAndResume;
-				_onTimeEvent += SetQuestion;
-			}
+			_onTimeEvent += VideoController.Instance.PauseAndResume;
+			_onTimeEvent += SetQuestion;
 
 			/* we make it that it should begin when  the timestamp */
 			StartCoroutine(OnTime(_timestamp));

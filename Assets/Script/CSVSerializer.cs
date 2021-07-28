@@ -115,6 +115,10 @@ public class CSVSerializer
 			float.TryParse(values[6], _style, _culture, out pitch);
 			float.TryParse(values[7], _style, _culture, out size);
 
+			/* get mcq ref if have one */
+			if (int.TryParse(values[8], out newPoi._mcqId))
+				newPoi._mcqId -= 2;
+
 			newPoi.transform.rotation   = Quaternion.Euler(pitch, yaw, 0.0f);
 			newPoi.transform.localScale = new Vector3(size,size,1.0f);
 		}

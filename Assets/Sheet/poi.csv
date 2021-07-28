@@ -1,2 +1,2 @@
-sequence;timestamp;timestamp de fin;pause;question au clique;yaw;pitch;size
-1;5;11;false;false;-13;60;0,05
+sequence;timestamp;timestamp de fin;pause;question au clique;yaw;pitch;size;mcq id
+1;5;11;false;true;-13;60;0,05;2

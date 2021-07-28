@@ -75,4 +75,22 @@ public class POI_Manager : MonoBehaviour
 		_pois.Insert(i_,Instantiate(_poiGo));
 		return _pois[i_];
     }
+
+	public void SetMCQ(int i_)
+    {
+		MCQ question = _mcqs[i_];
+		if (!MCQ_Manager.Instance.SetMCQ(question))
+		{
+			VideoController.Instance.PauseAndResume();
+		}
+	}
+
+	public void SetMCQAndRotate(int i_, Quaternion rot_)
+	{
+		MCQ question = _mcqs[i_];
+		if (!MCQ_Manager.Instance.SetMCQAndRotate(question, rot_))
+		{
+			VideoController.Instance.PauseAndResume();
+		}
+	}
 }

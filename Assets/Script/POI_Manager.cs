@@ -16,11 +16,11 @@ public class POI_Manager : MonoBehaviour
 
 	/*==== STATE ====*/
 	[HideInInspector] public	List<POI>		_pois		= null;
-	[HideInInspector] public	List<MCQ>		_mcqs		= null;
+	public	List<MCQ>		_mcqs		= null;
 	[HideInInspector] public	List<string>	_comments	= null;
 
-	public	int _mcqNb = 0;
-	private int _index = 0;
+	public	int _mcqIndex = 0;
+	private int _poiIndex = 0;
 
 	private void Awake()
 	{
@@ -51,22 +51,42 @@ public class POI_Manager : MonoBehaviour
 	void Update()
 	{
 		TryEnablePOI();
-		
+		TryEnableMCQ();
 	}
 
 	void TryEnablePOI()
 	{
-		for (; _index < _pois.Count; _index++)
+		while (_poiIndex < _pois.Count)
 		{
-			if (_pois[_index]._sequence == VideoController.Instance._currentVideoIndex 
-				&& _pois[_index]._timestamp < VideoController.Instance.GetVideoTimeStamp())
+			if (_pois[_poiIndex]._sequence == VideoController.Instance._currentVideoIndex 
+				&& _pois[_poiIndex]._timestamp < VideoController.Instance.GetVideoTimeStamp())
 			{
-				_pois[_index].WakeUp();
+				_pois[_poiIndex].WakeUp();
+				_poiIndex++;
 			}
 			else
 			{
 				break;
 			}
+		}
+	}
+
+	void TryEnableMCQ()
+	{
+		while (_mcqIndex < _mcqs.Count)
+		{
+			if (_mcqs[_mcqIndex]._sequence == VideoController.Instance._currentVideoIndex
+				&& _mcqs[_mcqIndex]._timestamp < VideoController.Instance.GetVideoTimeStamp())
+			{
+				_mcqIndex++;
+				if (!_mcqs[_mcqIndex - 1]._pause)
+					continue;
+
+				VideoController.Instance.PauseAndResume();
+				SetMCQ(_mcqIndex - 1);
+			}
+
+			break;
 		}
 	}
 

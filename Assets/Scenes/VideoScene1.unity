@@ -448,6 +448,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2885004535573018600, guid: cf78b9dd83530214896cd6cbda0877f3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 5097963216271453217, guid: cf78b9dd83530214896cd6cbda0877f3, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 5097963216271453217, guid: cf78b9dd83530214896cd6cbda0877f3, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 6921417731691102095, guid: cf78b9dd83530214896cd6cbda0877f3, type: 3}
       propertyPath: m_Name
       value: MCQ_Manager
@@ -657,31 +669,31 @@ PrefabInstance:
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[0]
       value: 
-      objectReference: {fileID: 32900000, guid: 62ce38dc02a41ff4a831a18df5ecb203, type: 3}
+      objectReference: {fileID: 32900000, guid: deb17f8556b35cc4a8fc1863b3c71ce0, type: 3}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[1]
       value: 
-      objectReference: {fileID: 32900000, guid: a6a3e577acd3f5148adb28ceeb089edc, type: 3}
+      objectReference: {fileID: 32900000, guid: 72ed9f2c420a91544b03c5d8b9d88d8d, type: 3}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[2]
       value: 
-      objectReference: {fileID: 32900000, guid: 9fd89352abcf96c4babc43adfba4d45c, type: 3}
+      objectReference: {fileID: 32900000, guid: 423250d4d0ff3664a85073d5f7b6aa5b, type: 3}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[3]
       value: 
-      objectReference: {fileID: 32900000, guid: 364895af608f5b14f9b161ae5be69016, type: 3}
+      objectReference: {fileID: 32900000, guid: 0120233b82e25b94895099cc7771fdaa, type: 3}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[4]
       value: 
-      objectReference: {fileID: 32900000, guid: 25ec12089f464b944af5f52c2051b15d, type: 3}
+      objectReference: {fileID: 32900000, guid: 723716a09d78d8f48a34cea42c7c97cb, type: 3}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[5]
       value: 
-      objectReference: {fileID: 32900000, guid: a703a78cc3e2756488b4ba18b7278aba, type: 3}
+      objectReference: {fileID: 32900000, guid: 739d6266d8cf0814e9da76c7aecefecc, type: 3}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[6]
       value: 
-      objectReference: {fileID: 32900000, guid: 74f3b2375c9ab5c448d5fed2b6327638, type: 3}
+      objectReference: {fileID: 32900000, guid: 1468a6e4ee3a0614ba96cf566cf74259, type: 3}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: sequences.Array.data[0].video
       value: 

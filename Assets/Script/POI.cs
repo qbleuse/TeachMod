@@ -22,8 +22,6 @@ public class POI : MonoBehaviour, IComparable<POI>
 	[HideInInspector] public Alignment _userJudgement = Alignment.GOOD;
 
 	/*==== SETTINGS ====*/
-	/* identifier for each poi to find itself in the POI_Manager*/
-	[SerializeField]			public int				_number			= 0;
 	/* says what sequence it is suppose to appear */
 	[SerializeField]			public int				_sequence		= 0;
 	/* the timestamp when the poi starts acting */
@@ -32,8 +30,6 @@ public class POI : MonoBehaviour, IComparable<POI>
 	[SerializeField]			public float			_endTimestamp	= 0.0f;
 	/* to know if it is good or not */
 	[SerializeField]			private Alignment		_fitting		= Alignment.UNKNOWN;
-	/* to know if we ask the MCQ when this SM reached its timestamp */
-	[SerializeField]			public bool				_pauseOnTime	= false;
 	/* to know if we ask the MCQ when this SM is being clicked on */
 	[SerializeField]			public bool				_askOnHit		= false;
 	/* the index of the MCQ associated with this POI */
@@ -43,7 +39,6 @@ public class POI : MonoBehaviour, IComparable<POI>
 	public Alignment _POI_Fitting { get { return _fitting; } }
 
 	/*==== EVENTS ====*/
-	private event Action _onTimeEvent;
 	private event Action _onHitEvent;
 	
 	/*==== METHODS ====*/
@@ -65,36 +60,15 @@ public class POI : MonoBehaviour, IComparable<POI>
 		StartCoroutine(OnTime(_endTimestamp - _timestamp));
 	}
 
-
-
 	public void PutToSleep()
 	{
 		gameObject.SetActive(false);
 	}
 
-	public void UnSubscribeSelf()
-	{
-		MCQ_Manager.Instance._OnSubmitEvent -= PutToSleep;
-	}
-
 	// Start is called before the first frame update
 	void Start()
 	{
-		/* the special behavior of the paused POI */
-		if (_pauseOnTime && !_askOnHit && _mcqId >= 0)
-		{
-			/* we put the set question when the waiting time is completed */
-			_onTimeEvent += VideoController.Instance.PauseAndResume;
-			_onTimeEvent += SetQuestion;
-
-			/* we make it that it should begin when  the timestamp */
-			StartCoroutine(OnTime(_timestamp));
-			gameObject.transform.GetChild(0).gameObject.SetActive(false);
-		}
-		else
-		{
-			gameObject.SetActive(false);
-		}
+		gameObject.SetActive(false);
 		
 
 		if (_askOnHit)
@@ -119,7 +93,7 @@ public class POI : MonoBehaviour, IComparable<POI>
 	/*==== Comparison Interface ====*/
 	public int CompareTo(POI other)
 	{
-		if (_number < other._number)
+		if (_sequence < other._sequence || (_sequence == other._sequence && _timestamp < other._timestamp))
 		{
 			return -1;
 		}
@@ -131,8 +105,6 @@ public class POI : MonoBehaviour, IComparable<POI>
 	IEnumerator OnTime(float waitTime)
 	{
 		yield return new WaitForSeconds(waitTime);
-
-		_onTimeEvent?.Invoke();
 
 		gameObject.SetActive(false);
 	}

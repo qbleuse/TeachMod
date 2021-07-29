@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /* class that handles the MCQ behavior and display on the canvas dedicated.*/
 public class MCQ_Manager : MonoBehaviour
@@ -18,7 +19,7 @@ public class MCQ_Manager : MonoBehaviour
 	private GameObject		_canvas			= null;
     private Toggle[]        _answers        = null;
     private RectTransform[] _answersRect    = null;
-    private Text            _question       = null;
+    private TextMeshProUGUI	_question       = null;
 	private Text			_buttonText		= null;
 
 	/*==== CACHE ====*/
@@ -68,7 +69,7 @@ public class MCQ_Manager : MonoBehaviour
 		_OnSubmitEvent = VideoController.Instance.PauseAndResume;
 
 		/* get the text to change the question */
-		_question = _canvas.transform.GetChild(1).GetComponent<Text>();
+		_question = _canvas.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
 		_buttonText = _canvas.transform.GetChild(7).transform.GetChild(0).GetComponent<Text>();
 

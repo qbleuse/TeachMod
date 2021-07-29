@@ -1,7 +1,16 @@
-question;nb de r�ponse;r�ponse unique;bonne r�ponse(s)
-"Est-ce que?
-A: OUI
-B: NON
-C: Peut-�tre
-D r�ponse D
-E: l'autre";5;false;A/D
+question;nb de réponse;réponse unique;bonne réponse(s);pause;sequence;timestamp
+"Citer les attitudes qu'il faut essayer d'éviter au moment de l'accueil d'un patient et de sa famille.
+A: prendre un appel téléphonique 
+B: discuter avec ses collègues 
+C: preparer le dossier informatique du patient 
+D: lui demander son nom 
+E: s'occuper de soi";5;false;A/B/E;;;
+"Durant le traitement et la saisie des informations concernant la consultation faut il:
+A: répondre aux questions éventuelles du patient ou de sa famille 
+B: si besoin expliquer le processus en cours
+ C: ne pas impliquer du tout le patient et sa famille";3;false;A/B;;;
+"l'orientation et l'aide à la mobilité du patient vers la salle d'attente ou le bureau de la consultation peut se faire: 
+A: en accompagnant le patient 
+B: en lui montrant la direction
+C: en lui donnant un plan de l'hôpital
+D: en lui proposant une chaise roulante";4;false;A/B/D;true;1;73

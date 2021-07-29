@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animDuration: 1
-  screenOffset: {x: 0.33333334, y: 0.5}
+  screenOffset: {x: 0.25, y: 0.5}
 --- !u!114 &215060370093243666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,3 +142,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6fc704d84d83de4c9f1ec44a79db481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameMenu: {fileID: 0}

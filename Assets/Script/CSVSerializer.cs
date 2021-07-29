@@ -19,33 +19,39 @@ public class CSVSerializer
 	public void LoadFile(string filePath_)
 	{
 		_lines.Clear();
-		_style = NumberStyles.AllowDecimalPoint;
+		_style = NumberStyles.AllowDecimalPoint | NumberStyles.Integer;
+		
 
-		using (StreamReader reader = new StreamReader(Application.dataPath + '/' + filePath_))
+		using (FileStream fStream = new FileStream(Application.dataPath + '/' + filePath_, FileMode.Open,FileAccess.Read,FileShare.ReadWrite))
+		using (StreamReader reader = new StreamReader(fStream))
 		{
+
 			GetReadInfo(reader);
 
 			StringBuilder strBuilder = new StringBuilder();
 			string line = null;
 			string multLineSep = '"'.ToString();
 			bool mulLineText = false;
+			bool hasMulSep = false;
 
 			while (!reader.EndOfStream)
 			{
-				line = reader.ReadLine();
+				line		= reader.ReadLine();
+				hasMulSep	= line.Contains(multLineSep);
+
 
 				/* beginning of a multiline text */
-				if (line.Contains(multLineSep) && !mulLineText)
+				if (hasMulSep && !mulLineText)
 				{
 					mulLineText = true;
 					strBuilder.Append(line);
 				}/* in a multi line text */
-				else if (!line.Contains(multLineSep) && mulLineText)
+				else if (!hasMulSep && mulLineText)
 				{
 					strBuilder.Append("\n");
 					strBuilder.Append(line);
 				}/* the end of a multiline text */
-				else if (line.Contains(multLineSep) && mulLineText)
+				else if (hasMulSep && mulLineText)
 				{
 					strBuilder.Append("\n");
 					strBuilder.Append(line);
@@ -98,8 +104,6 @@ public class CSVSerializer
 			if (newPoi == null)
 				continue;
 
-			newPoi._number = i;
-
 			/* get timestamp and sequence */
 			int.TryParse(values[0], out newPoi._sequence);
 			newPoi._sequence -= 1;
@@ -107,16 +111,15 @@ public class CSVSerializer
 			float.TryParse(values[2], _style, _culture,  out newPoi._endTimestamp);
 
 			/* get behavior info */
-			bool.TryParse(values[3], out newPoi._pauseOnTime);
-			bool.TryParse(values[4], out newPoi._askOnHit);
+			bool.TryParse(values[3], out newPoi._askOnHit);
 
 			/* get transform info */
-			float.TryParse(values[5], _style, _culture, out yaw);
-			float.TryParse(values[6], _style, _culture, out pitch);
-			float.TryParse(values[7], _style, _culture, out size);
+			float.TryParse(values[4], _style, _culture, out yaw);
+			float.TryParse(values[5], _style, _culture, out pitch);
+			float.TryParse(values[6], _style, _culture, out size);
 
 			/* get mcq ref if have one */
-			if (int.TryParse(values[8], out newPoi._mcqId))
+			if (int.TryParse(values[7], out newPoi._mcqId))
 				newPoi._mcqId -= 2;
 
 			newPoi.transform.rotation   = Quaternion.Euler(pitch, yaw, 0.0f);
@@ -129,8 +132,6 @@ public class CSVSerializer
 	{
 		poi_man_._mcqs = new List<MCQ>(_lines.Count - 1);
 
-		Debug.Log(_lines.Count);
-
 		for (int i = 0; i < _lines.Count; i++)
 		{
 			string[] values = _lines[i].Split(_sepChar);
@@ -142,8 +143,11 @@ public class CSVSerializer
 			{
 				newMCQ = new MCQ();
 
-				/* get the question */
+				/* get the question in UTF8 */
 				newMCQ._question = values[0];
+
+				/* removing the "" */
+				newMCQ._question = newMCQ._question.Substring(1, newMCQ._question.Length - 2);
 
 				/* get the nb of answer, and if it is a 
 				 * multiple or single choice questionnaire */
@@ -171,6 +175,16 @@ public class CSVSerializer
 						answers[j].ToUpper();
 						newMCQ._rightAnswerNb[j] = (uint)(answers[j][0] - 'A');
 					}
+				}
+
+				/* pause info */
+				bool.TryParse(values[4], out newMCQ._pause);
+
+				if (newMCQ._pause)
+				{
+					int.TryParse(values[5], out newMCQ._sequence);
+					newMCQ._sequence -= 1;
+					float.TryParse(values[6], _style, _culture, out newMCQ._timestamp);
 				}
 			}
 

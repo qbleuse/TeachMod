@@ -204,7 +204,7 @@ Search:
 		_scoreText[0].text += _POI_Score.ToString() + "/" + POI_Manager.Instance._pois.Count.ToString();
 
 		/* append MCQ well answered/MCQ there was (there should be as much POI than there is MCQ as they're contained in th POI) */
-		_scoreText[1].text += _MCQ_Score.ToString() + "/" + POI_Manager.Instance._mcqNb.ToString();
+		_scoreText[1].text += _MCQ_Score.ToString() + "/" + POI_Manager.Instance._mcqs.Count.ToString();
 	}
 
 }

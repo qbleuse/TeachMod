@@ -13,7 +13,7 @@ public class EditVideoPlayer : MonoBehaviour
 	public double   _time       = 0.0f;
 
 	// Start is called before the first frame update
-	void Start()
+	public void Start()
 	{
 		/* getting and setting the components */
 		_player = GetComponent<VideoPlayer>();

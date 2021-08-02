@@ -21,33 +21,26 @@ public class POIEditor : EditorWindow
 		GetWindow<POIEditor>("POIEditor");
 	}
 
+
 	private void OnEnable()
 	{ 
-		Debug.Log("OnEnable");
-
 		_prevScene  = SceneManager.GetActiveScene().path;
 
-
-		_editScene  = EditorSceneManager.OpenScene("Assets/Edit/EditScene.unity");
-
-		SceneManager.SetActiveScene(_editScene);
-		//Debug.LogFormat("{0}", _editScene.name);
+		_editScene  = EditorSceneManager.OpenScene("Assets/Edit/EditScene.unity",OpenSceneMode.Additive);
 
 		_renderRect = new Rect();
-		_texture    = new RenderTexture((int)position.width, (int)(position.height/4.0f),24, RenderTextureFormat.ARGB32);
+		_texture    = new RenderTexture((int)position.width, (int)(position.height),0);
 
-		_camera = Camera.main;
-		_camera.targetTexture = _texture;
-		_videoPlayer = _camera.GetComponent<EditVideoPlayer>();
-
-		//_editScene.
+		_camera					= _editScene.GetRootGameObjects()[0].GetComponent<Camera>();
+		_camera.targetTexture	= _texture;
+		_videoPlayer			= _camera.GetComponent<EditVideoPlayer>() ;
+		_videoPlayer.Start();
 
 	}
 
 	private void OnDisable()
 	{
-		Scene prevScene = EditorSceneManager.OpenScene(_prevScene);
-		SceneManager.SetActiveScene(prevScene);
+		EditorSceneManager.CloseScene(_editScene,true);
 	}
 
 	private void OnGUI()
@@ -62,8 +55,6 @@ public class POIEditor : EditorWindow
 
 		_camera.Render();
 
-		//Handles.DrawCamera(_renderRect,_camera);
-
 		GUI.DrawTexture(_renderRect, _texture);
 
 		GUILayout.EndArea();
@@ -75,7 +66,7 @@ public class POIEditor : EditorWindow
 
 		GUILayout.BeginArea(_renderRect);
 
-		if (_videoClip != null)
+		if (_videoClip && _videoPlayer && _videoPlayer._player)
 		{
 			GUILayout.BeginHorizontal();
 			float time = EditorGUILayout.Slider("timestamp", (float)_videoPlayer._time, 0.0f, (float)_videoClip.length);
@@ -94,7 +85,9 @@ public class POIEditor : EditorWindow
 		}
 
 		_videoClip = EditorGUILayout.ObjectField("video",_videoClip,typeof(VideoClip),false) as VideoClip;
-		_videoPlayer._player.clip = _videoClip;
+
+		if (_videoPlayer && _videoPlayer._player)
+			_videoPlayer._player.clip = _videoClip;
 
 		GUILayout.EndArea();
 

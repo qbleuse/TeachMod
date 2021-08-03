@@ -4,16 +4,26 @@ using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 
+/* Window to help creating POI that connects with the video.
+ * An Editor to help create the assets to serialize. */
 public class POIEditor : EditorWindow
 {
-	RenderTexture           _texture = null;
-	Camera                  _camera = null;
-	string                  _prevScene;
+	/* */
+	Camera                  _camera		= null;
 	Scene                   _editScene;
-	Rect                    _renderRect;
+
+	Rect                    _videoRect;
 	EditVideoPlayer         _videoPlayer;
-	RenderTexture           _videoTex;
-	VideoClip               _videoClip;
+
+	Rect					_editRect;
+	Editor					_poiEditor = null;
+	Editor					_mcqEditor = null;
+
+	Vector2					_poiScroll = Vector2.zero;
+	Vector2					_mcqScroll = Vector2.zero;
+
+	[SerializeField] POI	_editPOI = null;
+	[SerializeField] MCQ	_editMCQ = null;
 
 	[MenuItem("Window/POIEditor")]
 	public static void ShowWindow()
@@ -24,18 +34,18 @@ public class POIEditor : EditorWindow
 
 	private void OnEnable()
 	{ 
-		_prevScene  = SceneManager.GetActiveScene().path;
+		_editScene		= EditorSceneManager.OpenScene("Assets/Edit/EditScene.unity",OpenSceneMode.Additive);
+		_camera			= _editScene.GetRootGameObjects()[0].GetComponent<Camera>();
+		_videoPlayer	= _camera.GetComponent<EditVideoPlayer>();
 
-		_editScene  = EditorSceneManager.OpenScene("Assets/Edit/EditScene.unity",OpenSceneMode.Additive);
+		_videoRect	= new Rect();
+		_editRect	= new Rect();
 
-		_renderRect = new Rect();
-		_texture    = new RenderTexture((int)position.width, (int)(position.height),0);
+		/* put the texture of the video player as target */
+		_videoPlayer._texture   = new RenderTexture(_camera.pixelWidth, _camera.pixelHeight,0);
+		_camera.targetTexture	= _videoPlayer._texture;
 
-		_camera					= _editScene.GetRootGameObjects()[0].GetComponent<Camera>();
-		_camera.targetTexture	= _texture;
-		_videoPlayer			= _camera.GetComponent<EditVideoPlayer>() ;
 		_videoPlayer.Start();
-
 	}
 
 	private void OnDisable()
@@ -43,54 +53,110 @@ public class POIEditor : EditorWindow
 		EditorSceneManager.CloseScene(_editScene,true);
 	}
 
+	private void RectUpdate()
+    {
+		_videoRect.x		= 0;
+		_videoRect.y		= 0;
+		_videoRect.width	= position.width;
+		_videoRect.height	= position.height / 2.0f;
+
+		_camera.aspect		= _videoRect.width / _videoRect.height;
+
+		_editRect.x			= 0;
+		_editRect.y			= position.height / 2.0f;
+		_editRect.width		= position.width;
+		_editRect.height	= position.height / 2.0f;
+
+	}
+
 	private void OnGUI()
 	{
-		_renderRect.x = 0;
-		_renderRect.y = 0;
-		_renderRect.width = position.width;
-		_renderRect.height = position.height / 2.0f;
-		_camera.aspect = _renderRect.width / _renderRect.height;
-
-		GUILayout.BeginArea(_renderRect);
-
+		RectUpdate();
 		_camera.Render();
 
-		GUI.DrawTexture(_renderRect, _texture);
+		_videoPlayer.DrawVideo(_videoRect);
 
+		GUILayout.BeginArea(_editRect);
+
+		_videoPlayer.OnInspectorGUI();
+		OnInspectorGUI();
+		
 		GUILayout.EndArea();
 
-		_renderRect.x = 0;
-		_renderRect.y = position.height / 2.0f;
-		_renderRect.width = position.width;
-		_renderRect.height = position.height / 2.0f;
+	}
 
-		GUILayout.BeginArea(_renderRect);
+	public void OnInspectorGUI()
+    {
+		GUILayout.BeginHorizontal();
 
-		if (_videoClip && _videoPlayer && _videoPlayer._player)
+		/* POI Edit */
+		GUILayout.BeginVertical();
+		if (_editPOI == null && GUILayout.Button("Add POI"))
+			AddPOI();
+		else if (_editPOI)
 		{
-			GUILayout.BeginHorizontal();
-			float time = EditorGUILayout.Slider("timestamp", (float)_videoPlayer._time, 0.0f, (float)_videoClip.length);
-			
-			Event e = Event.current;
-			if (e.type == EventType.Used)
+			if (GUILayout.Button("Clear POI"))
+				ClearPOI();
+			else
 			{
-				_videoPlayer._time = time;
-				_videoPlayer._player.time = _videoPlayer._time;
+				_poiScroll = GUILayout.BeginScrollView(_poiScroll);
+				_poiEditor.OnInspectorGUI();
+				GUILayout.EndScrollView();
 			}
-
-				if (GUILayout.Button("play"))
-				_videoPlayer.OnPlayModeChange();
-			
-			GUILayout.EndHorizontal();
 		}
+		GUILayout.EndVertical();
 
-		_videoClip = EditorGUILayout.ObjectField("video",_videoClip,typeof(VideoClip),false) as VideoClip;
+		/* MCQ Edit */
+		GUILayout.BeginVertical();
+		if (_editMCQ == null && GUILayout.Button("Add MCQ"))
+			AddMCQ();
+		else if (_editMCQ)
+		{
+			if (GUILayout.Button("Clear MCQ"))
+				ClearMCQ();
+			else
+			{
+				_mcqScroll = GUILayout.BeginScrollView(_mcqScroll);
+				_mcqEditor.OnInspectorGUI();
+				GUILayout.EndScrollView();
 
-		if (_videoPlayer && _videoPlayer._player)
-			_videoPlayer._player.clip = _videoClip;
+			}
+		}
+		GUILayout.EndVertical();
 
-		GUILayout.EndArea();
+		GUILayout.EndHorizontal();
+	}
 
+	private void AddPOI()
+    {
+		_editPOI = _camera.gameObject.AddComponent<POI>();
+
+		_poiEditor = Editor.CreateEditor(_editPOI);
+    }
+
+	private void AddMCQ()
+	{
+		_editMCQ = CreateInstance<MCQ>();
+
+		_mcqEditor = Editor.CreateEditor(_editMCQ);
+	}
+
+	private void ClearPOI()
+	{
+		DestroyImmediate(_editPOI);
+		_editPOI = null;
+
+		DestroyImmediate(_poiEditor);
+		_poiEditor = null;
+	}
+
+	private void ClearMCQ()
+	{
+		DestroyImmediate(_editMCQ);
+		_editMCQ = null;
+
+		DestroyImmediate(_mcqEditor);
+		_mcqEditor = null;
 	}
 
 	private void Update()

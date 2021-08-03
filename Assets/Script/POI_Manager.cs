@@ -30,7 +30,7 @@ public class POI_Manager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		CSVSerializer serializer = new CSVSerializer();
+		CSVLoader serializer = new CSVLoader();
 
 		if (_poiList.Length > 1)
 		{

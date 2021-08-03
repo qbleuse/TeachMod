@@ -8,7 +8,7 @@ using UnityEngine;
  * The choice of a class over a struct is because a POI can not have those
  * so we can put null in those case. */
 [System.Serializable]
-public class MCQ : IComparable<MCQ>
+public class MCQ : ScriptableObject, IComparable<MCQ>
 {
     /*==== SETTINGS ====*/
     /* The question asked. the question should be asked and should propose the different answer. 

@@ -328,6 +328,10 @@ PrefabInstance:
       value: Sheet/poi.csv
       objectReference: {fileID: 0}
     - target: {fileID: 5998241603640021975, guid: 94391d35b7c9bb14aa97da6e4e870cb9, type: 3}
+      propertyPath: _csvSerial
+      value: 
+      objectReference: {fileID: 11400000, guid: 65aa129e561ee4a40b9bcfe7a2a43169, type: 2}
+    - target: {fileID: 5998241603640021975, guid: 94391d35b7c9bb14aa97da6e4e870cb9, type: 3}
       propertyPath: _serializer
       value: 
       objectReference: {fileID: 11400000, guid: fe281578df09a7e458c543744bde216f, type: 2}

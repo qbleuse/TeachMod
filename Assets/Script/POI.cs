@@ -33,7 +33,7 @@ public class POI : MonoBehaviour, IComparable<POI>
 	/* to know if we ask the MCQ when this SM is being clicked on */
 	[SerializeField]			public bool				_askOnHit		= false;
 	/* the index of the MCQ associated with this POI */
-	[SerializeField]			public int				_mcqId			= -1;
+	[SerializeField]			public MCQ				_mcq			= null;
 
 	/*==== ACCESSOR ====*/
 	public Alignment _POI_Fitting { get { return _fitting; } }
@@ -45,12 +45,12 @@ public class POI : MonoBehaviour, IComparable<POI>
 
 	public void SetQuestion()
 	{
-		if (_mcqId >= 0)
+		if (_mcq != null)
         {
 			if (_askOnHit)
-				POI_Manager.Instance.SetMCQAndRotate(_mcqId,transform.rotation);
+				POI_Manager.Instance.SetMCQAndRotate(_mcq,transform.rotation);
 			else
-				POI_Manager.Instance.SetMCQ(_mcqId);
+				POI_Manager.Instance.SetMCQ(_mcq);
 		}
 	}
 

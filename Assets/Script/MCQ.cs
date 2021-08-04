@@ -22,7 +22,7 @@ public class MCQ : ScriptableObject, IComparable<MCQ>
      * 
      * as you can see, the question and the answers are written.
      */
-    [Multiline]     public string   _question = null;
+    [TextArea]     public string   _question = null;
 
     /* The nb of answer your MCQ offers. in the above example it would be 3. */
     [Range(2,5)]    public uint     _answerNb = 0;

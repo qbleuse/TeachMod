@@ -1,111 +1,61 @@
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Video;
-using UnityEngine.SceneManagement;
-using UnityEditor.SceneManagement;
 
-/* Window to help creating POI that connects with the video.
- * An Editor to help create the assets to serialize. */
-public class POIEditor : EditorWindow
+/* Editor that edits each asset at a time.
+ * used by CSVEditor */
+public class POIEditor : MonoBehaviour
 {
-	/* */
-	Camera                  _camera		= null;
-	Scene                   _editScene;
+	public POI_Manager _poi_man = null;
 
-	Rect                    _videoRect;
-	EditVideoPlayer         _videoPlayer;
+	Editor _poiEditor = null;
+	Editor _mcqEditor = null;
 
-	Rect					_editRect;
-	Editor					_poiEditor = null;
-	Editor					_mcqEditor = null;
+	[SerializeField, Multiline] string	_editComment	= null;
+	[SerializeField]			POI		_editPOI		= null;
+	[SerializeField]			MCQ		_editMCQ		= null;
 
-	Vector2					_poiScroll = Vector2.zero;
-	Vector2					_mcqScroll = Vector2.zero;
-
-	[SerializeField] POI	_editPOI = null;
-	[SerializeField] MCQ	_editMCQ = null;
-
-	[MenuItem("Window/POIEditor")]
-	public static void ShowWindow()
+    public void OnInspectorGUI()
 	{
-		GetWindow<POIEditor>("POIEditor");
-	}
 
-
-	private void OnEnable()
-	{ 
-		_editScene		= EditorSceneManager.OpenScene("Assets/Edit/EditScene.unity",OpenSceneMode.Additive);
-		_camera			= _editScene.GetRootGameObjects()[0].GetComponent<Camera>();
-		_videoPlayer	= _camera.GetComponent<EditVideoPlayer>();
-
-		_videoRect	= new Rect();
-		_editRect	= new Rect();
-
-		/* put the texture of the video player as target */
-		_videoPlayer._texture   = new RenderTexture(_camera.pixelWidth, _camera.pixelHeight,0);
-		_camera.targetTexture	= _videoPlayer._texture;
-
-		_videoPlayer.Start();
-	}
-
-	private void OnDisable()
-	{
-		EditorSceneManager.CloseScene(_editScene,true);
-	}
-
-	private void RectUpdate()
-    {
-		_videoRect.x		= 0;
-		_videoRect.y		= 0;
-		_videoRect.width	= position.width;
-		_videoRect.height	= position.height / 2.0f;
-
-		_camera.aspect		= _videoRect.width / _videoRect.height;
-
-		_editRect.x			= 0;
-		_editRect.y			= position.height / 2.0f;
-		_editRect.width		= position.width;
-		_editRect.height	= position.height / 2.0f;
-
-	}
-
-	private void OnGUI()
-	{
-		RectUpdate();
-		_camera.Render();
-
-		_videoPlayer.DrawVideo(_videoRect);
-
-		GUILayout.BeginArea(_editRect);
-
-		_videoPlayer.OnInspectorGUI();
-		OnInspectorGUI();
-		
-		GUILayout.EndArea();
-
-	}
-
-	public void OnInspectorGUI()
-    {
 		GUILayout.BeginHorizontal();
+		OnPOIGUI();
+		OnMCQGUI();
+		GUILayout.EndHorizontal();
+	}
 
+
+	private void OnPOIGUI()
+	{
 		/* POI Edit */
 		GUILayout.BeginVertical();
-		if (_editPOI == null && GUILayout.Button("Add POI"))
-			AddPOI();
-		else if (_editPOI)
+		if (_editPOI == null)
+		{
+			if (GUILayout.Button("Add POI"))
+				AddPOI();
+
+			if (_editMCQ)
+				_editComment = EditorGUILayout.TextArea(_editComment);
+
+		}
+		else
 		{
 			if (GUILayout.Button("Clear POI"))
-				ClearPOI();
-			else
 			{
-				_poiScroll = GUILayout.BeginScrollView(_poiScroll);
+				ClearPOI();
+				if (_editMCQ == null)
+					_editComment = null;
+			}
+			else
+			{ 
 				_poiEditor.OnInspectorGUI();
-				GUILayout.EndScrollView();
+				_editComment = EditorGUILayout.TextArea(_editComment);
 			}
 		}
 		GUILayout.EndVertical();
+	}
 
+	private void OnMCQGUI()
+	{
 		/* MCQ Edit */
 		GUILayout.BeginVertical();
 		if (_editMCQ == null && GUILayout.Button("Add MCQ"))
@@ -113,30 +63,31 @@ public class POIEditor : EditorWindow
 		else if (_editMCQ)
 		{
 			if (GUILayout.Button("Clear MCQ"))
+			{
 				ClearMCQ();
+				if (_editPOI == null)
+				{
+					_editComment = null;
+				}
+			}
 			else
 			{
-				_mcqScroll = GUILayout.BeginScrollView(_mcqScroll);
 				_mcqEditor.OnInspectorGUI();
-				GUILayout.EndScrollView();
-
 			}
 		}
 		GUILayout.EndVertical();
-
-		GUILayout.EndHorizontal();
 	}
 
 	private void AddPOI()
-    {
-		_editPOI = _camera.gameObject.AddComponent<POI>();
+	{
+		_editPOI = _poi_man._csvSerial.InstantiatePOI(_poi_man._pois.Count - 1);
 
 		_poiEditor = Editor.CreateEditor(_editPOI);
-    }
+	}
 
 	private void AddMCQ()
 	{
-		_editMCQ = CreateInstance<MCQ>();
+		_editMCQ = ScriptableObject.CreateInstance<MCQ>();
 
 		_mcqEditor = Editor.CreateEditor(_editMCQ);
 	}
@@ -157,11 +108,5 @@ public class POIEditor : EditorWindow
 
 		DestroyImmediate(_mcqEditor);
 		_mcqEditor = null;
-	}
-
-	private void Update()
-	{
-		if (_videoPlayer && _videoPlayer._player && _videoPlayer._player.isPlaying)
-			Repaint();
 	}
 }

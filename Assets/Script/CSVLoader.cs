@@ -87,19 +87,24 @@ public class CSVLoader
 		}
 	}
 
-	public void PopulatePOI(POI_Manager poi_man_)
+
+	/* create and fill the serializer's array of POI. 
+	 * Be careful, if you have a reference on a mcq in your pois,
+	 * We use the array that is in the serializer to get it.
+	 * So populate your mcq before and do not sort them. */
+	public void PopulatePOI(CSVSerializer serializer_)
 	{
 		float yaw = 0;
 		float pitch = 0;
 		float size = 0.0f;
 
-		poi_man_._pois = new List<POI>(_lines.Count - 1);
+		serializer_._pois = new List<POI>(_lines.Count - 1);
 
 		for (int i = 0; i < _lines.Count; i++)
 		{
 			string[] values = _lines[i].Split(_sepChar);
 
-			POI newPoi = poi_man_.InstantiatePOI(i);
+			POI newPoi = serializer_.InstantiatePOI(i);
 
 			if (newPoi == null)
 				continue;
@@ -118,19 +123,21 @@ public class CSVLoader
 			float.TryParse(values[5], _style, _culture, out pitch);
 			float.TryParse(values[6], _style, _culture, out size);
 
+
+			int mcqId = -1;
 			/* get mcq ref if have one */
-			if (int.TryParse(values[7], out newPoi._mcqId))
-				newPoi._mcqId -= 2;
+			if (int.TryParse(values[7], out mcqId))
+				newPoi._mcq = serializer_._mcqs[mcqId - 2];
 
 			newPoi.transform.rotation = Quaternion.Euler(pitch, yaw, 0.0f);
 			newPoi.transform.localScale = new Vector3(size, size, 1.0f);
 		}
 	}
 
-
-	public void PopulateMCQ(POI_Manager poi_man_)
+	/* create and fill the serializer's array of MCQ. */
+	public void PopulateMCQ(CSVSerializer serializer_)
 	{
-		poi_man_._mcqs = new List<MCQ>(_lines.Count - 1);
+		serializer_._mcqs = new List<MCQ>(_lines.Count - 1);
 
 		for (int i = 0; i < _lines.Count; i++)
 		{
@@ -141,7 +148,7 @@ public class CSVLoader
 			/* we consider that there is no MCQ is there is no question */
 			if (values[0].Length > 1)
 			{
-				newMCQ = new MCQ();
+				newMCQ = ScriptableObject.CreateInstance<MCQ>();
 
 				/* get the question in UTF8 */
 				newMCQ._question = values[0];
@@ -188,7 +195,7 @@ public class CSVLoader
 				}
 			}
 
-			poi_man_._mcqs.Insert(i, newMCQ);
+			serializer_._mcqs.Insert(i, newMCQ);
 		}
 	}
 }

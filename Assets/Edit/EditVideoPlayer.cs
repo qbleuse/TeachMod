@@ -10,9 +10,14 @@ using UnityEngine.Video;
 [ExecuteInEditMode]
 public class EditVideoPlayer : MonoBehaviour
 {
+	/*==== SETTINGS ====*/
+	[SerializeField] float _camSpeed = 10.0f;
+	[SerializeField] public bool rotate = false;
+
 	/*==== COMPONENTS ====*/
 	[HideInInspector] public VideoPlayer _player = null;
 	[HideInInspector] public AudioSource _audio  = null;
+	Vector2 prevMousePos = Vector2.zero;
 
 	/*==== STATE ====*/
 	public	double			_time		= 0.0f;
@@ -37,6 +42,24 @@ public class EditVideoPlayer : MonoBehaviour
 	public void DrawVideo(Rect rect_)
 	{
 		GUILayout.BeginArea(rect_);
+
+		Event e = Event.current;
+		if (e.type == EventType.MouseDown && rect_.Contains(e.mousePosition))
+		{
+			rotate = true;
+			prevMousePos = e.mousePosition;
+		}
+		else if (e.type == EventType.MouseDrag && rotate)
+        {
+			Vector2 delta = e.mousePosition - prevMousePos;
+			prevMousePos = e.mousePosition;
+
+			transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x - delta.y * _camSpeed * Time.deltaTime, transform.rotation.eulerAngles.y - delta.x * _camSpeed * Time.deltaTime, 0.0f);
+		}
+		if (e.type == EventType.MouseUp)
+        {
+			rotate = false;
+        }
 
 		GUI.DrawTexture(rect_, _texture);
 

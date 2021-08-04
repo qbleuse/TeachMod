@@ -7,19 +7,14 @@ public class POI_Manager : MonoBehaviour
 	/*==== SINGLETON ====*/
 	public static POI_Manager Instance = null;
 
-	/*==== SETTINGS ====*/
-	[SerializeField] private POI _poiGo = null;
-
-	[SerializeField]	string			_poiList	= null;
-	[SerializeField]	string			_mcqList	= null;
-	[SerializeField]	string			_animList	= null;
+	[SerializeField]  public CSVSerializer _csvSerial = null;
 
 	/*==== STATE ====*/
-	[HideInInspector] public	List<POI>		_pois		= null;
+	public	List<POI>		_pois		= null;
 	public	List<MCQ>		_mcqs		= null;
 	[HideInInspector] public	List<string>	_comments	= null;
 
-	public	int _mcqIndex = 0;
+	private	int _mcqIndex = 0;
 	private int _poiIndex = 0;
 
 	private void Awake()
@@ -30,21 +25,21 @@ public class POI_Manager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		CSVLoader serializer = new CSVLoader();
-
-		if (_poiList.Length > 1)
+		if (_csvSerial)
 		{
-			serializer.LoadFile(_poiList);
-			serializer.PopulatePOI(this);
-		}
+			_csvSerial.Load();
 
-		if (_mcqList.Length > 1)
-		{
-			serializer.LoadFile(_mcqList);
-			serializer.PopulateMCQ(this);
-		}
+			_pois = _csvSerial._pois;
+			_mcqs = _csvSerial._mcqs;
+			_comments = _csvSerial._comments;
 
-		_pois.Sort();
+			_csvSerial._pois = null;
+			_csvSerial._mcqs = null;
+			_csvSerial._comments = null;
+
+			_pois.Sort();
+			_mcqs.Sort();
+		}
 	}
 
 	// Update is called once per frame
@@ -83,32 +78,26 @@ public class POI_Manager : MonoBehaviour
 					continue;
 
 				VideoController.Instance.PauseAndResume();
-				SetMCQ(_mcqIndex - 1);
+				MCQ question = _mcqs[_mcqIndex - 1];
+				SetMCQ(question);
 			}
 
 			break;
 		}
 	}
 
-	public POI InstantiatePOI(int i_)
-    {
-		_pois.Insert(i_,Instantiate(_poiGo));
-		return _pois[i_];
-    }
+	public void SetMCQ(MCQ mcq_)
+	{
 
-	public void SetMCQ(int i_)
-    {
-		MCQ question = _mcqs[i_];
-		if (!MCQ_Manager.Instance.SetMCQ(question))
+		if (!MCQ_Manager.Instance.SetMCQ(mcq_))
 		{
 			VideoController.Instance.PauseAndResume();
 		}
 	}
 
-	public void SetMCQAndRotate(int i_, Quaternion rot_)
+	public void SetMCQAndRotate(MCQ mcq_, Quaternion rot_)
 	{
-		MCQ question = _mcqs[i_];
-		if (!MCQ_Manager.Instance.SetMCQAndRotate(question, rot_))
+		if (!MCQ_Manager.Instance.SetMCQAndRotate(mcq_, rot_))
 		{
 			VideoController.Instance.PauseAndResume();
 		}

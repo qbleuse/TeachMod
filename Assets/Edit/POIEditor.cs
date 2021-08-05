@@ -6,7 +6,8 @@ using UnityEngine;
 public class POIEditor : MonoBehaviour
 {
 	/*==== STATE ====*/
-	public POI_Manager _poi_man = null;
+	public POI_Manager	_poi_man = null;
+	public Camera		_cam = null;
 
 	Editor _poiEditor = null;
 	Editor _mcqEditor = null;
@@ -18,7 +19,12 @@ public class POIEditor : MonoBehaviour
 	int _editPOIId = 0;
 	int _editMCQID = 0;
 
-	GUILayoutOption _buttonWidth = GUILayout.Width(30f); 
+	GUILayoutOption _buttonWidth	= GUILayout.Width(30f);
+	GUILayoutOption _labelWidth		= GUILayout.Width(50f);
+
+	public float _yaw	= 0.0f;
+	public float _pitch = 0.0f;
+	public float _size	= 0.0f;
 
 	public void OnInspectorGUI()
 	{
@@ -37,13 +43,14 @@ public class POIEditor : MonoBehaviour
 		bool clickEnd = Event.current.type == EventType.MouseUp;
 
 		GUILayout.BeginHorizontal();
+		GUILayout.Label("POI NB: ",EditorStyles.miniLabel, _labelWidth);
 		int newId = EditorGUILayout.IntSlider(_editPOIId, 0, Mathf.Max(_poi_man._pois.Count - 1,0));
 
 		if (newId != _editPOIId)
 		{
 			_editPOIId = newId;
 			SetPOI();
-        }
+		}
 
 		if (GUILayout.Button("+", EditorStyles.miniButtonLeft,_buttonWidth) && clickEnd)
 			AddPOI();
@@ -53,6 +60,7 @@ public class POIEditor : MonoBehaviour
 		GUILayout.EndHorizontal();
 
 		GUILayout.BeginHorizontal();
+		GUILayout.Label("MCQ NB: ", EditorStyles.miniLabel, _labelWidth);
 		newId = EditorGUILayout.IntSlider(_editMCQID, 0, Mathf.Max(_poi_man._mcqs.Count - 1,0));
 
 		if (newId != _editMCQID)
@@ -69,13 +77,50 @@ public class POIEditor : MonoBehaviour
 		GUILayout.EndHorizontal();
 	}
 
+	public void ApplyCamRot()
+	{
+		if (_editPOI)
+		{
+			_editPOI.transform.rotation = _cam.transform.rotation;
+			_pitch	= _cam.transform.rotation.eulerAngles.x;
+			_yaw	= _cam.transform.rotation.eulerAngles.y;
+		}
+	}
+
 
 	private void OnPOIGUI()
 	{
 		/* POI Edit */
 		GUILayout.BeginVertical();
 		if (_editPOI)
-		{ 
+		{
+			/* changing size */
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Size:", EditorStyles.miniLabel, _labelWidth);
+			float sliderResult = EditorGUILayout.Slider(_size,0.0f,1.0f);
+			if (sliderResult != _size)
+			{
+				_size = sliderResult;
+				_editPOI.transform.localScale = new Vector3(_size, _size, 1.0f);
+			}
+			GUILayout.EndHorizontal();
+
+			/* changing position depending on angles */
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Yaw:", EditorStyles.miniLabel, _labelWidth);
+			float yaw = EditorGUILayout.Slider(_yaw, 0.0f, 360.0f);
+			GUILayout.Label("Pitch:", EditorStyles.miniLabel, _labelWidth);
+			sliderResult = EditorGUILayout.Slider(_pitch, 0.0f, 360.0f);
+
+			if (yaw != _yaw || _pitch != sliderResult)
+			{
+				_yaw	= yaw;
+				_pitch	= sliderResult;
+				_editPOI.transform.rotation = Quaternion.Euler(_pitch, _yaw, 0.0f);
+			}
+			GUILayout.EndHorizontal();
+
+			/* POI real thing */
 			_poiEditor.OnInspectorGUI();
 			_editComment = EditorGUILayout.TextArea(_editComment);
 		}
@@ -112,8 +157,13 @@ public class POIEditor : MonoBehaviour
 		if (_editPOI)
 			_editPOI.PutToSleep();
 
-		_editPOI = _poi_man._pois[_editPOIId];
+		_editPOI	= _poi_man._pois[_editPOIId];
 		_editPOI.gameObject.SetActive(true);
+
+		_size		= _editPOI.transform.localScale.x;
+		_pitch		= _editPOI.transform.rotation.eulerAngles.x;
+		_yaw		= _editPOI.transform.rotation.eulerAngles.y;
+
 		_poiEditor = Editor.CreateEditor(_editPOI);
 	}
 

@@ -15,8 +15,8 @@ public class CSVSerializer : ScriptableObject
 
 
 	/*==== SETTINGS ====*/
-	[SerializeField] string _poiList = null;
-	[SerializeField] string _mcqList = null;
+	[SerializeField] public string _poiList = null;
+	[SerializeField] public string _mcqList = null;
 
 	/*==== STATE ====*/
 	public List<POI>		_pois		= null;

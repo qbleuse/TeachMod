@@ -41,7 +41,9 @@ public class MCQ : ScriptableObject, IComparable<MCQ>
     /* when does it pause if it does */
     public float _timestamp = 0.0f;
 
-    /*==== STATUS ====*/
+    /*==== STATE ====*/
+    public int _serialID = -1;
+
     public bool _answered = false;
 
     public int CompareTo(MCQ other)

@@ -11,16 +11,15 @@ public class CSVLoader
 
 
 	/*==== STATE ====*/
-	private char _sepChar = ',';
-	private NumberStyles _style;
+	private char _sepChar = CultureInfo.InvariantCulture.TextInfo.ListSeparator[0];
+	private NumberStyles _style  = NumberStyles.Float;
 	private CultureInfo _culture;
 
 	/* method loading the lines of the csv file in the lines component */
 	public void LoadFile(string filePath_)
 	{
 		_lines.Clear();
-		_style = NumberStyles.AllowDecimalPoint | NumberStyles.Integer;
-
+		_culture	= CultureInfo.CurrentCulture;
 
 		using (FileStream fStream = new FileStream(Application.dataPath + '/' + filePath_, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 		using (StreamReader reader = new StreamReader(fStream))
@@ -75,15 +74,17 @@ public class CSVLoader
 
 		description = reader.ReadLine();
 
-
-		if (description.Contains(";"))
+		/* tecnically it is more about choosing or not the european way of writing 
+		 * floating point numbers but we choose french as placeholder */
+		CultureInfo fr = CultureInfo.CreateSpecificCulture("fr-FR");
+		if (description.Contains(fr.TextInfo.ListSeparator))
 		{
-			_sepChar = ';';
+			_sepChar = fr.TextInfo.ListSeparator[0];
 			_culture = CultureInfo.CreateSpecificCulture("fr-FR");
 		}
 		else
 		{
-			_culture = CultureInfo.CreateSpecificCulture("en-EN");
+			_culture = CultureInfo.InvariantCulture;
 		}
 	}
 
@@ -193,6 +194,8 @@ public class CSVLoader
 					newMCQ._sequence -= 1;
 					float.TryParse(values[6], _style, _culture, out newMCQ._timestamp);
 				}
+
+				newMCQ._serialID = i + 1;
 			}
 
 			serializer_._mcqs.Insert(i, newMCQ);

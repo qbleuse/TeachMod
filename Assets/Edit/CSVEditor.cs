@@ -25,11 +25,11 @@ public class CSVEditor : EditorWindow
 	[MenuItem("Window/CSVEditor")]
 	public static void ShowWindow()
 	{
-		GetWindow<CSVEditor>("POIEditor");
+		CSVEditor editor = GetWindow<CSVEditor>("POIEditor");
+		editor.Enable();
 	}
 
-
-	private void OnEnable()
+	private void Enable()
 	{
 		_editScene		= EditorSceneManager.OpenScene("Assets/Edit/EditScene.unity", OpenSceneMode.Additive);
 		_camera			= _editScene.GetRootGameObjects()[0].GetComponent<Camera>();
@@ -38,9 +38,10 @@ public class CSVEditor : EditorWindow
 		_videoPlayer	= _camera.GetComponent<EditVideoPlayer>();
 
 		_poiEditor._poi_man = _poi_man;
+		_poiEditor._cam		= _camera;
 
-		_videoRect = new Rect();
-		_editRect = new Rect();
+		_videoRect	= new Rect();
+		_editRect	= new Rect();
 
 		/* put the texture of the video player as target */
 		_videoPlayer._texture = new RenderTexture(_camera.pixelWidth, _camera.pixelHeight, 0);
@@ -49,7 +50,7 @@ public class CSVEditor : EditorWindow
 		_videoPlayer.Start();
 	}
 
-	private void OnDisable()
+	private void OnDestroy()
 	{
 		EditorSceneManager.CloseScene(_editScene, true);
 	}
@@ -76,6 +77,11 @@ public class CSVEditor : EditorWindow
 		_camera.Render();
 
 		_videoPlayer.DrawVideo(_videoRect);
+
+		if (Event.current.type == EventType.ContextClick)
+        {
+			_poiEditor.ApplyCamRot();
+        }
 
 		GUILayout.BeginArea(_editRect);
 
@@ -129,7 +135,7 @@ public class CSVEditor : EditorWindow
 
 	private void Update()
 	{
-		if (_videoPlayer._player.isPlaying || _videoPlayer.rotate)
+		if (_videoPlayer._player.isPlaying || mouseOverWindow)
 			Repaint();
 	}
 }

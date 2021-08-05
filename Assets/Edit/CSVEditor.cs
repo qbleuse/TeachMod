@@ -116,6 +116,9 @@ public class CSVEditor : EditorWindow
             {
 				_poi_man._pois[i].PutToSleep();
             }
+
+			_poiEditor.SetPOI();
+			_poiEditor.SetMCQ();
 		}
 		else if (serializer_ == null && _editSave)
 		{

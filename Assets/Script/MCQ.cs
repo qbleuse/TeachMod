@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /* MCQ stands for Multiple Choice Questions.
@@ -22,14 +23,14 @@ public class MCQ : ScriptableObject, IComparable<MCQ>
      * 
      * as you can see, the question and the answers are written.
      */
-    [TextArea]     public string   _question = null;
+    [TextArea] public string _question = null;
 
     /* The nb of answer your MCQ offers. in the above example it would be 3. */
-    [Range(2,5)]    public uint     _answerNb = 0;
+    [Range(2, 5)] public int _answerNb = 0;
 
     /* the numbers that corrsponds to the right answers, beginning from 0.
      * in the above example, there is only one, it is 2 for C */
-    public uint[] _rightAnswerNb = null;
+    [HideInInspector] public List<int> _rightAnswerNb = null;
 
     /* is the mcq an mcq where only one answer is allowed */
     public bool _singleAnswer = false;
@@ -42,9 +43,9 @@ public class MCQ : ScriptableObject, IComparable<MCQ>
     public float _timestamp = 0.0f;
 
     /*==== STATE ====*/
-    public int _serialID = -1;
+    [HideInInspector] public int _serialID = -1;
 
-    public bool _answered = false;
+    [HideInInspector] public bool _answered = false;
 
     public int CompareTo(MCQ other)
     {

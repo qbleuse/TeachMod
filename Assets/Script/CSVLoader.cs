@@ -127,7 +127,7 @@ public class CSVLoader
 
 			int mcqId = -1;
 			/* get mcq ref if have one */
-			if (int.TryParse(values[7], out mcqId))
+			if (int.TryParse(values[7], out mcqId) && mcqId < serializer_._mcqs.Count)
 				newPoi._mcq = serializer_._mcqs[mcqId - 2];
 
 			newPoi.transform.rotation = Quaternion.Euler(pitch, yaw, 0.0f);
@@ -159,7 +159,7 @@ public class CSVLoader
 
 				/* get the nb of answer, and if it is a 
 				 * multiple or single choice questionnaire */
-				uint.TryParse(values[1], out newMCQ._answerNb);
+				int.TryParse(values[1], out newMCQ._answerNb);
 				bool.TryParse(values[2], out newMCQ._singleAnswer);
 
 				/* get the right answer, no need to do hard thing 
@@ -168,20 +168,20 @@ public class CSVLoader
 				{
 					/* handle lower case and upper case */
 					values[3].ToUpper();
-					newMCQ._rightAnswerNb = new uint[1];
-					newMCQ._rightAnswerNb[0] = (uint)(values[3][0] - 'A');
+					newMCQ._rightAnswerNb = new List<int>(1);
+					newMCQ._rightAnswerNb.Add(values[3][0] - 'A');
 				}
 				else
 				{
 					/* each answer will be split by a forward slash */
 					string[] answers = values[3].Split('/');
-					newMCQ._rightAnswerNb = new uint[answers.Length];
+					newMCQ._rightAnswerNb = new List<int>(answers.Length);
 
 					/* now it should be only a character in those string so we recover it */
 					for (int j = 0; j < answers.Length; j++)
 					{
 						answers[j].ToUpper();
-						newMCQ._rightAnswerNb[j] = (uint)(answers[j][0] - 'A');
+						newMCQ._rightAnswerNb.Add(answers[j][0] - 'A');
 					}
 				}
 

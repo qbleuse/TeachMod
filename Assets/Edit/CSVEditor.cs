@@ -73,6 +73,7 @@ public class CSVEditor : EditorWindow
 
 	private void OnGUI()
 	{
+
 		RectUpdate();
 		_camera.Render();
 
@@ -84,6 +85,14 @@ public class CSVEditor : EditorWindow
         }
 
 		GUILayout.BeginArea(_editRect);
+
+		if (GUILayout.Button("Save"))
+        {
+			Debug.LogWarning("Save");
+			CSVSaver saver = new CSVSaver();
+
+			saver.Save(_editSave);
+        }
 
 		_videoPlayer.OnInspectorGUI();
 		OnInspectorGUI();

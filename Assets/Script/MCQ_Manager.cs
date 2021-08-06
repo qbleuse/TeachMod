@@ -109,7 +109,7 @@ public class MCQ_Manager : MonoBehaviour
 		if (!answered)
 			return false;
 
-		if (answersRight == _currMCQ._rightAnswerNb.Length)
+		if (answersRight == _currMCQ._rightAnswerNb.Count)
         {
 			EndMenu.Instance._MCQ_Score++;
         }
@@ -218,7 +218,7 @@ public class MCQ_Manager : MonoBehaviour
 			_rightAnswerCache[i] = false;
         }
 		/* filling the right answer to true */
-		for (int i = 0; i < _currMCQ._rightAnswerNb.Length; i++)
+		for (int i = 0; i < _currMCQ._rightAnswerNb.Count; i++)
         {
 			_rightAnswerCache[_currMCQ._rightAnswerNb[i]] = true;
         }

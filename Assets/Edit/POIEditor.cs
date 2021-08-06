@@ -134,6 +134,40 @@ public class POIEditor : MonoBehaviour
 		if (_editMCQ)
 		{
 			_mcqEditor.OnInspectorGUI();
+
+			bool visible = false;
+			visible = EditorGUILayout.Foldout(true, "Right Answers");
+			if (visible)
+			{
+				bool clickEnd = Event.current.type == EventType.MouseUp;
+
+				EditorGUI.indentLevel ++;
+
+				GUILayout.BeginHorizontal();
+				EditorGUILayout.IntField(_editMCQ._rightAnswerNb.Count);
+				if (GUILayout.Button("+", EditorStyles.miniButtonLeft, _buttonWidth) && clickEnd && _editMCQ._rightAnswerNb.Count < 5)
+					_editMCQ._rightAnswerNb.Add('A');
+				if (GUILayout.Button("-", EditorStyles.miniButtonRight, _buttonWidth) && clickEnd && _editMCQ._rightAnswerNb.Count > 0)
+					_editMCQ._rightAnswerNb.RemoveAt(_editMCQ._rightAnswerNb.Count - 1);
+				GUILayout.EndHorizontal();
+
+				EditorGUI.indentLevel ++;
+				string result;
+				int nb = 'A';
+				for (int i = 0; i < _editMCQ._rightAnswerNb.Count; i++)
+				{
+					result = ((char)(_editMCQ._rightAnswerNb[i] + 'A')).ToString();
+					result = EditorGUILayout.TextField(result.ToString());
+
+					result.ToUpper();
+					nb = result[0];
+					if (nb < 'A' || nb > 'E')
+						nb = 'A';
+
+					_editMCQ._rightAnswerNb[i] = nb - 'A';
+				}
+				EditorGUI.indentLevel -= 2;
+			}
 		}
 		GUILayout.EndVertical();
 	}
@@ -191,7 +225,8 @@ public class POIEditor : MonoBehaviour
 		{
 			_editMCQ = ScriptableObject.CreateInstance<MCQ>();
 			_poi_man._csvSerial._mcqs.Insert(_poi_man._mcqs.Count, _editMCQ);
-			_editPOIId = _poi_man._mcqs.Count - 1;
+			_poi_man._mcqs[_poi_man._mcqs.Count - 1]._serialID = _poi_man._mcqs.Count - 1;
+			_editMCQID = _poi_man._mcqs.Count - 1;
 			_mcqEditor = Editor.CreateEditor(_editMCQ);
 			return;
 		}

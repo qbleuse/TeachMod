@@ -7,20 +7,6 @@ using UnityEngine;
  * the info of the important moments of the video. */
 public class POI : MonoBehaviour, IComparable<POI>
 {
-	/* an enum to base if the point is wanted 
-	 * or not in this situation */
-	public enum Alignment
-	{
-		UNKNOWN,
-		GOOD,
-		BAD,
-
-		NB
-	}
-
-	/*==== STATE ====*/
-	[HideInInspector] public Alignment _userJudgement = Alignment.GOOD;
-
 	/*==== SETTINGS ====*/
 	/* says what sequence it is suppose to appear */
 	[SerializeField]			public int				_sequence		= 0;
@@ -28,15 +14,10 @@ public class POI : MonoBehaviour, IComparable<POI>
 	[SerializeField]			public float			_timestamp		= 0.0f;
 	/* the timestamp when the poi ends acting */
 	[SerializeField]			public float			_endTimestamp	= 0.0f;
-	/* to know if it is good or not */
-	[SerializeField]			private Alignment		_fitting		= Alignment.UNKNOWN;
 	/* to know if we ask the MCQ when this SM is being clicked on */
 	[SerializeField]			public bool				_askOnHit		= false;
 	/* the index of the MCQ associated with this POI */
-	[SerializeField]			public MCQ				_mcq			= null;
-
-	/*==== ACCESSOR ====*/
-	public Alignment _POI_Fitting { get { return _fitting; } }
+	[HideInInspector]			public MCQ				_mcq			= null;
 
 	/*==== EVENTS ====*/
 	private event Action _onHitEvent;
@@ -74,12 +55,12 @@ public class POI : MonoBehaviour, IComparable<POI>
 		if (_askOnHit)
 		{
 			_onHitEvent += VideoController.Instance.PauseAndResume;
+			_onHitEvent += SetQuestion;
 			_onHitEvent += StopAllCoroutines;
 			MCQ_Manager.Instance._OnSubmitEvent += PutToSleep;
 		}
 		else
 		{
-			_onHitEvent += VideoController.Instance.PauseAndResume;
 			_onHitEvent += PutToSleep;
 		}
 	}

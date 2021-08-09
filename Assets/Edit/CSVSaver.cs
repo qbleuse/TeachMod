@@ -57,7 +57,7 @@ public class CSVSaver
 
 		for (int i = 0; i < serial_._pois.Count; i++)
 		{
-			stringBuilder.Append(serial_._pois[i]._sequence);										stringBuilder.Append(_sepChar);
+			stringBuilder.Append(serial_._pois[i]._sequence + 1);									stringBuilder.Append(_sepChar);
 			stringBuilder.AppendFormat(_culture, "{0}", serial_._pois[i]._timestamp);				stringBuilder.Append(_sepChar);
 			stringBuilder.AppendFormat(_culture,"{0}",serial_._pois[i]._endTimestamp);				stringBuilder.Append(_sepChar);
 			stringBuilder.Append(serial_._pois[i]._askOnHit);										stringBuilder.Append(_sepChar);
@@ -109,7 +109,7 @@ public class CSVSaver
 		stringBuilder.Append("timestamp");		stringBuilder.Append("\n");
 
 
-		for (int i = 0; i < serial_._pois.Count; i++)
+		for (int i = 0; i < serial_._mcqs.Count; i++)
 		{
 			/* question tends to be multiline, in those case the format of csv needs it to be surrounded by quotation marks (") */
 			stringBuilder.Append("\""); stringBuilder.Append(serial_._mcqs[i]._question); stringBuilder.Append("\""); stringBuilder.Append(_sepChar);
@@ -127,7 +127,7 @@ public class CSVSaver
 
 			stringBuilder.Append(serial_._mcqs[i]._pause); stringBuilder.Append(_sepChar);
 			if (serial_._mcqs[i]._pause)
-				stringBuilder.Append(serial_._mcqs[i]._sequence);
+				stringBuilder.Append(serial_._mcqs[i]._sequence+1);
 			stringBuilder.Append(_sepChar);
 			if (serial_._mcqs[i]._pause)
 				stringBuilder.AppendFormat(_culture, "{0}", serial_._mcqs[i]._timestamp);

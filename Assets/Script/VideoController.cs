@@ -10,7 +10,7 @@ public class VideoController : MonoBehaviour
 	static public VideoController Instance = null;
 	
 	/*==== STATE ====*/
-	public int _currentVideoIndex = 0;
+	[HideInInspector] public int _currentVideoIndex = -1;
 	private Camera _mainCam = null;
 
 	/*==== SETTINGS ====*/
@@ -48,6 +48,8 @@ public class VideoController : MonoBehaviour
 
 	public void SetSequence()
 	{
+		_currentVideoIndex++;
+
 		_player.clip	= _sequences[_currentVideoIndex];
 
 		_player.Play();
@@ -71,16 +73,15 @@ public class VideoController : MonoBehaviour
 
 	private void OnMovieFinished(VideoPlayer player)
 	{
-		_currentVideoIndex++;
 
-		if (_currentVideoIndex >= _sequences.Count)
+
+		if ((_currentVideoIndex + 1) >= _sequences.Count)
 		{
 			EndMenu.Instance.WakeUp();
 			return;
 		}
 
 		LevelManager.Instance.StartCoroutine(LevelManager.Instance.FadeRestart(SetSequence));
-
 	}
 
 	// Update is called once per frame

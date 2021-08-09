@@ -88,7 +88,6 @@ public class POI_Manager : MonoBehaviour
 
 	public void SetMCQ(MCQ mcq_)
 	{
-
 		if (!MCQ_Manager.Instance.SetMCQ(mcq_))
 		{
 			VideoController.Instance.PauseAndResume();

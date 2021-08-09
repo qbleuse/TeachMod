@@ -22,7 +22,7 @@ public class CSVSerializer : ScriptableObject
 	public List<POI>		_pois		= null;
 	public List<MCQ>		_mcqs		= null;
 	[HideInInspector] public List<string>	_comments	= null;
-	public	Transform		_targetScene = null;
+	[HideInInspector] public Transform		_targetScene = null;
 
 	public void Load()
     {

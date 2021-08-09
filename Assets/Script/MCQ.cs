@@ -30,7 +30,7 @@ public class MCQ : ScriptableObject, IComparable<MCQ>
 
     /* the numbers that corrsponds to the right answers, beginning from 0.
      * in the above example, there is only one, it is 2 for C */
-    [HideInInspector] public List<int> _rightAnswerNb = null;
+    [HideInInspector] public List<int> _rightAnswerNb = new List<int>();
 
     /* is the mcq an mcq where only one answer is allowed */
     public bool _singleAnswer = false;

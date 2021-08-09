@@ -127,7 +127,7 @@ public class CSVLoader
 
 			int mcqId = -1;
 			/* get mcq ref if have one */
-			if (int.TryParse(values[7], out mcqId) && mcqId < serializer_._mcqs.Count)
+			if (int.TryParse(values[7], out mcqId) && (mcqId - 2) < serializer_._mcqs.Count)
 				newPoi._mcq = serializer_._mcqs[mcqId - 2];
 
 			newPoi.transform.rotation = Quaternion.Euler(pitch, yaw, 0.0f);
@@ -195,7 +195,7 @@ public class CSVLoader
 					float.TryParse(values[6], _style, _culture, out newMCQ._timestamp);
 				}
 
-				newMCQ._serialID = i + 1;
+				newMCQ._serialID = i;
 			}
 
 			serializer_._mcqs.Insert(i, newMCQ);

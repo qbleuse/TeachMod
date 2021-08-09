@@ -1,16 +1,32 @@
-question;nb de réponse;réponse unique;bonne réponse(s);pause;sequence;timestamp
+question;answer nb;single answer;good answers;pause;sequence;timestamp
 "Citer les attitudes qu'il faut essayer d'éviter au moment de l'accueil d'un patient et de sa famille.
 A: prendre un appel téléphonique 
 B: discuter avec ses collègues 
 C: preparer le dossier informatique du patient 
 D: lui demander son nom 
-E: s'occuper de soi";5;false;A/B/E;;;
+E: s'occuper de soi";5;False;A/B/E;False;;
 "Durant le traitement et la saisie des informations concernant la consultation faut il:
 A: répondre aux questions éventuelles du patient ou de sa famille 
 B: si besoin expliquer le processus en cours
- C: ne pas impliquer du tout le patient et sa famille";3;false;A/B;;;
+ C: ne pas impliquer du tout le patient et sa famille";3;False;A/B;False;;
 "l'orientation et l'aide à la mobilité du patient vers la salle d'attente ou le bureau de la consultation peut se faire: 
 A: en accompagnant le patient 
 B: en lui montrant la direction
 C: en lui donnant un plan de l'hôpital
-D: en lui proposant une chaise roulante";4;false;A/B/D;true;1;73
+D: en lui proposant une chaise roulante";4;False;A/B/D;True;1;73
+"la présence d’un accompagnant est: 
+A - utile pour donner des informations sur le contexte de la consultation
+B - pour s’occuper des formalités administratives 
+C - inutile et dévalorisante pour le patient
+D - l’accompagnant doit être exclusivement un membre de la famille du patient
+";4;False;A/B;False;;
+"le clinicien doit: 
+A - se présenter au patient
+B - se présenter au patient et à l’accompagnant
+C - continuer ce qu’il est en train de faire";3;False;A/B;False;;
+"Quelles sont les bonnes réponses?
+A - faire entrer en même temps patient et accompagnant est une erreur
+B - il peut être utile de faire entrer en même temps patient et accompagnant
+C - Ce n’est pas le clinicien qui décide
+D - Le clinicien peut accepter de voir en aparté l’accompagnant si celui ci le demande
+E- Le clinicien peut proposer de voir d’abord le patient puis l’accompagnant";5;False;B/D/E;True;2;38

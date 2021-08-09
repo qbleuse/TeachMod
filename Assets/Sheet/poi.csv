@@ -1,3 +1,5 @@
-sequence;timestamp;timestamp de fin;question au clique;yaw;pitch;size;mcq id
-1;9;13;true;-77,5;5;0,025;2
-1;27;35;true;-85;0;0,06;3
+sequence;timestamp;end timestamp;ask On Hit;Yaw;Pitch;Size;mcq Id
+1;9;13;True;282,5;5;0,025;2
+1;27;35;True;275;0;0,06;3
+2;4;8;True;242;4;0,058;5
+2;12;20;True;323;7,999999;0,119;6

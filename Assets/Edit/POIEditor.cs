@@ -16,8 +16,8 @@ public class POIEditor : MonoBehaviour
 	[SerializeField]			POI		_editPOI		= null;
 	[SerializeField]			MCQ		_editMCQ		= null;
 
-	int _editPOIId = 0;
-	int _editMCQID = 0;
+	int _editPOIId = 1;
+	int _editMCQID = 1;
 
 	GUILayoutOption _buttonWidth	= GUILayout.Width(30f);
 	GUILayoutOption _labelWidth		= GUILayout.Width(50f);
@@ -44,9 +44,9 @@ public class POIEditor : MonoBehaviour
 
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("POI NB: ",EditorStyles.miniLabel, _labelWidth);
-		int newId = EditorGUILayout.IntSlider(_editPOIId, 0, Mathf.Max(_poi_man._pois.Count - 1,0));
+		int newId = EditorGUILayout.IntSlider(_editPOIId, 1, Mathf.Max(_poi_man._pois.Count,1));
 
-		if (newId != _editPOIId)
+		if (newId != _editPOIId && _poi_man._pois.Count > 0)
 		{
 			_editPOIId = newId;
 			SetPOI();
@@ -61,9 +61,9 @@ public class POIEditor : MonoBehaviour
 
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("MCQ NB: ", EditorStyles.miniLabel, _labelWidth);
-		newId = EditorGUILayout.IntSlider(_editMCQID, 0, Mathf.Max(_poi_man._mcqs.Count - 1,0));
+		newId = EditorGUILayout.IntSlider(_editMCQID, 1, Mathf.Max(_poi_man._mcqs.Count,1));
 
-		if (newId != _editMCQID)
+		if (newId != _editMCQID && _poi_man._mcqs.Count > 0)
 		{
 			_editMCQID = newId;
 			SetMCQ();
@@ -94,6 +94,7 @@ public class POIEditor : MonoBehaviour
 		GUILayout.BeginVertical();
 		if (_editPOI)
 		{
+			_editPOI._sequence++;
 			/* changing size */
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("Size:", EditorStyles.miniLabel, _labelWidth);
@@ -122,7 +123,12 @@ public class POIEditor : MonoBehaviour
 
 			/* POI real thing */
 			_poiEditor.OnInspectorGUI();
-			_editComment = EditorGUILayout.TextArea(_editComment);
+
+			int mcq_nb		= EditorGUILayout.IntField(_editPOI._mcq ? (_editPOI._mcq._serialID+1) : -1);
+			_editPOI._mcq	= mcq_nb > 0  && mcq_nb <= _poi_man._mcqs.Count ? _poi_man._mcqs[mcq_nb - 1] : null;
+
+			_editComment	= EditorGUILayout.TextArea(_editComment);
+			_editPOI._sequence--;
 		}
 		GUILayout.EndVertical();
 	}
@@ -133,6 +139,7 @@ public class POIEditor : MonoBehaviour
 		GUILayout.BeginVertical();
 		if (_editMCQ)
 		{
+			_editMCQ._sequence++;
 			_mcqEditor.OnInspectorGUI();
 
 			bool visible = false;
@@ -168,6 +175,8 @@ public class POIEditor : MonoBehaviour
 				}
 				EditorGUI.indentLevel -= 2;
 			}
+
+			_editMCQ._sequence--;
 		}
 		GUILayout.EndVertical();
 	}
@@ -177,7 +186,7 @@ public class POIEditor : MonoBehaviour
 		if (_poi_man._csvSerial)
 		{
 			_poi_man._csvSerial.InstantiatePOI(_poi_man._pois.Count );
-			_editPOIId = _poi_man._pois.Count - 1;
+			_editPOIId = _poi_man._pois.Count;
 			SetPOI();
 			return;
 		}
@@ -191,7 +200,7 @@ public class POIEditor : MonoBehaviour
 		if (_editPOI)
 			_editPOI.PutToSleep();
 
-		_editPOI	= _poi_man._pois[_editPOIId];
+		_editPOI	= _poi_man._pois[_editPOIId - 1];
 		_editPOI.gameObject.SetActive(true);
 
 		_size		= _editPOI.transform.localScale.x;
@@ -205,7 +214,7 @@ public class POIEditor : MonoBehaviour
 	{
 		if (_poi_man._csvSerial)
 		{
-			_poi_man._pois.RemoveAt(_editPOIId);
+			_poi_man._pois.RemoveAt(_editPOIId - 1);
 
 			DestroyImmediate(_editPOI.gameObject);
 			_editPOI = null;
@@ -224,9 +233,9 @@ public class POIEditor : MonoBehaviour
 		if (_poi_man._csvSerial)
 		{
 			_editMCQ = ScriptableObject.CreateInstance<MCQ>();
-			_poi_man._csvSerial._mcqs.Insert(_poi_man._mcqs.Count, _editMCQ);
+			_poi_man._mcqs.Insert(_poi_man._mcqs.Count, _editMCQ);
 			_poi_man._mcqs[_poi_man._mcqs.Count - 1]._serialID = _poi_man._mcqs.Count - 1;
-			_editMCQID = _poi_man._mcqs.Count - 1;
+			_editMCQID = _poi_man._mcqs.Count;
 			_mcqEditor = Editor.CreateEditor(_editMCQ);
 			return;
 		}
@@ -238,7 +247,7 @@ public class POIEditor : MonoBehaviour
 	{
 		if (_poi_man._csvSerial)
 		{
-			_poi_man._mcqs.RemoveAt(_editMCQID);
+			_poi_man._mcqs.RemoveAt(_editMCQID - 1);
 
 			DestroyImmediate(_editMCQ);
 			_editMCQ = null;
@@ -253,7 +262,7 @@ public class POIEditor : MonoBehaviour
 
 	public void SetMCQ()
 	{
-		_editMCQ = _poi_man._mcqs[_editMCQID];
+		_editMCQ = _poi_man._mcqs[_editMCQID - 1];
 
 		_mcqEditor = Editor.CreateEditor(_editMCQ);
 	}

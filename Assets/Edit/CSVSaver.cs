@@ -18,7 +18,7 @@ public class CSVSaver
 		SaveMCQ(serial_);
 	}
 
-	private void SavePOI(CSVSerializer serial_)
+	public void SavePOI(CSVSerializer serial_)
 	{
 		/* erasing the entire content of the file */
 		using (FileStream fStream = new FileStream(Application.dataPath + '/' + serial_._poiList, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
@@ -72,7 +72,7 @@ public class CSVSaver
 		_content = stringBuilder.ToString();
 	}
 
-	private void SaveMCQ(CSVSerializer serial_)
+	public void SaveMCQ(CSVSerializer serial_)
 	{
 		/* erasing the entire content of the file */
 		using (FileStream fStream = new FileStream(Application.dataPath + '/' + serial_._mcqList, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))

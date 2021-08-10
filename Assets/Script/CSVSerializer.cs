@@ -33,11 +33,33 @@ public class CSVSerializer : ScriptableObject
 			GetPrefab();
         }
 
-		loader.LoadFile(_mcqList);
-		loader.PopulateMCQ(this);
+		if (_mcqList.Length > 1)
+		{
+			if (File.Exists(Application.dataPath + '/' + _mcqList))
+			{
+				loader.LoadFile(_mcqList);
+				loader.PopulateMCQ(this);
+			}
+			else
+            {
+				CSVSaver saver = new CSVSaver();
+				saver.SaveMCQ(this);
+            }
+		}
 
-		loader.LoadFile(_poiList);
-		loader.PopulatePOI(this);
+		if (_poiList.Length > 1)
+		{
+			if (File.Exists(Application.dataPath + '/' + _poiList))
+			{
+				loader.LoadFile(_poiList);
+				loader.PopulatePOI(this);
+			}
+			else
+            {
+				CSVSaver saver = new CSVSaver();
+				saver.SavePOI(this);
+			}
+		}
 	}
 
 	public void Clear()

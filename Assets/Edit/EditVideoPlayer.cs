@@ -30,7 +30,7 @@ public class EditVideoPlayer : MonoBehaviour
 		/* getting and setting the components */
 		_player = GetComponent<VideoPlayer>();
 		_audio  = GetComponent<AudioSource>();
-		_player.SetTargetAudioSource(0, _audio);
+		_player.SetTargetAudioSource(1, _audio);
 	}
 
 	// Update is called once per frame

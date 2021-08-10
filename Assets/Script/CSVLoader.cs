@@ -95,6 +95,9 @@ public class CSVLoader
 	 * So populate your mcq before and do not sort them. */
 	public void PopulatePOI(CSVSerializer serializer_)
 	{
+		if (_lines.Count <= 0)
+			return;
+
 		float yaw = 0;
 		float pitch = 0;
 		float size = 0.0f;
@@ -124,20 +127,22 @@ public class CSVLoader
 			float.TryParse(values[5], _style, _culture, out pitch);
 			float.TryParse(values[6], _style, _culture, out size);
 
+			newPoi.transform.rotation = Quaternion.Euler(pitch, yaw, 0.0f);
+			newPoi.transform.localScale = new Vector3(size, size, 1.0f);
 
 			int mcqId = -1;
 			/* get mcq ref if have one */
 			if (int.TryParse(values[7], out mcqId) && (mcqId - 2) < serializer_._mcqs.Count)
 				newPoi._mcq = serializer_._mcqs[mcqId - 2];
-
-			newPoi.transform.rotation = Quaternion.Euler(pitch, yaw, 0.0f);
-			newPoi.transform.localScale = new Vector3(size, size, 1.0f);
 		}
 	}
 
 	/* create and fill the serializer's array of MCQ. */
 	public void PopulateMCQ(CSVSerializer serializer_)
 	{
+		if (_lines.Count <= 0)
+			return;
+
 		serializer_._mcqs = new List<MCQ>(_lines.Count - 1);
 
 		for (int i = 0; i < _lines.Count; i++)

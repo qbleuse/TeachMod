@@ -132,8 +132,10 @@ public class CSVEditor : EditorWindow
 				_poi_man._pois[i].PutToSleep();
             }
 
-			_poiEditor.SetPOI();
-			_poiEditor.SetMCQ();
+			if (serializer_._pois.Count > 0)
+				_poiEditor.SetPOI();
+			if (serializer_._mcqs.Count > 0)
+				_poiEditor.SetMCQ();
 		}
 		else if (serializer_ == null && _editSave)
 		{

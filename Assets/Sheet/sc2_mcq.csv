@@ -1,0 +1,72 @@
+question;answer nb;single answer;good answers;pause;sequence;timestamp
+"citer les attitudes qu’il faut essayer d’éviter au moment de l’accueil d’un patient:
+A - laisser un écran noir
+B - avoir la caméra vidéo ouverte mais ne pas regarder l’écran
+C - avoir son micro ouvert
+D - ne pas se
+présenter
+E - faire autre chose dans son bureau";5;False;A/B/D/E;False;;
+"quels sont les informations ou conseils à fournir au patient pour bien préparer
+l’entretien: 
+A - Poser systématiquement la question pour savoir si la personne est à l’aise avec le système
+B - donner son adresse facebook
+C - expliquer comment ouvrir la caméra
+D - expliquer comment ouvrir et fermer le microphone";4;False;A/C/D;False;;
+"Faut-il arrêter la conversation immédiatement?
+A - OUI 
+B - NON";2;True;B;True;2;21,36
+"lors d’une premiere consultation il est important que le clinicien récupère des informations sur les caractéristiques sociales et démographiques du patient:
+A - OUI
+B - NON";2;True;A;True;2;48,6
+"Est il important de faire le lien entre l’histoire médicale du patient et la cause de la consultation?
+A - OUI
+B - NON";2;True;A;True;3;8
+"Est-il possible d’interrompre une consultation ?
+A - OUI
+B - NON";2;True;A;False;;
+"Faut-il régler le problème technique ? 
+A - OUI
+B - NON";2;True;A;False;;
+"La conduite d’un entretien doit si possible suivre le déroulement suivant: d’abord un entretien non directif ou semi directif (questions générales et peu nombreuses) puis ensuite entretien directif (questions précises, nombreuses avec une demande de réponses courtes) 
+A - OUI
+B - NON";2;True;A;True;4;91,24
+"Les questions sur les activités de vie quotidienne peuvent concerner: 
+A - la capacité à téléphoner
+B - à utiliser les moyens de transport
+C - à prendre des médicaments
+D -à gérer son argent";4;False;A/B/C/D;True;4;102
+"Faut-il limiter ce type d’activité en double tache quand vous êtes en teleconsultation ?
+A - OUI
+B - NON";2;True;A;False;;
+"Est il important d’expliquer au patient le pourquoi de cette évaluation ?
+A - OUI
+B - NON";2;True;A;False;;
+"Est-il utile d’informer le patient que pour le bilan il faudrait être au calme?
+A -OUI
+B - NON";2;True;A;False;;
+"Faut-il expliquer et demander au patient de faire un essai avant de commencer le bilan?
+A - OUI 
+B - NON";2;True;A;True;6;35,4
+"En cas d’erreur faut il dire au patient qu’il c’est trompé et lui faire apprendre la bonne réponse? 
+A -OUI
+B - NON";2;True;B;False;;
+"L’évaluation des cognitions est-elle uniquement centrée sur la mémoire ? 
+A - OUI
+B - NON";2;True;B;True;6;92
+"Au cours de la réalisation d’une épreuve de langage, faut-il toujours arrêter le patient quand il se trompe ?
+A -OUI
+B - NON";2;True;B;True;7;40,8
+"Faut-il faire une réglage technique (position du patient) avant de commencer le test ?
+A - OUI
+B - NON";2;True;A;True;8;24
+"Dans ce cas, faut-il rappeler la consigne ? 
+A - OUI
+B - NON";2;True;A;True;8;63
+"Faut-il poser des questions sur la façon dont le patient à vécu le bilan?
+A - OUI
+B - NON";2;True;A;True;9;12,72
+"À la fin du bilan faut-il donner les résultats des tests:
+A - immédiatement
+B - attendre sans plus d’explication
+C - s’adapter à la situation
+D - proposer un autre rendez en commençant par donner quelques conseils";4;False;A/C/D;True;9;53

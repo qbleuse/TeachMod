@@ -71,7 +71,8 @@ public class POI_Manager : MonoBehaviour
 		while (_mcqIndex < _mcqs.Count)
 		{
 			if (_mcqs[_mcqIndex]._sequence == VideoController.Instance._currentVideoIndex
-				&& _mcqs[_mcqIndex]._timestamp < VideoController.Instance.GetVideoTimeStamp())
+				&& _mcqs[_mcqIndex]._timestamp < VideoController.Instance.GetVideoTimeStamp()
+				&& MCQ_Manager.Instance.IsEmpty())
 			{
 				_mcqIndex++;
 				if (!_mcqs[_mcqIndex - 1]._pause)

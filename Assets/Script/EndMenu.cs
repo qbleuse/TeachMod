@@ -194,7 +194,10 @@ Search:
 		/* we found one that can be ok, we check if it is applicable,
 		 if it is not we go to search for one that works */
 		if (!MCQ_Manager.Instance.SetMCQ(_currMCQ))
+		{
+			_currQuestNb++;
 			goto Search;
+		}
 	}
 
 	/* method that append the score to the string of the text score "_scoreText"*/

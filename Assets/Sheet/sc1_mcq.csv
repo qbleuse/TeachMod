@@ -38,13 +38,14 @@ B - NON
 A - Il est important d’avoir des informations sur ce qui s’est passé depuis la consultation précédente
 B - Si le patient n’en parle pas spontanément le clinicien doit poser la question
 C - C’est seulement le patient qui peut prendre cette initiative
-D - En l’absence de réponse du patient l’accompagnant peut prendre la parole";3;False;A/B/D;True;3;23,4
+D - En l’absence de réponse du patient l’accompagnant peut prendre la parole
+";3;False;A/B/D;True;3;23,4
 "Faut il que l’accompagnant assiste à l’ensemble de la consultation?
 A - OUI
 B - NON";2;True;B;True;3;49
 "La recherche des signes/symptômes qui ont conduit à la consultation (ici le langage) doit être systématiquement posée lors de la consultation ?
 A - OUI
-B - NON";0;True;A;True;4;12,28
+B - NON";2;True;A;True;4;12,28
 "L’évaluation du langage comporte:
 A - L’écoute de l’expression spontanée du patient
 B - La recherche systématique de la connaissance des mots désignant un objet de la vie quotidienne
@@ -62,7 +63,8 @@ B - présente une confusion
 C - présente de l’anxiété";3;False;A;True;5;21
 "est ce qu’il faut, dans cette partie de l’entretien, demander au patient de répondre très brièvement par oui ou non  ? 
 A - OUI
-B - NON";2;True;B;True;5;54
+B - NON
+";2;True;B;True;5;54
 "Est ce que l’avis de l’accompagnant est utile pour cette question ?
 A - OUI
 B - NON";2;True;A;True;5;82
@@ -70,7 +72,8 @@ B - NON";2;True;A;True;5;82
 A - le bilan maintenant sans laisser de repos au patient
 B - proposer un nouveau rendez vous
 C - demander au patient ce qu’il en pense
-D - prendre directement le rdv sur l’ordinateur sans informer le patient";4;False;B/C;True;6;5,16
+D - prendre directement le rdv sur l’ordinateur sans informer le patient
+";4;False;B/C;True;6;5,16
 "Faut-il faire attention aux questions de dernière minute ?
 A - OUI
 B -NON";2;True;A;False;;

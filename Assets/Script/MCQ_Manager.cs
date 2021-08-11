@@ -27,9 +27,9 @@ public class MCQ_Manager : MonoBehaviour
 	Player			_player = null;
 	AnimationCam	_anim	= null;
 
-
-
 	public event Action _OnSubmitEvent;
+
+	public bool IsEmpty() { return _currMCQ == null; }
 
     private void Awake()
     {
@@ -267,11 +267,12 @@ public class MCQ_Manager : MonoBehaviour
 		}
 
 		ClearState();
-		_OnSubmitEvent?.Invoke();
 		gameObject.SetActive(false);
 
 		/* reenabling user input */
 		_camera.enabled = true;
 		_player.enabled = true;
+
+		_OnSubmitEvent?.Invoke();
 	}
 }

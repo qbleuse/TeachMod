@@ -175,6 +175,8 @@ public class CSVLoader
 					values[3].ToUpper();
 					newMCQ._rightAnswerNb = new List<int>(1);
 					newMCQ._rightAnswerNb.Add(values[3][0] - 'A');
+
+					newMCQ._answerNb = 2;
 				}
 				else
 				{

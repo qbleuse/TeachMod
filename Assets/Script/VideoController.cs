@@ -73,8 +73,6 @@ public class VideoController : MonoBehaviour
 
 	private void OnMovieFinished(VideoPlayer player)
 	{
-
-
 		if ((_currentVideoIndex + 1) >= _sequences.Count)
 		{
 			EndMenu.Instance.WakeUp();

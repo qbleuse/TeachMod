@@ -52,7 +52,7 @@ public class CSVSaver
 		stringBuilder.Append("Yaw");			stringBuilder.Append(_sepChar);
 		stringBuilder.Append("Pitch");			stringBuilder.Append(_sepChar);
 		stringBuilder.Append("Size");			stringBuilder.Append(_sepChar);
-		stringBuilder.Append("mcq Id");			stringBuilder.Append("\n");
+		stringBuilder.Append("mcq Id");			stringBuilder.AppendLine();
 
 
 		for (int i = 0; i < serial_._pois.Count; i++)
@@ -66,7 +66,7 @@ public class CSVSaver
 			stringBuilder.AppendFormat(_culture,"{0}",serial_._pois[i].transform.localScale.x);		stringBuilder.Append(_sepChar);
 			if (serial_._pois[i]._mcq)
 				stringBuilder.Append(serial_._pois[i]._mcq._serialID + 2); 
-			stringBuilder.Append("\n");
+			stringBuilder.AppendLine();
 		}
 
 		_content = stringBuilder.ToString();
@@ -106,7 +106,8 @@ public class CSVSaver
 		stringBuilder.Append("good answers");	stringBuilder.Append(_sepChar);
 		stringBuilder.Append("pause");			stringBuilder.Append(_sepChar);
 		stringBuilder.Append("sequence");		stringBuilder.Append(_sepChar);
-		stringBuilder.Append("timestamp");		stringBuilder.Append("\n");
+		stringBuilder.Append("timestamp");		stringBuilder.Append(_sepChar);
+		stringBuilder.Append("comment");		stringBuilder.AppendLine();
 
 
 		for (int i = 0; i < serial_._mcqs.Count; i++)
@@ -131,7 +132,13 @@ public class CSVSaver
 			stringBuilder.Append(_sepChar);
 			if (serial_._mcqs[i]._pause)
 				stringBuilder.AppendFormat(_culture, "{0}", serial_._mcqs[i]._timestamp);
-			stringBuilder.Append("\n");
+			stringBuilder.Append(_sepChar);
+
+			if (serial_._mcqs[i]._comment != null && serial_._mcqs[i]._comment.Length > 0)
+            {
+				stringBuilder.Append("\""); stringBuilder.Append(serial_._mcqs[i]._comment); stringBuilder.Append("\"");
+			}
+			stringBuilder.AppendLine();
 		}
 
 		_content = stringBuilder.ToString();

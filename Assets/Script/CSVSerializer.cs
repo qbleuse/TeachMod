@@ -21,7 +21,6 @@ public class CSVSerializer : ScriptableObject
 	/*==== STATE ====*/
 	public List<POI>		_pois		= null;
 	public List<MCQ>		_mcqs		= null;
-	[HideInInspector] public List<string>	_comments	= null;
 	[HideInInspector] public Transform		_targetScene = null;
 
 	public void Load()
@@ -64,9 +63,13 @@ public class CSVSerializer : ScriptableObject
 
 	public void Clear()
 	{
+
+		for (int i = 0; i < _pois.Count; i++)
+        {
+			DestroyImmediate(_pois[i].gameObject);
+        }
 		_pois.Clear();
 		_mcqs.Clear();
-		_comments.Clear();
 	}
 
 	public POI InstantiatePOI(int i_)

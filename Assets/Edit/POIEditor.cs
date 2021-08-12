@@ -12,7 +12,6 @@ public class POIEditor : MonoBehaviour
 	Editor _poiEditor = null;
 	Editor _mcqEditor = null;
 
-	[SerializeField, Multiline] string	_editComment	= null;
 	[SerializeField]			POI		_editPOI		= null;
 	[SerializeField]			MCQ		_editMCQ		= null;
 
@@ -25,6 +24,12 @@ public class POIEditor : MonoBehaviour
 	public float _yaw	= 0.0f;
 	public float _pitch = 0.0f;
 	public float _size	= 0.0f;
+
+	public void Clear()
+    {
+		_editPOI = null;
+		_editMCQ = null;
+    }
 
 	public void OnInspectorGUI()
 	{
@@ -126,8 +131,6 @@ public class POIEditor : MonoBehaviour
 
 			int mcq_nb		= EditorGUILayout.IntField(_editPOI._mcq ? (_editPOI._mcq._serialID+1) : -1);
 			_editPOI._mcq	= mcq_nb > 0  && mcq_nb <= _poi_man._mcqs.Count ? _poi_man._mcqs[mcq_nb - 1] : null;
-
-			_editComment	= EditorGUILayout.TextArea(_editComment);
 			_editPOI._sequence--;
 		}
 		GUILayout.EndVertical();

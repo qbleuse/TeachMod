@@ -52,6 +52,7 @@ public class CSVEditor : EditorWindow
 
 	private void OnDestroy()
 	{
+		_poiEditor.Clear();
 		EditorSceneManager.CloseScene(_editScene, true);
 	}
 
@@ -115,8 +116,11 @@ public class CSVEditor : EditorWindow
 
 	private void OnSaveGUI(ref CSVSerializer serializer_)
 	{
-		if (serializer_ != null && _editSave == null)
+		if (serializer_ != _editSave)
 		{
+			if (_editSave)
+				_editSave.Clear();
+
 			_editSave = serializer_;
 			_editSave._targetScene = _poi_man.transform;
 			_editSave.Load();
@@ -125,7 +129,6 @@ public class CSVEditor : EditorWindow
 
 			_poi_man._pois = _editSave._pois;
 			_poi_man._mcqs = _editSave._mcqs;
-			_poi_man._comments = _editSave._comments;
 
 			for (int i = 0;  i < _poi_man._pois.Count; i++)
             {
@@ -139,8 +142,10 @@ public class CSVEditor : EditorWindow
 		}
 		else if (serializer_ == null && _editSave)
 		{
+			_poiEditor.Clear();
 			_poi_man._csvSerial = null;
 			_editSave.Clear();
+			_editSave = null;
 		}
 	}
 

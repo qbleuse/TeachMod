@@ -42,21 +42,31 @@ public class CSVLoader
 				/* beginning of a multiline text */
 				if (hasMulSep && !mulLineText)
 				{
-					mulLineText = true;
+					
+					int count = line.Split('"').Length - 1;
+					if (count % 2 == 1)
+                    {
+						mulLineText = true;
+					}
 					strBuilder.Append(line);
 				}/* in a multi line text */
 				else if (!hasMulSep && mulLineText)
 				{
-					strBuilder.Append("\n");
+					strBuilder.AppendLine();
 					strBuilder.Append(line);
 				}/* the end of a multiline text */
 				else if (hasMulSep && mulLineText)
 				{
-					strBuilder.Append("\n");
+					strBuilder.AppendLine();
 					strBuilder.Append(line);
-					_lines.Add(strBuilder.ToString());
-					strBuilder.Clear();
-					mulLineText = false;
+
+					int count = line.Split('"').Length - 1;
+					if (count % 2 == 1)
+					{
+						_lines.Add(strBuilder.ToString());
+						strBuilder.Clear();
+						mulLineText = false;
+					}
 				}
 				else/* a normal other line, without a multiline text */
 				{
@@ -200,6 +210,15 @@ public class CSVLoader
 					int.TryParse(values[5], out newMCQ._sequence);
 					newMCQ._sequence -= 1;
 					float.TryParse(values[6], _style, _culture, out newMCQ._timestamp);
+				}
+
+				if (values.Length > 6 && values[7].Length > 0)
+				{
+					/* get the comment in UTF8 */
+					newMCQ._comment = values[7];
+
+					/* removing the "" */
+					newMCQ._comment = newMCQ._comment.Substring(1, newMCQ._comment.Length - 2);
 				}
 
 				newMCQ._serialID = i;

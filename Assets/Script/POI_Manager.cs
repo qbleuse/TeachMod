@@ -12,7 +12,6 @@ public class POI_Manager : MonoBehaviour
 	/*==== STATE ====*/
 	public	List<POI>		_pois		= null;
 	public	List<MCQ>		_mcqs		= null;
-	[HideInInspector] public	List<string>	_comments	= null;
 
 	private	int _mcqIndex = 0;
 	private int _poiIndex = 0;
@@ -31,11 +30,9 @@ public class POI_Manager : MonoBehaviour
 
 			_pois = _csvSerial._pois;
 			_mcqs = _csvSerial._mcqs;
-			_comments = _csvSerial._comments;
 
 			_csvSerial._pois = null;
 			_csvSerial._mcqs = null;
-			_csvSerial._comments = null;
 
 			_pois.Sort();
 			_mcqs.Sort();

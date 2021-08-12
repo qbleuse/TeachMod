@@ -94,17 +94,17 @@ public class EndMenu : MonoBehaviour
 	private void FillComment()
 	{
 		/* getting the list of the pois */
-		List<string> comments = POI_Manager.Instance._comments;
+		List<MCQ> mcq = POI_Manager.Instance._mcqs;
 
 		/* make the string empty */
 		_commentsText.text = "";
 		StringBuilder stringBuilder = new StringBuilder();
 
-		for (int i = 0; i < comments.Count; i++)
+		for (int i = 0; i < mcq.Count; i++)
 		{
-			if (comments[i] != null && comments[i].Length > 0)
+			if (mcq[i] != null && mcq[i]._comment.Length > 0)
 			{
-				stringBuilder.Append(comments[i]);
+				stringBuilder.Append(mcq[i]._comment);
 				stringBuilder.AppendLine();
 				stringBuilder.AppendLine();
 			}

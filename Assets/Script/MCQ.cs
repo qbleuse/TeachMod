@@ -41,6 +41,8 @@ public class MCQ : ScriptableObject, IComparable<MCQ>
     public int _sequence = 0;
     /* when does it pause if it does */
     public float _timestamp = 0.0f;
+    /* additional comment */
+    [TextArea] public string _comment = null;
 
     /*==== STATE ====*/
     [HideInInspector] public int _serialID = -1;

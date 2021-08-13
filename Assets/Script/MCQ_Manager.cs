@@ -246,6 +246,7 @@ public class MCQ_Manager : MonoBehaviour
 		}
 	}
 
+	/* called every time the submit button is pressed */
 	public void OnSubmit()
 	{
 		if (!_currMCQ._answered)

@@ -1,3 +1,4 @@
+using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class EndMenu : MonoBehaviour
 	/*==== STATE ====*/
 	/* we start with the question, it usually corresponds more to the next state 
 	 * we will be in rather than the current one. Look at ChangeState for more precision */
-	private State menuState = State.QUESTION;
+	private State _menuState = State.QUESTION;
 
 	/* the nb in the array of the POI question that is asked right now. */
 	private int		_currQuestNb	= 0;
@@ -86,12 +87,20 @@ public class EndMenu : MonoBehaviour
 		gameObject.SetActive(true);
 		MCQ_Manager.Instance._OnSubmitEvent -= VideoController.Instance.PauseAndResume;
 		MCQ_Manager.Instance._OnSubmitEvent += SetQuestion;
-		SetQuestion();
+
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			_menuState++;
+		}
+
+		ChangeState();
 	}
 
 	/* a method called at startup to fill the _commentsText with the comments of the POIs */
 	private void FillSummary()
 	{
+		string line = null;
+
 		/* getting the list of the pois */
 		List<MCQ> mcq = POI_Manager.Instance._mcqs;
 
@@ -101,11 +110,16 @@ public class EndMenu : MonoBehaviour
 
 		for (int i = 0; i < mcq.Count; i++)
 		{
-			if (mcq[i] != null && mcq[i]._comment.Length > 0)
+			if (mcq[i] != null)
 			{
-				stringBuilder.Append(mcq[i]._comment);
-				stringBuilder.AppendLine();
-				stringBuilder.AppendLine();
+				stringBuilder.Append(mcq[i]._question);
+				stringBuilder.AppendLine(); stringBuilder.AppendLine();
+
+				if (mcq[i]._comment.Length > 0)
+				{
+					stringBuilder.Append(mcq[i]._comment);
+					stringBuilder.AppendLine(); stringBuilder.AppendLine(); stringBuilder.AppendLine();
+				}
 			}
 		}
 
@@ -117,13 +131,13 @@ public class EndMenu : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		
+			
 	}
 
 	/* a method called by the _button to change what is showed by the endMenu */
 	public void ChangeState()
 	{
-		switch(menuState)
+		switch(_menuState)
 		{
 			case State.QUESTION:
 				SetQuestion();
@@ -133,14 +147,14 @@ public class EndMenu : MonoBehaviour
 				_buttonGo.SetActive(true);
 				MCQ_Manager.Instance.gameObject.SetActive(false);
 				_commentSection.SetActive(true);
-				menuState++;
+				_menuState++;
 				break;
 			case State.SCORE:
 				_commentSection.SetActive(false);
 				_scoreSection.SetActive(true);
 				SetScore();
 				_buttonText.text = "Quit";
-				menuState++;
+				_menuState++;
 				break;
 			default:
 				LevelManager.Instance.LoadLevel(0);
@@ -159,7 +173,7 @@ Search:
 		 * so this is possible/intended */
 		if (_currQuestNb >= mcqCount)
 		{
-			menuState++;
+			_menuState++;
 			ChangeState();
 			return;
 		}
@@ -182,7 +196,7 @@ Search:
 
 	/* method that append the score to the string of the text score "_scoreText"*/
 	void SetScore()
-    {
+	{
 		/* append POI found/POI there was */
 		_scoreText[0].text += _POI_Score.ToString() + "/" + POI_Manager.Instance._pois.Count.ToString();
 

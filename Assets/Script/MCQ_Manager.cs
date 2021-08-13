@@ -17,9 +17,10 @@ public class MCQ_Manager : MonoBehaviour
 	/*==== COMPONENT ====*/
 	//private RectTransform   _canvasTrs      = null;
 	private GameObject		_canvas			= null;
-    private Toggle[]        _answers        = null;
-    private RectTransform[] _answersRect    = null;
-    private TextMeshProUGUI	_question       = null;
+	private Toggle[]        _answers        = null;
+	private RectTransform[] _answersRect    = null;
+	private TextMeshProUGUI	_question       = null;
+	private TextMeshProUGUI _comment		= null;
 	private Text			_buttonText		= null;
 
 	/*==== CACHE ====*/
@@ -29,16 +30,20 @@ public class MCQ_Manager : MonoBehaviour
 
 	public event Action _OnSubmitEvent;
 
+	/*==== ACCESSOR ====*/
 	public bool IsEmpty() { return _currMCQ == null; }
 
-    private void Awake()
-    {
+
+	/*==== UNITY METHODS  ====*/
+	private void Awake()
+	{
 		Instance = this;
-    }
+	}
 
 	/* you may want to look at the prefabs associated with this to understand what is being done here */
 	void Start()
-    {
+	{
+		/*==== Camera ====*/
 		/* caching the user input script to disable them */
 		Camera camera = Camera.main;
 		_player = camera.GetComponent<Player>();
@@ -49,44 +54,49 @@ public class MCQ_Manager : MonoBehaviour
 		else
 			_camera = camera.GetComponent<DesktopCam>();
 
+		/*==== Components ====*/
 		/* get the canvas */
-		_canvas = transform.GetChild(0).gameObject;
+		_canvas		= transform.GetChild(0).gameObject;
 
-        /* we need to move them depending on the number of question asked */
-        _answers = GetComponentsInChildren<Toggle>();
+		/* we need to move them depending on the number of question asked */
+		_answers	= GetComponentsInChildren<Toggle>();
+		/* five is the most possible answer it can have (see Prefabs if needed)*/
+		_answersRect = new RectTransform[5];
+		for (int i = 0; i < _answers.Length; i++)
+		{
+			_answersRect[i] = _answers[i].GetComponent<RectTransform>();
+		}
 
-		/* five is the most answer it can have (see Prefabs if needed)*/
-        _answersRect = new RectTransform[5];
+		/* get the text to change the question */
+		_question	= _canvas.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+		/* get the text to change the comment when the submit button is pressed */
+		_comment	= _canvas.transform.GetChild(0).GetChild(6).GetComponent<TextMeshProUGUI>();
+		/* get the submit the text of the submit button */
+		_buttonText = _canvas.transform.GetChild(0).GetChild(7).transform.GetChild(0).GetComponent<Text>();
 
+
+
+		/*==== State ====*/
 		/* used to precompute the answer */
 		_rightAnswerCache = new bool[5];
 
-        for (int i = 0; i < _answers.Length; i++)
-        {
-            _answersRect[i] = _answers[i].GetComponent<RectTransform>();
-        }
-
 		_OnSubmitEvent = VideoController.Instance.PauseAndResume;
-
-		/* get the text to change the question */
-		_question = _canvas.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-
-		_buttonText = _canvas.transform.GetChild(7).transform.GetChild(0).GetComponent<Text>();
 
 		/* don't need it right now */
 		gameObject.SetActive(false);
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-		_answers[2].targetGraphic.material.color = Color.white;
-
+	// Update is called once per frame
+	void Update()
+	{
 	}
+
+
+	/*==== PRIVATE METHODS ====*/
 
 	/* check the answer of the player and return if it has been answered or not */
 	private bool CheckAnswer()
-    {
+	{
 		bool answered		= false;
 		_answeredRightOnce	= false;
 		int answersRight = 0;
@@ -94,65 +104,82 @@ public class MCQ_Manager : MonoBehaviour
 		/* the user can give only from an answer he has been given so depending on _answerNb */
 		for (int i = 0; i < _currMCQ._answerNb; i++)
 		{
+			/* if the user has at least one good answer (it changes how things are displayed) */
 			if (_answers[i].isOn && _rightAnswerCache[i])
-		    {
+			{
 				answered			= true;
 				_answeredRightOnce	= true;
 				answersRight++;
-			}
+			}/* if at least the user chose an answer but was all wrong, we accept it */
 			else if (_answers[i].isOn)
 			{
 				answered = true;
 			}
 		}
 
+		/*if the user pressed the button without having answered anything*/
 		if (!answered)
 			return false;
 
+		/* all answers were right */
 		if (answersRight == _currMCQ._rightAnswerNb.Count)
-        {
+		{
 			EndMenu.Instance._MCQ_Score++;
-        }
+		}
 
 		return true;
-    }
+	}
 
 	private void ShowAnswer()
-    {
+	{
+		/* make the array of color to show the result at the end of the test */
+		_currMCQ._results = new Color[_currMCQ._answerNb];
 		for (int i = 0; i < _currMCQ._answerNb; i++)
 		{
 			if (!_answers[i].isOn && _rightAnswerCache[i] && _answeredRightOnce)
 			{
 				_answers[i].targetGraphic.color = Color.yellow;
+				_currMCQ._results[i] = Color.yellow;
 			}
 			else if (_rightAnswerCache[i])
 			{
 				_answers[i].targetGraphic.color = Color.green;
+				_currMCQ._results[i] = Color.green;
 			}
 			else if (_answers[i].isOn)
 			{
 				_answers[i].targetGraphic.color = Color.red;
+				_currMCQ._results[i] = Color.red;
 			}
-
+			else
+			{
+				_currMCQ._results[i] = Color.white;
+			}
 		}
 	}
 
 	private void ClearState()
-    {
+	{
 		for (int i = 0; i < _answers.Length; i++)
 		{
 			_answers[i].targetGraphic.color = Color.white;
 			_answers[i].isOn = false;
 		}
 
+		_comment.text = null;
 		_buttonText.text = "Submit";
 		_currMCQ = null;
 	}
 
+	/*==== PUBLIC METHODS ====*/
 
-    public bool SetMCQ(MCQ mcq_)
-    {
-		if (mcq_._rightAnswerNb == null)
+	/* take the MCQ, check if it can be used and set as the current one if it is*/
+	public bool SetMCQ(MCQ mcq_)
+	{
+		if (mcq_ == null
+			|| mcq_._rightAnswerNb == null 
+			|| mcq_._answerNb < 2 
+			|| mcq_._answerNb > 5)
 			return false;
 
 
@@ -166,62 +193,29 @@ public class MCQ_Manager : MonoBehaviour
 		/* get back state to answer question */
 		_currMCQ = mcq_;
 
-		/* we move the toggle depending on the number of answer the question has.
-		 * we could theoratically do an infinite number but realistically, such question will not appear.
-		 * 5 has been chosen to be the most we'll get, and we do it by hand (it will be faster this way).*/
-		switch (_currMCQ._answerNb)
+		/* we move and enable toggles depending on the number of answer the question has.
+		 * there is min 2 answer and max 5, hence the following bounds. */
+		for (int i = 2; i <  mcq_._answerNb; i++)
+        {
+			_answersRect[i].gameObject.SetActive(true);
+		}
+		for (int i = mcq_._answerNb; i < 5; i++)
 		{
-			case 2:
-				/* no need for C, D and E so disable them */
-				_answersRect[2].gameObject.SetActive(false);
-				_answersRect[3].gameObject.SetActive(false);
-				_answersRect[4].gameObject.SetActive(false);
-				break;
-			case 3:
-				/* need for C, not D and E */
-				_answersRect[2].gameObject.SetActive(true);
-				_answersRect[3].gameObject.SetActive(false);
-				_answersRect[4].gameObject.SetActive(false);
-
-				break;
-			case 4:
-				/* need for C and D, not E*/
-				_answersRect[2].gameObject.SetActive(true);
-				_answersRect[3].gameObject.SetActive(true);
-				_answersRect[4].gameObject.SetActive(false);
-
-				break;
-			case 5:
-				/* need for C and D */
-				_answersRect[2].gameObject.SetActive(true);
-				_answersRect[3].gameObject.SetActive(true);
-				_answersRect[4].gameObject.SetActive(true);
-
-				break;
-			/* if a question does not corresponds, 
-			 * we just ignore it and search an other that works*/
-			default:
-				/* reenabling user input */
-				_camera.enabled = true;
-				_player.enabled = true;
-
-				/* hiding interface */
-				gameObject.SetActive(false);
-				return false;
+			_answersRect[i].gameObject.SetActive(false);
 		}
 
 		_question.text = _currMCQ._question;
 
 		/* clearing previous state */
 		for (int i = 0; i < _rightAnswerCache.Length; i++)
-        {
+		{
 			_rightAnswerCache[i] = false;
-        }
+		}
 		/* filling the right answer to true */
 		for (int i = 0; i < _currMCQ._rightAnswerNb.Count; i++)
-        {
+		{
 			_rightAnswerCache[_currMCQ._rightAnswerNb[i]] = true;
-        }
+		}
 		
 
 		return true;
@@ -231,9 +225,9 @@ public class MCQ_Manager : MonoBehaviour
 	{
 		bool worked = SetMCQ(mcq_);
 		if (worked)
-        {
+		{
 			_anim.RotateToTarget(rot);
-        }
+		}
 		return worked;
 	}
 
@@ -253,14 +247,17 @@ public class MCQ_Manager : MonoBehaviour
 	}
 
 	public void OnSubmit()
-    {
+	{
 		if (!_currMCQ._answered)
 		{
 			/* check if the question has been answered, 
-			 * and make the point go up accordingly */
+			 * and make the points go up accordingly */
 			if (_currMCQ._answered = CheckAnswer())
-            {
+			{
+				/* show the answer and save the result 
+				 * to show the user at the end summary */
 				ShowAnswer();
+				_comment.text = _currMCQ._comment;
 				_buttonText.text = "Continue";
 			}
 			return;

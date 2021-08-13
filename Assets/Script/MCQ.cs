@@ -8,7 +8,7 @@ using UnityEngine;
  * depending on the POI. 
  * The choice of a class over a struct is because a POI can not have those
  * so we can put null in those case. */
-[System.Serializable]
+[Serializable]
 public class MCQ : ScriptableObject, IComparable<MCQ>
 {
     /*==== SETTINGS ====*/
@@ -48,6 +48,12 @@ public class MCQ : ScriptableObject, IComparable<MCQ>
     [HideInInspector] public int _serialID = -1;
 
     [HideInInspector] public bool _answered = false;
+
+    /* how user has answered to the question compared to what was the right answer:
+     * - red    == wrong answer
+     * - green  == good answer 
+     * - yellow == color of the other good answer when you have at least one good answer */
+    [HideInInspector] public Color[] _results = null;
 
     public int CompareTo(MCQ other)
     {

@@ -845,7 +845,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 108358671332212792, guid: eca0ab7e28588524585480662a72f371, type: 3}
       propertyPath: screenOffset.x
-      value: 0.33333334
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 108358671332212792, guid: eca0ab7e28588524585480662a72f371, type: 3}
       propertyPath: screenOffset.y

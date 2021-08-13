@@ -2,6 +2,7 @@ using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class EndMenu : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class EndMenu : MonoBehaviour
 	private enum State
 	{
 		QUESTION,
-		COMMENT,
+		SUMMARY,
 		SCORE,
 
 		NB
@@ -35,8 +36,8 @@ public class EndMenu : MonoBehaviour
 	public int _MCQ_Score = 0;
 
 	/*==== COMPONENTS ====*/
-	private GameObject	_commentSection		= null;
-	private Text		_commentsText		= null;
+	private GameObject		_commentSection		= null;
+	private TextMeshProUGUI _commentsText		= null;
 
 	private GameObject	_buttonGo			= null;
 	private Text		_buttonText			= null;
@@ -56,23 +57,21 @@ public class EndMenu : MonoBehaviour
 	{
 		/* getting the gameobjects we need in the comment section,
 		 * you may want to open the EndMenu prefab to see how it is stored */
-		_commentSection = transform.GetChild(0).transform.GetChild(2).gameObject;
-		_commentsText	= _commentSection.GetComponentInChildren<Text>();
-
-		FillComment();
+		_commentSection = transform.GetChild(0).transform.GetChild(1).gameObject;
+		_commentsText	= _commentSection.GetComponentInChildren<TextMeshProUGUI>();
 
 		/* we will make appear after */
 		_commentSection.SetActive(false);
 
 		/* getting the gameobject and the text of the button to change it after */
-		_buttonGo	= transform.GetChild(0).transform.GetChild(1).gameObject;
+		_buttonGo	= transform.GetChild(0).transform.GetChild(0).gameObject;
 		_buttonText = _buttonGo.GetComponentInChildren<Text>();
 
 		_buttonText.text = "Next";
 		_buttonGo.SetActive(false);
 
 		/* get the score section to print score at te end */
-		_scoreSection	= transform.GetChild(0).transform.GetChild(3).gameObject;
+		_scoreSection	= transform.GetChild(0).transform.GetChild(2).gameObject;
 		_scoreText		= _scoreSection.GetComponentsInChildren<Text>();
 		_scoreSection.SetActive(false);
 
@@ -91,7 +90,7 @@ public class EndMenu : MonoBehaviour
 	}
 
 	/* a method called at startup to fill the _commentsText with the comments of the POIs */
-	private void FillComment()
+	private void FillSummary()
 	{
 		/* getting the list of the pois */
 		List<MCQ> mcq = POI_Manager.Instance._mcqs;
@@ -111,27 +110,6 @@ public class EndMenu : MonoBehaviour
 		}
 
 		_commentsText.text = stringBuilder.ToString();
-
-		/* extending height of the text in order to show all the comments */
-		int lineNb = 0;
-
-		for (int i = 0; i < _commentsText.text.Length; i++)
-		{
-			if (_commentsText.text[i] == '\n')
-			{
-				lineNb++;
-			}
-		}
-
-		/* should be at least to the size of the scroll container (the one in the prefabs) */
-		float rectHeight = Mathf.Max((float)lineNb * _commentsText.fontSize + (float)lineNb * _commentsText.lineSpacing, _commentsText.rectTransform.rect.height);
-
-		/* changing height and y pos in order to be at the exact height we need for all the line be covered,
-		 * and puting the top of the text in the top of the scroll rectangle */
-		_commentsText.rectTransform.rect.Set(_commentsText.rectTransform.rect.x,
-											-(rectHeight - _commentsText.rectTransform.rect.height) / 2.0f,
-											_commentsText.rectTransform.rect.width,
-											rectHeight);
 	}
 
 
@@ -150,7 +128,8 @@ public class EndMenu : MonoBehaviour
 			case State.QUESTION:
 				SetQuestion();
 				break;
-			case State.COMMENT:
+			case State.SUMMARY:
+				FillSummary();
 				_buttonGo.SetActive(true);
 				MCQ_Manager.Instance.gameObject.SetActive(false);
 				_commentSection.SetActive(true);
@@ -182,6 +161,7 @@ Search:
 		{
 			menuState++;
 			ChangeState();
+			return;
 		}
 
 		/* look for a POI that has a question */

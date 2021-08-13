@@ -43,6 +43,13 @@ public class POI : MonoBehaviour, IComparable<POI>
 
 	public void PutToSleep()
 	{
+		if (_mcq != null)
+		{
+			if (_askOnHit && !_mcq._answered)
+            {
+				_mcq._answered = true;
+            }
+		}
 		gameObject.SetActive(false);
 	}
 

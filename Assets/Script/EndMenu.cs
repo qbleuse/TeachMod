@@ -36,6 +36,9 @@ public class EndMenu : MonoBehaviour
 	/* the score gained when answering good to the MCQ */
 	public int _MCQ_Score = 0;
 
+	/* list to use the line nb where each mcq is stored in the summary */
+	private List<int> _lineNb = new List<int>();
+
 	/*==== COMPONENTS ====*/
 	private GameObject		_commentSection		= null;
 	private TextMeshProUGUI _commentsText		= null;
@@ -99,8 +102,7 @@ public class EndMenu : MonoBehaviour
 	/* a method called at startup to fill the _commentsText with the comments of the POIs */
 	private void FillSummary()
 	{
-		string line = null;
-
+		int lineCounter = 0;
 		/* getting the list of the pois */
 		List<MCQ> mcq = POI_Manager.Instance._mcqs;
 
@@ -112,14 +114,34 @@ public class EndMenu : MonoBehaviour
 		{
 			if (mcq[i] != null)
 			{
-				stringBuilder.Append(mcq[i]._question);
-				stringBuilder.AppendLine(); stringBuilder.AppendLine();
+				stringBuilder.Append(mcq[i]._question); stringBuilder.AppendLine(); stringBuilder.AppendLine(); lineCounter += 2;
+
+				for (int j = 0; j < mcq[i]._answers.Count; j++)
+				{
+					/* colored answer to show the result */
+					if (mcq[i]._results != null)
+					{
+						stringBuilder.Append("<color=#"); stringBuilder.Append(ColorUtility.ToHtmlStringRGB(mcq[i]._results[j])); stringBuilder.Append(">");
+						stringBuilder.Append((char)(j + 'A')); stringBuilder.Append("</color>");
+					}
+					else
+                    {
+						stringBuilder.Append((char)(j + 'A'));
+					}
+
+					stringBuilder.Append(" - "); stringBuilder.Append(mcq[i]._answers[j]); stringBuilder.AppendLine();
+					lineCounter++;
+				}
+
+				stringBuilder.AppendLine();
 
 				if (mcq[i]._comment.Length > 0)
 				{
 					stringBuilder.Append(mcq[i]._comment);
-					stringBuilder.AppendLine(); stringBuilder.AppendLine(); stringBuilder.AppendLine();
+					stringBuilder.AppendLine(); stringBuilder.AppendLine();
 				}
+
+				lineCounter += 3;
 			}
 		}
 

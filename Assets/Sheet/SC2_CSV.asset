@@ -17,5 +17,4 @@ MonoBehaviour:
   _mcqList: Sheet/sc2_mcq.csv
   _pois: []
   _mcqs: []
-  _comments: []
   _targetScene: {fileID: 0}

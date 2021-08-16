@@ -1,85 +1,20 @@
-question;answer nb;single answer;good answers;pause;sequence;timestamp;comment
-"Citer les attitudes qu'il faut essayer d'éviter au moment de l'accueil d'un patient et de sa famille.
-A: prendre un appel téléphonique 
-B: discuter avec ses collègues 
-C: preparer le dossier informatique du patient 
-D: lui demander son nom 
-E: s'occuper de soi";5;False;A/B/E;False;;;"L’accueil du patient et de sa famille nécessite que la personne de l’équipe qui accueille soit disponible à la demande"
-"Durant le traitement et la saisie des informations concernant la consultation faut il:
-A: répondre aux questions éventuelles du patient ou de sa famille 
-B: si besoin expliquer le processus en cours
- C: ne pas impliquer du tout le patient et sa famille";3;False;A/B;False;;;"L’ordinateur fait partie du quotidien des services de soin. Pour le soignant il faut essayer de ne pas se centrer exclusivement sur l’écran"
-"l'orientation et l'aide à la mobilité du patient vers la salle d'attente ou le bureau de la consultation peut se faire: 
-A: en accompagnant le patient 
-B: en lui montrant la direction
-C: en lui donnant un plan de l'hôpital
-D: en lui proposant une chaise roulante";4;False;A/B/D;True;1;73;"Ici aussi, la disponibilité aux besoins du patient est essentielle."
-"la présence d’un accompagnant est: 
-A - utile pour donner des informations sur le contexte de la consultation
-B - pour s’occuper des formalités administratives 
-C - inutile et dévalorisante pour le patient
-D - l’accompagnant doit être exclusivement un membre de la famille du patient
-";4;False;A/B;False;;;"Les informations de l’accompagnant sont un élément important. Il ne faut pas les négliger et bien sûr les confronter avec le point de vue du patient et les observations que fait le clinicien au cours de la consultation."
-"le clinicien doit: 
-A - se présenter au patient
-B - se présenter au patient et à l’accompagnant
-C - continuer ce qu’il est en train de faire";3;False;A/B;False;;;"Le temps de la consultation commence dès le premier contact avec le clinicien… donc être disponible !"
-"Quelles sont les bonnes réponses?
-A - faire entrer en même temps patient et accompagnant est une erreur
-B - il peut être utile de faire entrer en même temps patient et accompagnant
-C - Ce n’est pas le clinicien qui décide
-D - Le clinicien peut accepter de voir en aparté l’accompagnant si celui ci le demande
-E- Le clinicien peut proposer de voir d’abord le patient puis l’accompagnant";5;False;B/D/E;True;2;38;"Le clinicien doit être souple et s’adapter en fonction de la situation !"
-"Lors d’une consultation est il possible de commencer l’entretien par des banalités?
-A - OUI
-B - NON
-";2;True;A;False;;;"Oui bien sûr, cela fait partie du savoir être. Une consultation est la rencontre entre plusieurs individus et il est important de respecter les règles sociales.
-"
-"Au début d'un entretien:
-A - Il est important d’avoir des informations sur ce qui s’est passé depuis la consultation précédente
-B - Si le patient n’en parle pas spontanément le clinicien doit poser la question
-C - C’est seulement le patient qui peut prendre cette initiative
-D - En l’absence de réponse du patient l’accompagnant peut prendre la parole
-";3;False;A/B/D;True;3;23,4;"Cette étape est importante pour avoir des informations récentes mais aussi pour remettre dans le contexte cette nouvelle consultation
-"
-"Faut il que l’accompagnant assiste à l’ensemble de la consultation?
-A - OUI
-B - NON";2;True;B;True;3;49;"Sauf si nécessaire (par exemple aucune communication verbale possible de la part du patient) il est toujours important d’avoir un contact singulier avec le patient."
-"La recherche des signes/symptômes qui ont conduit à la consultation (ici le langage) doit être systématiquement posée lors de la consultation ?
-A - OUI
-B - NON";2;True;A;True;4;12,28;"Il est important de recentrer la consultation sur les signes et difficultés du patient en ayant à l’esprit que la consultation ne sert pas seulement à évaluer mais aussi à essayer de trouver des solutions !"
-"L’évaluation du langage comporte:
-A - L’écoute de l’expression spontanée du patient
-B - La recherche systématique de la connaissance des mots désignant un objet de la vie quotidienne
-C - La demande de réaliser un dessin";3;False;A/B;True;4;52;"Il existe des tests qui permettent d’évaluer d’une manière systématique et objective les capacités de dénomination mais cela peut être aussi fait simplement au cours de la discussion comme dans cette séquence."
-"Il est possible d’aider le patient  en lui donnant la fonction de l’objet qui est présenté: 
-A - OUI
-B - NON";2;True;A;True;4;69;"Si le patient ne connait pas le mot il est important de savoir s’il a conservé la notion de la fonction de l’objet présenté."
-"Que faut il faire? 
-A - interrompre la consultation pour régler la demande
-B - demander à ce que cette demande soit repoussée à la fin de la consultation
-C - agresser le perturbateur";3;False;B;False;;;"Toujours essayer de ne pas interrompre la consultation… sauf si le ciel vous tombe sur la tête !"
-"l’évaluation des émotions permet de savoir:
-A- si le patient est émoussé et ne ressent plus d’émotion
-B - présente une confusion
-C - présente de l’anxiété";3;False;A;True;5;21;"Évaluer les émotions il est possible de demander au patient de raconter un événement agréable, un événement désagréable."
-"est ce qu’il faut, dans cette partie de l’entretien, demander au patient de répondre très brièvement par oui ou non  ? 
-A - OUI
-B - NON
-";2;True;B;True;5;54;"Dans cette partie, il faut si possible le laisser évoquer librement ses intérêts en rappelant la question si nécessaire. Le jeu d’intérêt dans l’application MOTAPs permet d’évaluer les intérêts d’un sujet: http://www.innovation-alzheimer.fr/motap1/"
-"Est ce que l’avis de l’accompagnant est utile pour cette question ?
-A - OUI
-B - NON";2;True;A;True;5;82;"Les question sur les activités de vie quotidienne comme l’alimentation doivent systématiquement être aussi posées à l’accompagnant s’il est présent."
-"une évaluation du langage des cognitions doit être faite. La consultation dure depuis 20 mn et cette évaluation doit prendre au moins 30 mn. Faut-il faire:  
-A - le bilan maintenant sans laisser de repos au patient
-B - proposer un nouveau rendez vous
-C - demander au patient ce qu’il en pense
-D - prendre directement le rdv sur l’ordinateur sans informer le patient
-";4;False;B/C;True;6;5,16;"Le point de vue du patient est important. la décision dépend aussi bien sûr de la disponibilité de l’accompagnant et du clinicien."
-"Faut-il faire attention aux questions de dernière minute ?
-A - OUI
-B -NON";2;True;A;False;;;"Les questions de dernière minute peuvent parfois être importantes donc ne pas les négliger. Selon le sujet il est possible d’en parler immédiatement ou de proposer d’en discuter à la prochaine consultation."
-"Est-il possible:
-A - de demander à voir l’accompagnant seul
-B - de faire un résumé de l’entretien avec l’accompagnant en présence du patient si celui ci est d’accord
-C - de dire au revoir et d’adresser patient et accompagnant au secrétariat pour prendre un nouveau rendez vous sans autres explications";3;False;A/B;False;;;"Tout est possible mais avoir toujours à l’esprit que la consultation est un moment important pour le patient et l’accompagnant et il est dommage de les  laisser repartir sans informations."
+question;answer A;answer B;answer C;answer D;answer E;single answer;good answers;pause;sequence;timestamp;comment
+"Citer les attitudes qu'il faut essayer d'éviter au moment de l'accueil d'un patient et de sa famille.";"prendre un appel téléphonique";"discuter avec ses collègues ";"preparer le dossier informatique du patient";"lui demander son nom";"s’occuper de soi";False;A/B/E;False;;;"L’accueil du patient et de sa famille nécessite que la personne de l’équipe qui accueille soit disponible à la demande"
+"Durant le traitement et la saisie des informations concernant la consultation faut il:";"répondre aux questions éventuelles du patient ou de sa famille";"si besoin expliquer le processus en cours";"ne pas impliquer du tout le patient et sa famille";;;False;A/B;False;;;"L’ordinateur fait partie du quotidien des services de soin. Pour le soignant il faut essayer de ne pas se centrer exclusivement sur l’écran"
+"l'orientation et l'aide à la mobilité du patient vers la salle d'attente ou le bureau de la consultation peut se faire: ";"en accompagnant le patient";"en lui montrant la direction";"en lui donnant un plan de l’hôpital";"en lui proposant une chaise roulante";;False;A/B/D;True;1;73;"Ici aussi, la disponibilité aux besoins du patient est essentielle."
+"la présence d’un accompagnant est: ";"utile pour donner des informations sur le contexte de la consultation";"pour s’occuper des formalités administratives";"inutile et dévalorisante pour le patient";"l’accompagnant doit être exclusivement un membre de la famille du patient";;False;A/B;False;;;"Les informations de l’accompagnant sont un élément important. Il ne faut pas les négliger et bien sûr les confronter avec le point de vue du patient et les observations que fait le clinicien au cours de la consultation."
+"le clinicien doit: ";"se présenter au patient";"se présenter au patient et à l’accompagnant";"continuer ce qu’il est en train de faire";;;False;A/B;False;;;"Le temps de la consultation commence dès le premier contact avec le clinicien… donc être disponible !"
+"Quelles sont les bonnes réponses?";"faire entrer en même temps patient et accompagnant est une erreur";"il peut être utile de faire entrer en même temps patient et accompagnant";"ce n’est pas le clinicien qui décide";"le clinicien peut accepter de voir en aparté l’accompagnant si celui ci le demande";"le clinicien peut proposer de voir d’abord le patient puis l’accompagnant";False;B/D/E;True;2;38;"Le clinicien doit être souple et s’adapter en fonction de la situation !"
+"Lors d’une consultation est il possible de commencer l’entretien par des banalités?";"OUI";"NON";;;;True;A;False;;;"Oui bien sûr, cela fait partie du savoir être. Une consultation est la rencontre entre plusieurs individus et il est important de respecter les règles sociales."
+"Au début d'un entretien:";"Il est important d’avoir des informations sur ce qui s’est passé depuis la consultation précédente";"Si le patient n’en parle pas spontanément le clinicien doit poser la question";"C’est seulement le patient qui peut prendre cette initiative";"En l’absence de réponse du patient l’accompagnant peut prendre la parole";;False;A/B/D;True;3;23,4;"Cette étape est importante pour avoir des informations récentes mais aussi pour remettre dans le contexte cette nouvelle consultation"
+"Faut il que l’accompagnant assiste à l’ensemble de la consultation?";"OUI";"NON";;;;True;B;True;3;49;"Sauf si nécessaire (par exemple aucune communication verbale possible de la part du patient) il est toujours important d’avoir un contact singulier avec le patient."
+"La recherche des signes/symptômes qui ont conduit à la consultation (ici le langage) doit être systématiquement posée lors de la consultation ?";"OUI";"NON";;;;True;A;True;4;12,28;"Il est important de recentrer la consultation sur les signes et difficultés du patient en ayant à l’esprit que la consultation ne sert pas seulement à évaluer mais aussi à essayer de trouver des solutions !"
+"L’évaluation du langage comporte:";"l’écoute de l’expression spontanée du patient";"la recherche systématique de la connaissance des mots désignant un objet de la vie quotidienne";"la demande de réaliser un dessin";;;False;A/B;True;4;52;"Il existe des tests qui permettent d’évaluer d’une manière systématique et objective les capacités de dénomination mais cela peut être aussi fait simplement au cours de la discussion comme dans cette séquence."
+"Il est possible d’aider le patient  en lui donnant la fonction de l’objet qui est présenté: ";"OUI";"NON";;;;True;A;True;4;69;"Si le patient ne connait pas le mot il est important de savoir s’il a conservé la notion de la fonction de l’objet présenté."
+"Que faut il faire? ";"interrompre la consultation pour régler la demande";"demander à ce que cette demande soit repoussée à la fin de la consultation";"agresser le perturbateur";;;False;B;False;;;"Toujours essayer de ne pas interrompre la consultation… sauf si le ciel vous tombe sur la tête !"
+"l’évaluation des émotions permet de savoir:";"si le patient est émoussé et ne ressent plus d’émotion";"présente une confusion";"présente de l’anxiété";;;False;A;True;5;21;"Évaluer les émotions il est possible de demander au patient de raconter un événement agréable, un événement désagréable."
+"Est ce qu’il faut, dans cette partie de l’entretien, demander au patient de répondre très brièvement par oui ou non  ? ";"OUI";"NON";;;;True;B;True;5;54;"Dans cette partie, il faut si possible le laisser évoquer librement ses intérêts en rappelant la question si nécessaire. Le jeu d’intérêt dans l’application MOTAPs permet d’évaluer les intérêts d’un sujet: http://www.innovation-alzheimer.fr/motap1/"
+"Est ce que l’avis de l’accompagnant est utile pour cette question ?";"OUI";"NON";;;;True;A;True;5;82;"Les question sur les activités de vie quotidienne comme l’alimentation doivent systématiquement être aussi posées à l’accompagnant s’il est présent."
+"une évaluation du langage des cognitions doit être faite. La consultation dure depuis 20 mn et cette évaluation doit prendre au moins 30 mn. Faut-il faire:  ";"le bilan maintenant sans laisser de repos au patient";"proposer un nouveau rendez-vous";"demander au patient ce qu’il en pense";"prendre directement le rdv sur l’ordinateur sans informer le patient";;False;B/C;True;6;5,16;"Le point de vue du patient est important. la décision dépend aussi bien sûr de la disponibilité de l’accompagnant et du clinicien."
+"Faut-il faire attention aux questions de dernière minute ?";"OUI";"NON";;;;True;A;False;;;"Les questions de dernière minute peuvent parfois être importantes donc ne pas les négliger. Selon le sujet il est possible d’en parler immédiatement ou de proposer d’en discuter à la prochaine consultation."
+"Est-il possible:";"de demander à voir l’accompagnant seul";"de faire un résumé de l’entretien avec l’accompagnant en présence du patient si celui ci est d’accord";"de dire au revoir et d’adresser patient et accompagnant au secrétariat pour prendre un nouveau rendez vous sans autres explications";;;False;A/B;False;;;"Tout est possible mais avoir toujours à l’esprit que la consultation est un moment important pour le patient et l’accompagnant et il est dommage de les  laisser repartir sans informations."

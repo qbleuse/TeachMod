@@ -101,7 +101,11 @@ public class CSVSaver
 		StringBuilder stringBuilder = new StringBuilder();
 
 		stringBuilder.Append("question");		stringBuilder.Append(_sepChar);
-		stringBuilder.Append("answer nb");		stringBuilder.Append(_sepChar);
+		stringBuilder.Append("answer A");		stringBuilder.Append(_sepChar);
+		stringBuilder.Append("answer B");		stringBuilder.Append(_sepChar);
+		stringBuilder.Append("answer C");		stringBuilder.Append(_sepChar);
+		stringBuilder.Append("answer D");		stringBuilder.Append(_sepChar);
+		stringBuilder.Append("answer E");		stringBuilder.Append(_sepChar);
 		stringBuilder.Append("single answer");	stringBuilder.Append(_sepChar);
 		stringBuilder.Append("good answers");	stringBuilder.Append(_sepChar);
 		stringBuilder.Append("pause");			stringBuilder.Append(_sepChar);
@@ -115,7 +119,15 @@ public class CSVSaver
 			/* question tends to be multiline, in those case the format of csv needs it to be surrounded by quotation marks (") */
 			stringBuilder.Append("\""); stringBuilder.Append(serial_._mcqs[i]._question); stringBuilder.Append("\""); stringBuilder.Append(_sepChar);
 
-			stringBuilder.Append(serial_._mcqs[i]._answerNb);		stringBuilder.Append(_sepChar);
+			for (int j = 0; j < 5; j++)
+            {
+				if (serial_._mcqs[i]._answers.Count > j)
+                {
+					stringBuilder.Append("\""); stringBuilder.Append(serial_._mcqs[i]._answers[j]); stringBuilder.Append("\""); 
+				}
+				stringBuilder.Append(_sepChar);
+			}
+
 			stringBuilder.Append(serial_._mcqs[i]._singleAnswer);	stringBuilder.Append(_sepChar);
 
 			/* taking every good answer in a string that separated by forward slash (eg: "1/4/5")*/

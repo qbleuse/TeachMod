@@ -29,7 +29,9 @@ public class POIEditor : MonoBehaviour
     {
 		_editPOI = null;
 		_editMCQ = null;
-    }
+		_editPOIId = 1;
+		_editMCQID = 1;
+	}
 
 	public void OnInspectorGUI()
 	{

@@ -42,18 +42,19 @@ public class CSVLoader
 				/* beginning of a multiline text */
 				if (hasMulSep && !mulLineText)
 				{
-					
 					int count = line.Split('"').Length - 1;
 					if (count % 2 == 1)
                     {
 						mulLineText = true;
+						strBuilder.Append(line);
+						continue;
 					}
-					strBuilder.Append(line);
 				}/* in a multi line text */
 				else if (!hasMulSep && mulLineText)
 				{
 					strBuilder.AppendLine();
 					strBuilder.Append(line);
+					continue;
 				}/* the end of a multiline text */
 				else if (hasMulSep && mulLineText)
 				{
@@ -67,11 +68,12 @@ public class CSVLoader
 						strBuilder.Clear();
 						mulLineText = false;
 					}
+					continue;
 				}
-				else/* a normal other line, without a multiline text */
-				{
-					_lines.Add(line);
-				}
+				
+				/* a normal other line, without a multiline text */
+				_lines.Add(line);
+				
 			}
 		}
 	}
@@ -143,7 +145,11 @@ public class CSVLoader
 			int mcqId = -1;
 			/* get mcq ref if have one */
 			if (int.TryParse(values[7], out mcqId) && (mcqId - 2) < serializer_._mcqs.Count)
+			{
 				newPoi._mcq = serializer_._mcqs[mcqId - 2];
+				newPoi._mcq._sequence = newPoi._sequence;
+				newPoi._mcq._timestamp = newPoi._timestamp;
+			}
 		}
 	}
 
@@ -172,10 +178,17 @@ public class CSVLoader
 				/* removing the "" */
 				newMCQ._question = newMCQ._question.Substring(1, newMCQ._question.Length - 2);
 
+				for(int j = 1; j <= 5; j++)
+                {
+					if (values[j].Length > 2)
+					{
+						newMCQ._answers.Add(values[j].Substring(1,values[j].Length - 2));
+					}
+                }
+
 				/* get the nb of answer, and if it is a 
 				 * multiple or single choice questionnaire */
-				int.TryParse(values[1], out newMCQ._answerNb);
-				bool.TryParse(values[2], out newMCQ._singleAnswer);
+				bool.TryParse(values[6], out newMCQ._singleAnswer);
 
 				/* get the right answer, no need to do hard thing 
 				 * if there is a single answer */
@@ -184,14 +197,12 @@ public class CSVLoader
 					/* handle lower case and upper case */
 					values[3].ToUpper();
 					newMCQ._rightAnswerNb = new List<int>(1);
-					newMCQ._rightAnswerNb.Add(values[3][0] - 'A');
-
-					newMCQ._answerNb = 2;
+					newMCQ._rightAnswerNb.Add(values[7][0] - 'A');
 				}
 				else
 				{
 					/* each answer will be split by a forward slash */
-					string[] answers = values[3].Split('/');
+					string[] answers = values[7].Split('/');
 					newMCQ._rightAnswerNb = new List<int>(answers.Length);
 
 					/* now it should be only a character in those string so we recover it */
@@ -203,19 +214,19 @@ public class CSVLoader
 				}
 
 				/* pause info */
-				bool.TryParse(values[4], out newMCQ._pause);
+				bool.TryParse(values[8], out newMCQ._pause);
 
 				if (newMCQ._pause)
 				{
-					int.TryParse(values[5], out newMCQ._sequence);
+					int.TryParse(values[9], out newMCQ._sequence);
 					newMCQ._sequence -= 1;
-					float.TryParse(values[6], _style, _culture, out newMCQ._timestamp);
+					float.TryParse(values[10], _style, _culture, out newMCQ._timestamp);
 				}
 
-				if (values.Length > 6 && values[7].Length > 0)
+				if (values.Length > 6 && values[11].Length > 0)
 				{
 					/* get the comment in UTF8 */
-					newMCQ._comment = values[7];
+					newMCQ._comment = values[11];
 
 					/* removing the "" */
 					newMCQ._comment = newMCQ._comment.Substring(1, newMCQ._comment.Length - 2);

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -27,6 +28,7 @@ public class MCQ_Manager : MonoBehaviour
 	MonoBehaviour	_camera	= null;
 	Player			_player = null;
 	AnimationCam	_anim	= null;
+	StringBuilder _stringBuilder = new StringBuilder();
 
 	public event Action _OnSubmitEvent;
 
@@ -102,7 +104,7 @@ public class MCQ_Manager : MonoBehaviour
 		int answersRight = 0;
 
 		/* the user can give only from an answer he has been given so depending on _answerNb */
-		for (int i = 0; i < _currMCQ._answerNb; i++)
+		for (int i = 0; i < _currMCQ._answers.Count; i++)
 		{
 			/* if the user has at least one good answer (it changes how things are displayed) */
 			if (_answers[i].isOn && _rightAnswerCache[i])
@@ -133,8 +135,8 @@ public class MCQ_Manager : MonoBehaviour
 	private void ShowAnswer()
 	{
 		/* make the array of color to show the result at the end of the test */
-		_currMCQ._results = new Color[_currMCQ._answerNb];
-		for (int i = 0; i < _currMCQ._answerNb; i++)
+		_currMCQ._results = new Color[_currMCQ._answers.Count];
+		for (int i = 0; i < _currMCQ._answers.Count; i++)
 		{
 			if (!_answers[i].isOn && _rightAnswerCache[i] && _answeredRightOnce)
 			{
@@ -178,8 +180,8 @@ public class MCQ_Manager : MonoBehaviour
 	{
 		if (mcq_ == null
 			|| mcq_._rightAnswerNb == null 
-			|| mcq_._answerNb < 2 
-			|| mcq_._answerNb > 5)
+			|| mcq_._answers.Count < 2 
+			|| mcq_._answers.Count > 5)
 			return false;
 
 
@@ -195,23 +197,33 @@ public class MCQ_Manager : MonoBehaviour
 
 		/* we move and enable toggles depending on the number of answer the question has.
 		 * there is min 2 answer and max 5, hence the following bounds. */
-		for (int i = 2; i <  mcq_._answerNb; i++)
+		for (int i = 2; i <  mcq_._answers.Count; i++)
         {
 			_answersRect[i].gameObject.SetActive(true);
 		}
-		for (int i = mcq_._answerNb; i < 5; i++)
+		for (int i = mcq_._answers.Count; i < 5; i++)
 		{
 			_answersRect[i].gameObject.SetActive(false);
 		}
 
-		_question.text = _currMCQ._question;
+		_stringBuilder.Append(_currMCQ._question); _stringBuilder.AppendLine();
+
+		for (int i = 0; i < _currMCQ._answers.Count; i++)
+        {
+			_stringBuilder.Append((char)(i + 'A')); _stringBuilder.Append(" - ");
+			_stringBuilder.Append(_currMCQ._answers[i]); _stringBuilder.AppendLine();
+		}
+
+		_question.text = _stringBuilder.ToString();
+		_stringBuilder.Clear();
 
 		/* clearing previous state */
 		for (int i = 0; i < _rightAnswerCache.Length; i++)
 		{
 			_rightAnswerCache[i] = false;
 		}
-		/* filling the right answer to true */
+		/* filling the right answer to true, made to comapre with the toggles 
+		 * (as we use it as an array of bool corresponding to the player's answer) */
 		for (int i = 0; i < _currMCQ._rightAnswerNb.Count; i++)
 		{
 			_rightAnswerCache[_currMCQ._rightAnswerNb[i]] = true;

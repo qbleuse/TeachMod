@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 /* MCQ stands for Multiple Choice Questions.
  * It also handles the case of a single choice.
  * Those can be asked or not at the end of all sequences, 
@@ -25,8 +26,7 @@ public class MCQ : ScriptableObject, IComparable<MCQ>
      */
     [TextArea] public string _question = null;
 
-    /* The nb of answer your MCQ offers. in the above example it would be 3. */
-    [Range(2, 5)] public int _answerNb = 0;
+    [TextArea] public List<string> _answers = new List<string>();
 
     /* the numbers that corrsponds to the right answers, beginning from 0.
      * in the above example, there is only one, it is 2 for C */

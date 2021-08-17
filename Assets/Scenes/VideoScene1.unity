@@ -570,18 +570,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1107431064539464907, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1107431064539464907, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1107431064539464907, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1612532551437670448, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: m_Name
       value: EndMenu
@@ -807,6 +795,10 @@ PrefabInstance:
       value: UnityEngine.UI.Toggle, UnityEngine.UI
       objectReference: {fileID: 0}
     - target: {fileID: 7392931912981411140, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7392931912981411140, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 177.5
       objectReference: {fileID: 0}
@@ -817,6 +809,14 @@ PrefabInstance:
     - target: {fileID: 7492940677043974279, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492940677043974279, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492940677043974279, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 167.5
       objectReference: {fileID: 0}
     - target: {fileID: 8426381172774962958, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: m_Sprite

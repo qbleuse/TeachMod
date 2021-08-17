@@ -40,8 +40,8 @@ public class EndMenu : MonoBehaviour
 	private List<int> _lineNb = new List<int>();
 
 	/*==== COMPONENTS ====*/
-	private GameObject		_commentSection		= null;
-	private TextMeshProUGUI _commentsText		= null;
+	private GameObject		_summarySection		= null;
+	private SummaryManager	_summaryManager		= null;
 
 	private GameObject	_buttonGo			= null;
 	private Text		_buttonText			= null;
@@ -59,13 +59,13 @@ public class EndMenu : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		/* getting the gameobjects we need in the comment section,
+		/* getting the gameobjects we need in the summary section,
 		 * you may want to open the EndMenu prefab to see how it is stored */
-		_commentSection = transform.GetChild(0).transform.GetChild(1).gameObject;
-		_commentsText	= _commentSection.GetComponentInChildren<TextMeshProUGUI>();
+		_summarySection = transform.GetChild(0).transform.GetChild(1).gameObject;
+		_summaryManager	= GetComponent<SummaryManager>();
 
 		/* we will make appear after */
-		_commentSection.SetActive(false);
+		_summarySection.SetActive(false);
 
 		/* getting the gameobject and the text of the button to change it after */
 		_buttonGo	= transform.GetChild(0).transform.GetChild(0).gameObject;
@@ -99,61 +99,11 @@ public class EndMenu : MonoBehaviour
 		ChangeState();
 	}
 
-	/* a method called at startup to fill the _commentsText with the comments of the POIs */
-	private void FillSummary()
-	{
-		int lineCounter = 0;
-		/* getting the list of the pois */
-		List<MCQ> mcq = POI_Manager.Instance._mcqs;
-
-		/* make the string empty */
-		_commentsText.text = "";
-		StringBuilder stringBuilder = new StringBuilder();
-
-		for (int i = 0; i < mcq.Count; i++)
-		{
-			if (mcq[i] != null)
-			{
-				stringBuilder.Append(mcq[i]._question); stringBuilder.AppendLine(); stringBuilder.AppendLine(); lineCounter += 2;
-
-				for (int j = 0; j < mcq[i]._answers.Count; j++)
-				{
-					/* colored answer to show the result */
-					if (mcq[i]._results != null)
-					{
-						stringBuilder.Append("<color=#"); stringBuilder.Append(ColorUtility.ToHtmlStringRGB(mcq[i]._results[j])); stringBuilder.Append(">");
-						stringBuilder.Append((char)(j + 'A')); stringBuilder.Append("</color>");
-					}
-					else
-                    {
-						stringBuilder.Append((char)(j + 'A'));
-					}
-
-					stringBuilder.Append(" - "); stringBuilder.Append(mcq[i]._answers[j]); stringBuilder.AppendLine();
-					lineCounter++;
-				}
-
-				stringBuilder.AppendLine();
-
-				if (mcq[i]._comment.Length > 0)
-				{
-					stringBuilder.Append(mcq[i]._comment);
-					stringBuilder.AppendLine(); stringBuilder.AppendLine();
-				}
-
-				lineCounter += 3;
-			}
-		}
-
-		_commentsText.text = stringBuilder.ToString();
-	}
-
 
 	/*==== RUNTIME METHODS ====*/
 	// Update is called once per frame
 	void Update()
 	{
-			
 	}
 
 	/* a method called by the _button to change what is showed by the endMenu */
@@ -165,14 +115,14 @@ public class EndMenu : MonoBehaviour
 				SetQuestion();
 				break;
 			case State.SUMMARY:
-				FillSummary();
+				_summaryManager.Init();
 				_buttonGo.SetActive(true);
 				MCQ_Manager.Instance.gameObject.SetActive(false);
-				_commentSection.SetActive(true);
+				_summarySection.SetActive(true);
 				_menuState++;
 				break;
 			case State.SCORE:
-				_commentSection.SetActive(false);
+				_summarySection.SetActive(false);
 				_scoreSection.SetActive(true);
 				SetScore();
 				_buttonText.text = "Quit";

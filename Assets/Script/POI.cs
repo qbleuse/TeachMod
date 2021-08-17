@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /* POI stands for Point Of Interest, this class will be used to store

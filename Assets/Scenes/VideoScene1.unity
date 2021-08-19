@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &646755657 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6571088226672191924, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+  m_PrefabInstance: {fileID: 2007012595}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ec674bf727efa247b6e97d673cc8631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &860545890 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6053008146237976461, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
@@ -292,6 +303,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1221080831 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 816247656259228501, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+  m_PrefabInstance: {fileID: 2007012595}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1221080836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221080831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 13
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 646755657}
+          m_TargetAssemblyTypeName: SummaryManager, Assembly-CSharp
+          m_MethodName: OnBeginDrag
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 14
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 646755657}
+          m_TargetAssemblyTypeName: SummaryManager, Assembly-CSharp
+          m_MethodName: OnEndDrag
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1388025645
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -513,6 +574,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VideoPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 3390414036816802205, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5850269349629285587, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: m_VideoClip
       value: 
@@ -561,6 +626,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8283932341768623259, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: m_PlaybackSpeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
 --- !u!1001 &2007012595
@@ -570,6 +639,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1107431064539464907, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1612532551437670448, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: m_Name
       value: EndMenu
@@ -694,6 +767,14 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4735719077636491949, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_Inertia
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735719077636491949, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_DecelerationRate
+      value: 0.135
+      objectReference: {fileID: 0}
     - target: {fileID: 5328695509287424095, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -794,6 +875,42 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.UI.Toggle, UnityEngine.UI
       objectReference: {fileID: 0}
+    - target: {fileID: 6571088226672191924, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: _lerpDuration
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7073623011051229509, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7073623011051229509, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7073623011051229509, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7073623011051229509, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7073623011051229509, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 7073623011051229509, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 356
+      objectReference: {fileID: 0}
+    - target: {fileID: 7073623011051229509, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325912976435907301, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7392931912981411140, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -817,6 +934,18 @@ PrefabInstance:
     - target: {fileID: 7492940677043974279, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 167.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808671403593760265, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808671403593760265, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808671403593760265, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8426381172774962958, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: m_Sprite

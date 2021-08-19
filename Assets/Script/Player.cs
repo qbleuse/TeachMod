@@ -35,6 +35,16 @@ public class Player : MonoBehaviour
         _raycastCheck();
     }
 
+    /* method to disable all user inputs */
+    public void Disable()
+    {
+        /* animation cam will be useful */
+        _cam.GetComponent<AnimationCam>().enabled   = true;
+        _cam.GetComponent<DesktopCam>().enabled     = false;
+        _cam.GetComponent<GyroCam>().enabled        = false;
+        enabled = false;
+    }
+
     public void HandheldRaycast()
     {
         for (int i = 0; i < Input.touches.Length; i++)

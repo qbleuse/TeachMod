@@ -12,6 +12,7 @@ public class SummaryManager : MonoBehaviour
 	/* parent transform of the instanciated Summary Container*/
 	[SerializeField]			private RectTransform		_scroller		= null;
 	[SerializeField]			private RectTransform		_middleTrs		= null;
+	[SerializeField]			private RectTransform		_buttonTrs		= null;
 	[SerializeField,Min(0.0f)]	private float				_verticalOffset = 0.0f;
 	[SerializeField,Min(0.1f)]	private float				_lerpDuration	= 1.0f;
 
@@ -20,21 +21,24 @@ public class SummaryManager : MonoBehaviour
 	private StringBuilder			_stringBuilder	= null;
 
 	/*==== STATE ====*/
+	private AnimationCam _cam			= null;
+
 	private int			_currFocus		= 0;
 	private Coroutine	_focusCoroutine = null;
 	private float		_prevScrollerY	= 0.0f;
 
 	public void Init()
 	{
+		_cam = Camera.main.GetComponent<AnimationCam>();
+
 		/* getting the list of the pois */
 		List<MCQ> mcq = POI_Manager.Instance._mcqs;
 		List<POI> poi = POI_Manager.Instance._pois;
 
-
 		_stringBuilder = new StringBuilder();
 
 		for (int i = 0; i < poi.Count;i++)
-        {
+		{
 			if (poi[i]._mcq)
 			{
 				SummaryContainer newContainer = Instantiate(_summaryGo, _scroller);
@@ -43,7 +47,7 @@ public class SummaryManager : MonoBehaviour
 				FillContent(newContainer, poi[i]._mcq);
 				_summaries.Add(newContainer);
 			}
-        }
+		}
 
 		
 
@@ -61,25 +65,25 @@ public class SummaryManager : MonoBehaviour
 	}
 
 	public void OnBeginDrag()
-    {
+	{
 		if (_focusCoroutine != null)
 			StopCoroutine(_focusCoroutine);
 		/* saving previous y */
 		_prevScrollerY = _scroller.anchoredPosition.y;
-    }
+	}
 
 	public void OnEndDrag()
 	{
 		/* we find the closest to focus on, we allow to move only one at a time */
-		int		nextPossibleFocus	= 0;
+		int nextPossibleFocus;
 		/* we look if the next possible focus is before or after the current index */
 		if (_prevScrollerY < _scroller.anchoredPosition.y)
 			nextPossibleFocus = _currFocus + 1;
 		else
 			nextPossibleFocus = _currFocus - 1;
 
-		if (nextPossibleFocus < 0 || nextPossibleFocus > _summaries.Count)
-        {
+		if (nextPossibleFocus < 0 || nextPossibleFocus >= _summaries.Count)
+		{
 			_focusCoroutine = StartCoroutine(FocusOnSummary());
 			return;
 		}
@@ -87,6 +91,7 @@ public class SummaryManager : MonoBehaviour
 		if (	Mathf.Abs(_summaries[nextPossibleFocus].transform.position.y - _middleTrs.transform.position.y) 
 			<	Mathf.Abs(_summaries[_currFocus].transform.position.y - _middleTrs.transform.position.y))
 		{
+			_summaries[_currFocus].ShutOff();
 			_currFocus = nextPossibleFocus;
 		}
 
@@ -143,7 +148,7 @@ public class SummaryManager : MonoBehaviour
 	}
 
 	IEnumerator PlaceSummaries()
-    {
+	{
 		yield return new WaitForFixedUpdate();
 
 		_summaries.Sort();
@@ -162,24 +167,32 @@ public class SummaryManager : MonoBehaviour
 			y = (-(i+1)*height) + (i+1) * _verticalOffset;
 		}
 
+		_buttonTrs.anchoredPosition = new Vector2(_buttonTrs.anchoredPosition.x, (-(_summaries.Count) * height) + (_summaries.Count) * _verticalOffset + _summaries[_summaries.Count - 1].content.rectTransform.rect.height);
+
 		yield break;
 	}
 
 	IEnumerator FocusOnSummary()
 	{
+		_summaries[_currFocus].Set(_cam);
+
 		Vector2 newPos = Vector2.zero;
+		float prevY = _scroller.anchoredPosition.y;
 		float targetY = -((-(_currFocus) * _scroller.rect.height) + (_currFocus) * _verticalOffset);
 
 		float elapsedTime = 0.0f;
 
 		while(elapsedTime < _lerpDuration)
-        {
-			newPos.y = Mathf.Lerp(_scroller.anchoredPosition.y, targetY, elapsedTime/_lerpDuration);
+		{
+			newPos.y = Mathf.Lerp(prevY, targetY, elapsedTime/_lerpDuration);
 			_scroller.anchoredPosition = newPos;
-			elapsedTime += Time.deltaTime;
+			elapsedTime += Time.unscaledDeltaTime;
 			yield return null;
-        }
+		}
+
+		newPos.y = targetY;
+		_scroller.anchoredPosition = newPos;
 
 		yield break;
-    }
+	}
 }

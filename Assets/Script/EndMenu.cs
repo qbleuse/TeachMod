@@ -87,6 +87,9 @@ public class EndMenu : MonoBehaviour
 	/* typically used to enable the EndMenu and setup needed when video has stoped */
 	public void WakeUp()
 	{
+		POI_Manager.Instance.gameObject.SetActive(false);
+		VideoController.Instance._framePerFrame = true;
+
 		gameObject.SetActive(true);
 		MCQ_Manager.Instance._OnSubmitEvent -= VideoController.Instance.PauseAndResume;
 		MCQ_Manager.Instance._OnSubmitEvent += SetQuestion;
@@ -115,6 +118,7 @@ public class EndMenu : MonoBehaviour
 				SetQuestion();
 				break;
 			case State.SUMMARY:
+				Camera.main.GetComponent<Player>().Disable();
 				_summaryManager.Init();
 				_buttonGo.SetActive(true);
 				MCQ_Manager.Instance.gameObject.SetActive(false);

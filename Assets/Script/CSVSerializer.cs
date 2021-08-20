@@ -27,37 +27,36 @@ public class CSVSerializer : ScriptableObject
     {
 		CSVLoader loader = new CSVLoader();
 
-		if (_poiGo == null)
-        {
-			GetPrefab();
-        }
-
 		if (_mcqList.Length > 1)
 		{
-			if (File.Exists(Application.dataPath + '/' + _mcqList))
+			if (File.Exists(Application.streamingAssetsPath + '/' + _mcqList))
 			{
 				loader.LoadFile(_mcqList);
 				loader.PopulateMCQ(this);
 			}
+		#if UNITY_EDITOR
 			else
-            {
+			{
 				CSVSaver saver = new CSVSaver();
 				saver.SaveMCQ(this);
             }
+		#endif
 		}
 
 		if (_poiList.Length > 1)
 		{
-			if (File.Exists(Application.dataPath + '/' + _poiList))
+			if (File.Exists(Application.streamingAssetsPath + '/' + _poiList))
 			{
 				loader.LoadFile(_poiList);
 				loader.PopulatePOI(this);
 			}
+		#if UNITY_EDITOR
 			else
-            {
+			{
 				CSVSaver saver = new CSVSaver();
 				saver.SavePOI(this);
 			}
+		#endif
 		}
 	}
 
@@ -89,8 +88,4 @@ public class CSVSerializer : ScriptableObject
 		return _pois[i_];
 	}
 
-	private void GetPrefab()
-    {
-		_poiGo = AssetDatabase.LoadAssetAtPath<POI>("Assets/Prefabs/POI.prefab");
-    }
 }

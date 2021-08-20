@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SC2_CSV
   m_EditorClassIdentifier: 
   _poiGo: {fileID: 5424676526554508890, guid: 74a1c3d86f6747a40995183359b1cb2a, type: 3}
-  _poiList: Sheet/sc2_poi.csv
-  _mcqList: Sheet/sc2_mcq.csv
+  _poiList: sc2_poi.csv
+  _mcqList: sc2_mcq.csv
   _pois: []
   _mcqs: []
   _targetScene: {fileID: 0}

@@ -21,10 +21,10 @@ public class CSVLoader
 		_lines.Clear();
 		_culture	= CultureInfo.CurrentCulture;
 
-		using (FileStream fStream = new FileStream(Application.dataPath + '/' + filePath_, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+
+		using (FileStream fStream = new FileStream(Application.streamingAssetsPath + '/' + filePath_, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 		using (StreamReader reader = new StreamReader(fStream))
 		{
-
 			GetReadInfo(reader);
 
 			StringBuilder strBuilder = new StringBuilder();

@@ -98,6 +98,36 @@ public class SummaryManager : MonoBehaviour
 		_focusCoroutine = StartCoroutine(FocusOnSummary());
 	}
 
+	public void FocusNext()
+	{
+		_currFocus++;
+		if (_currFocus >= _summaries.Count)
+		{
+			_currFocus--;
+			return;
+		}
+
+		_summaries[_currFocus - 1].ShutOff();
+
+		if (_focusCoroutine != null) StopCoroutine(_focusCoroutine);
+		_focusCoroutine = StartCoroutine(FocusOnSummary());
+	}
+
+	public void FocusPrev()
+	{
+		_currFocus--;
+		if (_currFocus < 0)
+		{
+			_currFocus++;
+			return;
+		}
+
+		_summaries[_currFocus + 1].ShutOff();
+
+		if (_focusCoroutine != null) StopCoroutine(_focusCoroutine);
+		_focusCoroutine = StartCoroutine(FocusOnSummary());
+	}
+
 
 
 	private void FillContent(SummaryContainer sumContainer_, MCQ mcq_)
@@ -167,7 +197,9 @@ public class SummaryManager : MonoBehaviour
 			y = (-(i+1)*height) + (i+1) * _verticalOffset;
 		}
 
-		_buttonTrs.anchoredPosition = new Vector2(_buttonTrs.anchoredPosition.x, (-(_summaries.Count) * height) + (_summaries.Count) * _verticalOffset + _summaries[_summaries.Count - 1].content.rectTransform.rect.height);
+		height = (height - _summaries[_summaries.Count - 1].content.rectTransform.rect.height) / 2.0f;
+		_buttonTrs.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height/2.0f);
+		_buttonTrs.anchoredPosition = new Vector2(_buttonTrs.anchoredPosition.x, y + height * 0.75f);
 
 		yield break;
 	}

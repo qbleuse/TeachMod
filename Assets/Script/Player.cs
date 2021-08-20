@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
+        
         /* change the raycast check depending on the platform */
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {

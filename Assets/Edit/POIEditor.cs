@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEngine;
 
@@ -272,3 +274,5 @@ public class POIEditor : MonoBehaviour
 		_mcqEditor = Editor.CreateEditor(_editMCQ);
 	}
 }
+
+#endif

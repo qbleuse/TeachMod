@@ -42,6 +42,7 @@ public class POI : MonoBehaviour, IComparable<POI>
 
 	public void PutToSleep()
 	{
+		Debug.Log("here");
 		if (_mcq != null)
 		{
 			if (_askOnHit && !_mcq._answered)
@@ -63,7 +64,7 @@ public class POI : MonoBehaviour, IComparable<POI>
 			_onHitEvent += VideoController.Instance.PauseAndResume;
 			_onHitEvent += SetQuestion;
 			_onHitEvent += StopAllCoroutines;
-			MCQ_Manager.Instance._OnSubmitEvent += PutToSleep;
+			
 		}
 		else
 		{
@@ -98,6 +99,10 @@ public class POI : MonoBehaviour, IComparable<POI>
 
 	public void OnHit()
 	{
+		if (_askOnHit)
+		{
+			MCQ_Manager.Instance._OnSubmitEvent += PutToSleep;
+		}
 		_onHitEvent?.Invoke();
 	}
 

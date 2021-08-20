@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using System.IO;
 using System.Globalization;
 using System.Collections.Generic;
@@ -21,7 +23,7 @@ public class CSVSaver
 	public void SavePOI(CSVSerializer serial_)
 	{
 		/* erasing the entire content of the file */
-		using (FileStream fStream = new FileStream(Application.dataPath + '/' + serial_._poiList, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+		using (FileStream fStream = new FileStream(Application.streamingAssetsPath + '/' + serial_._poiList, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
 		{
 			lock (fStream)
 			{
@@ -34,7 +36,7 @@ public class CSVSaver
 		WritePOIContent(serial_);
 
 		/* reopening it and filling it */
-		using (FileStream fStream = new FileStream(Application.dataPath + '/' + serial_._poiList, FileMode.Open, FileAccess.Write, FileShare.None))
+		using (FileStream fStream = new FileStream(Application.streamingAssetsPath + '/' + serial_._poiList, FileMode.Open, FileAccess.Write, FileShare.None))
 		using (StreamWriter writer = new StreamWriter(fStream))
 		{
 			writer.Write(_content);
@@ -75,7 +77,7 @@ public class CSVSaver
 	public void SaveMCQ(CSVSerializer serial_)
 	{
 		/* erasing the entire content of the file */
-		using (FileStream fStream = new FileStream(Application.dataPath + '/' + serial_._mcqList, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+		using (FileStream fStream = new FileStream(Application.streamingAssetsPath + '/' + serial_._mcqList, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
 		{
 			lock (fStream)
 			{
@@ -88,7 +90,7 @@ public class CSVSaver
 		WriteMCQContent(serial_);
 
 		/* reopening it and filling it */
-		using (FileStream fStream = new FileStream(Application.dataPath + '/' + serial_._mcqList, FileMode.Open, FileAccess.Write, FileShare.None))
+		using (FileStream fStream = new FileStream(Application.streamingAssetsPath + '/' + serial_._mcqList, FileMode.Open, FileAccess.Write, FileShare.None))
 		using (StreamWriter writer = new StreamWriter(fStream))
 		{
 			writer.Write(_content);
@@ -157,3 +159,5 @@ public class CSVSaver
 
 	}
 }
+
+#endif

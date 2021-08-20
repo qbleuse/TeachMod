@@ -36,15 +36,11 @@ public class EndMenu : MonoBehaviour
 	/* the score gained when answering good to the MCQ */
 	public int _MCQ_Score = 0;
 
-	/* list to use the line nb where each mcq is stored in the summary */
-	private List<int> _lineNb = new List<int>();
-
 	/*==== COMPONENTS ====*/
 	private GameObject		_summarySection		= null;
 	private SummaryManager	_summaryManager		= null;
 
 	private GameObject	_buttonGo			= null;
-	private Text		_buttonText			= null;
 
 	private GameObject	_scoreSection	= null;
 	private Text[]		_scoreText		= null;
@@ -69,9 +65,6 @@ public class EndMenu : MonoBehaviour
 
 		/* getting the gameobject and the text of the button to change it after */
 		_buttonGo	= transform.GetChild(0).transform.GetChild(0).gameObject;
-		_buttonText = _buttonGo.GetComponentInChildren<Text>();
-
-		_buttonText.text = "Next";
 		_buttonGo.SetActive(false);
 
 		/* get the score section to print score at te end */
@@ -94,10 +87,10 @@ public class EndMenu : MonoBehaviour
 		MCQ_Manager.Instance._OnSubmitEvent -= VideoController.Instance.PauseAndResume;
 		MCQ_Manager.Instance._OnSubmitEvent += SetQuestion;
 
-		if (Input.GetKeyDown(KeyCode.E))
-		{
-			_menuState++;
-		}
+		//if (Input.GetKeyDown(KeyCode.E))
+		//{
+		//	_menuState++;
+		//}
 
 		ChangeState();
 	}
@@ -120,16 +113,15 @@ public class EndMenu : MonoBehaviour
 			case State.SUMMARY:
 				Camera.main.GetComponent<Player>().Disable();
 				_summaryManager.Init();
-				_buttonGo.SetActive(true);
 				MCQ_Manager.Instance.gameObject.SetActive(false);
 				_summarySection.SetActive(true);
 				_menuState++;
 				break;
 			case State.SCORE:
+				_buttonGo.SetActive(true);
 				_summarySection.SetActive(false);
 				_scoreSection.SetActive(true);
 				SetScore();
-				_buttonText.text = "Quit";
 				_menuState++;
 				break;
 			default:

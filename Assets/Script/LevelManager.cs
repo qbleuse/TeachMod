@@ -29,7 +29,12 @@ public class LevelManager : MonoBehaviour
 		_transition = GetComponent<Animator>();
 	}
 
-	public void LoadLevel(int levelIndex_)
+    public void Quit()
+    {
+		Application.Quit();
+    }
+
+    public void LoadLevel(int levelIndex_)
 	{
 		StartCoroutine(SmoothLoadLevel(levelIndex_));
 	}

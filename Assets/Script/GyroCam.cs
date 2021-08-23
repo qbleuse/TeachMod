@@ -15,7 +15,6 @@ public class GyroCam : MonoBehaviour
 	[SerializeField] private float _smoothing = 0.1f;
 
 	/*======== METHODS ========*/
-
 	private IEnumerator Start()
 	{
 		if (SystemInfo.deviceType == DeviceType.Desktop)

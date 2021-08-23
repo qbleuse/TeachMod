@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 /* a script that rotate the camera from the rotation it has to the target rotation
@@ -13,6 +13,8 @@ public class AnimationCam : MonoBehaviour
     /*==== STATE ====*/
     Quaternion _targetRot;
     Quaternion _offsetRot;
+
+    public event Action OnAnimDone;
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +64,8 @@ public class AnimationCam : MonoBehaviour
 
         /* set the rotation to avoid Quaternion imprecision */
         transform.rotation = _targetRot;
+
+        OnAnimDone?.Invoke();
 
         /* animation is done no need for it */
         enabled = false;

@@ -44,6 +44,13 @@ public class POI_Manager : MonoBehaviour
 	{
 		TryEnablePOI();
 		TryEnableMCQ();
+		if (Input.GetKeyDown(KeyCode.F))
+		{
+			for (int i = 0; i < _mcqs.Count; i++)
+            {
+				_mcqs[i]._answered = true;
+            }
+		}
 	}
 
 	void TryEnablePOI()

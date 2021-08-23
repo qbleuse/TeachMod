@@ -75,6 +75,7 @@ public class MCQ_Manager : MonoBehaviour
 		_comment	= _canvas.transform.GetChild(0).GetChild(6).GetComponent<TextMeshProUGUI>();
 		/* get the submit the text of the submit button */
 		_buttonText = _canvas.transform.GetChild(0).GetChild(7).transform.GetChild(0).GetComponent<Text>();
+		_buttonText.text = "Soumettre";
 
 
 
@@ -169,7 +170,7 @@ public class MCQ_Manager : MonoBehaviour
 		}
 
 		_comment.text = null;
-		_buttonText.text = "Submit";
+		_buttonText.text = "Soumettre";
 		_currMCQ = null;
 	}
 
@@ -271,7 +272,7 @@ public class MCQ_Manager : MonoBehaviour
 				 * to show the user at the end summary */
 				ShowAnswer();
 				_comment.text = _currMCQ._comment;
-				_buttonText.text = "Continue";
+				_buttonText.text = "Continuer";
 			}
 			return;
 		}

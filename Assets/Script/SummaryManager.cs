@@ -21,15 +21,32 @@ public class SummaryManager : MonoBehaviour
 	private StringBuilder			_stringBuilder	= null;
 
 	/*==== STATE ====*/
-	private AnimationCam _cam			= null;
+	private AnimationCam	_cam			= null;
+	private MonoBehaviour	_camCtrl		= null;
 
 	private int			_currFocus		= 0;
 	private Coroutine	_focusCoroutine = null;
 	private float		_prevScrollerY	= 0.0f;
 
-	public void Init()
+    private void OnDisable()
+    {
+		if (_camCtrl)
+			_camCtrl.enabled = false;
+    }
+
+    public void Init()
 	{
 		_cam = Camera.main.GetComponent<AnimationCam>();
+		/* change the raycast check depending on the platform */
+		if (SystemInfo.deviceType == DeviceType.Handheld)
+		{
+			_camCtrl = _cam.GetComponent<GyroCam>();
+		}
+		else
+		{
+			_camCtrl = _cam.GetComponent<DesktopCam>();
+		}
+		_cam.OnAnimDone += EnableCamCtrl;
 
 		/* getting the list of the pois */
 		List<MCQ> mcq = POI_Manager.Instance._mcqs;
@@ -63,6 +80,11 @@ public class SummaryManager : MonoBehaviour
 		
 		StartCoroutine(PlaceSummaries());
 	}
+
+	public void EnableCamCtrl()
+    {
+		_camCtrl.enabled = true;
+    }
 
 	public void OnBeginDrag()
 	{
@@ -179,7 +201,7 @@ public class SummaryManager : MonoBehaviour
 
 	IEnumerator PlaceSummaries()
 	{
-		yield return new WaitForFixedUpdate();
+		yield return new WaitForEndOfFrame();
 
 		_summaries.Sort();
 
@@ -206,6 +228,8 @@ public class SummaryManager : MonoBehaviour
 
 	IEnumerator FocusOnSummary()
 	{
+		if (_summaries[_currFocus]._poi != null)
+			_camCtrl.enabled = false;
 		_summaries[_currFocus].Set(_cam);
 
 		Vector2 newPos = Vector2.zero;

@@ -11,7 +11,7 @@ public class SummaryContainer : MonoBehaviour, IComparable<SummaryContainer>
 	[SerializeField] public float _timestamp = 0.0f;
 
 	/* the rot should be applied when setting this as the main summary */
-	[SerializeField] POI _poi = null;
+	[SerializeField] public POI _poi = null;
 
 	/*====  COMPONENTS ====*/
 	public TextMeshProUGUI content = null;

@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &732012508
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894166215501791979, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
+      propertyPath: m_Name
+      value: PostProcess
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
 --- !u!114 &860545890 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6053008146237976461, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
@@ -690,10 +747,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3656509263469238130, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
-      propertyPath: m_Text
-      value: Next
-      objectReference: {fileID: 0}
     - target: {fileID: 4416172826274279695, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: m_Name
       value: Comments
@@ -877,22 +930,6 @@ PrefabInstance:
     - target: {fileID: 7492940677043974279, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 167.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7808671403593760265, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7808671403593760265, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7808671403593760265, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 7808671403593760265, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8426381172774962958, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
       propertyPath: m_Sprite

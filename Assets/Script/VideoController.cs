@@ -115,10 +115,10 @@ public class VideoController : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.N))
 			if (_player.canSetTime)
 				_player.time = _player.clip.length - 2.0f;
-		//if (Input.GetKeyDown(KeyCode.E))
-		//{
-		//	EndMenu.Instance.WakeUp();
-		//}
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			EndMenu.Instance.WakeUp();
+		}
 	}
 
 	/*==== ACCESSOR ====*/

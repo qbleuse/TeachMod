@@ -108,10 +108,11 @@ public class EndMenu : MonoBehaviour
 		switch(_menuState)
 		{
 			case State.QUESTION:
+				CleanPOI();
 				SetQuestion();
 				break;
 			case State.SUMMARY:
-				Camera.main.GetComponent<Player>().Disable();
+				Camera.main.GetComponent<Player>().enabled = false;
 				_summaryManager.Init();
 				MCQ_Manager.Instance.gameObject.SetActive(false);
 				_summarySection.SetActive(true);
@@ -130,12 +131,43 @@ public class EndMenu : MonoBehaviour
 		}
 	}
 
+	private void CleanPOI()
+    {
+		List<POI> pois = POI_Manager.Instance._pois;
+		for (int i = 0; i < pois.Count; i++)
+        {
+			if (pois[i]._mcq && pois[i]._askOnHit && !pois[i]._mcq._answered)
+			{
+				pois[i]._mcq._answered = true;
+				pois[i]._mcq._results = new Color[pois[i]._mcq._answers.Count];
+				for (int j = 0; j < pois[i]._mcq._answers.Count; j++)
+				{
+					pois[i]._mcq._results[j] = Color.white;
+				}
+				for (int j = 0; j < pois[i]._mcq._rightAnswerNb.Count; j++)
+                {
+					pois[i]._mcq._results[pois[i]._mcq._rightAnswerNb[j]] = Color.yellow;
+				}
+			}
+
+			pois[i].gameObject.SetActive(false);
+
+		}
+    }
+
 	/* helper to setup the question panel depending on the nb o question */
 	private void SetQuestion()
 	{
 		int mcqCount	= POI_Manager.Instance._mcqs.Count;
 
 Search:
+		/* look for a POI that has a question */
+		while (_currQuestNb < mcqCount && (_currMCQ == null || _currMCQ._answered))
+		{
+			_currMCQ = POI_Manager.Instance._mcqs[_currQuestNb];
+			_currQuestNb++;
+		}
+
 		/* this methods is called multiple times, 
 		 * every time we want to print the MCQ of a POI
 		 * so this is possible/intended */
@@ -144,13 +176,6 @@ Search:
 			_menuState++;
 			ChangeState();
 			return;
-		}
-
-		/* look for a POI that has a question */
-		while (_currQuestNb < mcqCount && (_currMCQ == null || _currMCQ._answered))
-		{
-			_currMCQ = POI_Manager.Instance._mcqs[_currQuestNb];
-			_currQuestNb++;
 		}
 
 		/* we found one that can be ok, we check if it is applicable,

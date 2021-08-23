@@ -18,8 +18,18 @@ public class DesktopCam : MonoBehaviour
 	[SerializeField, Range( 0.0f , 90.0f)]	private float _yUpMaxRot	= 90.0f;
 	[SerializeField, Range(-90.0f, 0.0f)]	private float _yBotMaxRot	= -90.0f;
 
-	// Start is called before the first frame update
-	void Start()
+    // Start is called before the first frame update
+
+    private void OnEnable()
+    {
+		_xRot = transform.rotation.eulerAngles.x % 360.0f;
+		_yRot = transform.rotation.eulerAngles.y;
+		if (_xRot > 180.0f)
+			_xRot -= 360.0f;
+		_tempRot = transform.rotation;
+    }
+
+    void Start()
 	{
 		if (SystemInfo.deviceType == DeviceType.Handheld)
 		{

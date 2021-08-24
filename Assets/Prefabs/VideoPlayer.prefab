@@ -80,8 +80,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ad29c8a751c4d42a49a6b042b9146f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentVideoIndex: 0
-  sequences: []
+  _currentVideoIndex: -1
+  _sequencesPath: []
 --- !u!82 &3390414036816802205
 AudioSource:
   m_ObjectHideFlags: 0

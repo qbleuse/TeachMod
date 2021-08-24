@@ -42,8 +42,8 @@ public class EndMenu : MonoBehaviour
 
 	private GameObject	_buttonGo			= null;
 
-	private GameObject	_scoreSection	= null;
-	private Text[]		_scoreText		= null;
+	private GameObject			_scoreSection	= null;
+	private TextMeshProUGUI[]	_scoreText		= null;
 
 
 	/*==== STARTUP METHODS ====*/
@@ -69,7 +69,7 @@ public class EndMenu : MonoBehaviour
 
 		/* get the score section to print score at te end */
 		_scoreSection	= transform.GetChild(0).transform.GetChild(2).gameObject;
-		_scoreText		= _scoreSection.GetComponentsInChildren<Text>();
+		_scoreText		= _scoreSection.GetComponentsInChildren<TextMeshProUGUI>();
 		_scoreSection.SetActive(false);
 
 

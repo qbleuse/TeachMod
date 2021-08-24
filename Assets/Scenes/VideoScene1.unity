@@ -123,63 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &732012508
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 160904287459079890, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6894166215501791979, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
-      propertyPath: m_Name
-      value: PostProcess
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2cedbe9210360ee4f94dd4c50d6d97d2, type: 3}
 --- !u!114 &860545890 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6053008146237976461, guid: b1892a8e5104af2488add6f6503a16c4, type: 3}
@@ -532,32 +475,64 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[0]
-      value: 
-      objectReference: {fileID: 32900000, guid: deb17f8556b35cc4a8fc1863b3c71ce0, type: 3}
+      value: sc1/sc1_sm1.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[1]
-      value: 
-      objectReference: {fileID: 32900000, guid: 72ed9f2c420a91544b03c5d8b9d88d8d, type: 3}
+      value: sc1/sc1_sm4.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[2]
-      value: 
-      objectReference: {fileID: 32900000, guid: 423250d4d0ff3664a85073d5f7b6aa5b, type: 3}
+      value: sc1/sc1_sm7.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[3]
-      value: 
-      objectReference: {fileID: 32900000, guid: 0120233b82e25b94895099cc7771fdaa, type: 3}
+      value: sc1/sc1_sm10.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[4]
-      value: 
-      objectReference: {fileID: 32900000, guid: 723716a09d78d8f48a34cea42c7c97cb, type: 3}
+      value: sc1/sc1_sm14.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[5]
-      value: 
-      objectReference: {fileID: 32900000, guid: 739d6266d8cf0814e9da76c7aecefecc, type: 3}
+      value: sc1/sc1_sm17.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[6]
-      value: 
-      objectReference: {fileID: 32900000, guid: 1468a6e4ee3a0614ba96cf566cf74259, type: 3}
+      value: sc1/sc1_sm19.mp4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: _sequencesPath.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: _sequencesPath.Array.data[0]
+      value: Sc1/sc1_sm1.mp4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: _sequencesPath.Array.data[1]
+      value: Sc1/sc1_sm4.mp4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: _sequencesPath.Array.data[2]
+      value: Sc1/sc1_sm7.mp4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: _sequencesPath.Array.data[3]
+      value: Sc1/sc1_sm10.mp4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: _sequencesPath.Array.data[4]
+      value: Sc1/sc1_sm14.mp4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: _sequencesPath.Array.data[5]
+      value: Sc1/sc1_sm17.mp4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: _sequencesPath.Array.data[6]
+      value: Sc1/sc1_sm19.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: sequences.Array.data[0].video
       value: 
@@ -623,8 +598,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8283932341768623259, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: m_Url
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8283932341768623259, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: m_DataSource
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8283932341768623259, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8283932341768623259, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: m_PlaybackSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8283932341768623259, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
+      propertyPath: m_WaitForFirstFrame
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}

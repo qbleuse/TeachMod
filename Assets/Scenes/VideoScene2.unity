@@ -505,40 +505,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[0]
-      value: 
-      objectReference: {fileID: 32900000, guid: 521dc6f68b57d3d4ead078b6841962fe, type: 3}
+      value: sc2/sc2_s1-3.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[1]
-      value: 
-      objectReference: {fileID: 32900000, guid: 5db93dd2c37d9be4db02e815bc5d4de0, type: 3}
+      value: sc2/sc2_sm4.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[2]
-      value: 
-      objectReference: {fileID: 32900000, guid: 7375824c2c445f646a81ca3e706752f8, type: 3}
+      value: sc2/sc2_sm5-6.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[3]
-      value: 
-      objectReference: {fileID: 32900000, guid: 481336866ae00514e87a915afcd1b2ff, type: 3}
+      value: sc2/sc2_sm7-10.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[4]
-      value: 
-      objectReference: {fileID: 32900000, guid: 18d37a48df0c76c44a413da412f8b221, type: 3}
+      value: sc2/sc2_sm10-12.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[5]
-      value: 
-      objectReference: {fileID: 32900000, guid: ef13d296c67af874da39a68724467021, type: 3}
+      value: sc2/sc2_sm13-16.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[6]
-      value: 
-      objectReference: {fileID: 32900000, guid: a25174a1fb2937547bfc876f988c3ccd, type: 3}
+      value: sc2/sc2_sm16.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[7]
-      value: 
-      objectReference: {fileID: 32900000, guid: f73442bbeb3e1e34bb750b7e6a055527, type: 3}
+      value: sc2/sc2_sm17-18.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: _sequences.Array.data[8]
-      value: 
-      objectReference: {fileID: 32900000, guid: 8707a13ea8e77df4b8a77d60f425a3d0, type: 3}
+      value: sc2/sc2_sm19-20.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: -7151371901824344825, guid: 137b8547bedcfca4893bc1d98f47c118, type: 3}
       propertyPath: sequences.Array.data[0].video
       value: 

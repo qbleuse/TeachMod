@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
@@ -13,6 +14,8 @@ public class VideoController : MonoBehaviour
 
 	/* variable that pause the video after the first frame of the video is shown after calling play */
 	private bool _frameOnly = false;
+	private float _targetTime = 0.0f;
+	private bool _setTimeDone = false;
 	/* getter/setter that pause the video after the first frame of the video is shown after calling play */
 	[HideInInspector] public bool _framePerFrame {	set 
 													{ 
@@ -24,7 +27,7 @@ public class VideoController : MonoBehaviour
 													} } 
 
 	/*==== SETTINGS ====*/
-	[SerializeField] private List<VideoClip> _sequences = null;
+	[SerializeField] private List<string> _sequences = null;
 
 	/*==== COMPONENTS ====*/
 	private VideoPlayer _player = null;
@@ -59,15 +62,35 @@ public class VideoController : MonoBehaviour
 
 	private void OnFrameReady(VideoPlayer source, long frameIdx)
 	{
-		if (_frameOnly)
-			source.Pause();
+		if (_frameOnly && _player.isPlaying && _setTimeDone)
+		{
+			_setTimeDone = false;
+			source.Stop();
+		}
+		else if (_frameOnly && _player.isPlaying && !_setTimeDone)
+		{
+			StartCoroutine(SetTime());
+		}
 	}
+
+	IEnumerator SetTime()
+    {
+		while (!_player.canSetTime)
+			yield return null;
+
+		_player.time = _targetTime;
+		_setTimeDone = true;
+    }
 
 	public void SetSequence()
 	{
 		_currentVideoIndex++;
 
-		_player.clip	= _sequences[_currentVideoIndex];
+#if UNITY_ANDROID && !UNITY_EDITOR
+		_player.url = Application.streamingAssetsPath + "/" + _sequences[_currentVideoIndex];
+#else
+		_player.url = "file://" + Application.streamingAssetsPath + "/" + _sequences[_currentVideoIndex];
+#endif
 
 		_player.Play();
 	}
@@ -76,8 +99,12 @@ public class VideoController : MonoBehaviour
 	{
 		_currentVideoIndex = sequenceNb;
 
-		_player.clip = _sequences[sequenceNb];
-		_player.time = timestamp;
+#if UNITY_ANDROID && !UNITY_EDITOR
+		_player.url = Application.streamingAssetsPath + "/" + _sequences[_currentVideoIndex];
+#else
+		_player.url = "file://" + Application.streamingAssetsPath + "/" + _sequences[_currentVideoIndex];
+#endif
+		_targetTime = timestamp;
 
 		_player.Play();
 	}
@@ -114,10 +141,14 @@ public class VideoController : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.N))
 			if (_player.canSetTime)
-				_player.time = _player.clip.length - 2.0f;
+				_player.time = _player.length - 2.0f;
 		if (Input.GetKeyDown(KeyCode.E))
 		{
 			EndMenu.Instance.WakeUp();
+		}
+		if (Input.GetKeyDown(KeyCode.T))
+		{
+			SetSequence();
 		}
 	}
 

@@ -222,6 +222,7 @@ public class SummaryManager : MonoBehaviour
 		height = (height - _summaries[_summaries.Count - 1].content.rectTransform.rect.height) / 2.0f;
 		_buttonTrs.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height/2.0f);
 		_buttonTrs.anchoredPosition = new Vector2(_buttonTrs.anchoredPosition.x, y + height * 0.75f);
+		_focusCoroutine = StartCoroutine(FocusOnSummary());
 
 		yield break;
 	}

@@ -18,6 +18,9 @@ public class LevelManager : MonoBehaviour
 	/* tecnically the duration of the animation, can be changed if wanted*/
 	[SerializeField] private float _transitionTime = 1.0f;
 
+	/*==== STATE ====*/
+	private int _targetLevelId = 0;
+
 	/*======== METHODS ========*/
 	private void Awake()
 	{
@@ -34,9 +37,14 @@ public class LevelManager : MonoBehaviour
 		Application.Quit();
     }
 
-    public void LoadLevel(int levelIndex_)
+	public void SetTargetLevel(int levelIndex_)
 	{
-		StartCoroutine(SmoothLoadLevel(levelIndex_));
+		_targetLevelId = levelIndex_;
+	}
+
+	public void LoadLevel()
+	{
+		StartCoroutine(SmoothLoadLevel(_targetLevelId));
 	}
 
 	IEnumerator SmoothLoadLevel(int levelIndex_)

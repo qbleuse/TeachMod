@@ -126,7 +126,7 @@ public class EndMenu : MonoBehaviour
 				_menuState++;
 				break;
 			default:
-				LevelManager.Instance.LoadLevel(0);
+				LevelManager.Instance.LoadLevel();
 				break;
 		}
 	}

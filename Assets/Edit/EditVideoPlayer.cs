@@ -1,6 +1,6 @@
 #if UNITY_EDITOR
 
-using System;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Video;
@@ -24,15 +24,25 @@ public class EditVideoPlayer : MonoBehaviour
 	/*==== STATE ====*/
 	public	double			_time		= 0.0f;
 	public RenderTexture	_texture	= null;
-	private VideoClip		_videoClip	= null;
+	private int				_urlID		= -1;
+	private string[]		_movieFiles = null;
 
 	// Start is called before the first frame update
 	public void Start()
 	{
 		/* getting and setting the components */
 		_player = GetComponent<VideoPlayer>();
+		_player.source = VideoSource.Url;
 		_audio  = GetComponent<AudioSource>();
 		_player.SetTargetAudioSource(1, _audio);
+
+		_movieFiles = Directory.GetFiles(Application.streamingAssetsPath, "*.mp4", SearchOption.AllDirectories);
+		/* remove the streaming asset path of the file names, and the  slash */
+		int rmLength = Application.streamingAssetsPath.Length + 1;
+		for (int i = 0; i < _movieFiles.Length; i++)
+        {
+			_movieFiles[i] = _movieFiles[i].Remove(0, rmLength);
+        }
 	}
 
 	// Update is called once per frame
@@ -70,10 +80,10 @@ public class EditVideoPlayer : MonoBehaviour
 
 	public void OnInspectorGUI()
 	{
-		if (_videoClip && _player)
+		if (_player != null &&  _player.url != null)
 		{
 			GUILayout.BeginHorizontal();
-			float time = EditorGUILayout.Slider("timestamp", (float)_time, 0.0f, (float)_videoClip.length);
+			float time = EditorGUILayout.Slider("timestamp", (float)_time, 0.0f, (float)_player.length);
 
 			Event e = Event.current;
 			if (e.type == EventType.Used)
@@ -88,10 +98,13 @@ public class EditVideoPlayer : MonoBehaviour
 			GUILayout.EndHorizontal();
 		}
 
-		_videoClip = EditorGUILayout.ObjectField("video", _videoClip, typeof(VideoClip), false) as VideoClip;
+		int newUrl = EditorGUILayout.Popup(_urlID, _movieFiles);
 
-		if (_player)
-			_player.clip = _videoClip;
+		if (newUrl != _urlID && newUrl >= 0 && newUrl < _movieFiles.Length)
+        {
+			_urlID = newUrl;
+			_player.url = "file://" + Application.streamingAssetsPath + "/" +  _movieFiles[_urlID];
+		}
 	}
 
 

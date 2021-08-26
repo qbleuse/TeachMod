@@ -1,0 +1,6 @@
+sequence;timestamp;end timestamp;ask On Hit;Yaw;Pitch;Size;mcq Id
+1;8;37;True;102;10;0,0619;2
+1;45;72;True;101;15;0,024;3
+2;50;63;True;20;5;0,065;7
+3;11;24;True;105;9,999999;0,054;8
+3;108;124;True;86,99999;29;0,04;11

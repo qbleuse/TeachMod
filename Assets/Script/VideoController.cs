@@ -33,6 +33,8 @@ public class VideoController : MonoBehaviour
 	private VideoPlayer _player = null;
 	private AudioSource _audio = null;
 
+	[HideInInspector] public GameObject _pauseButton = null;
+
 	private void Awake()
 	{
 		Instance = this;
@@ -45,6 +47,8 @@ public class VideoController : MonoBehaviour
 		_player = GetComponent<VideoPlayer>();
 		_audio	= GetComponent<AudioSource>();
 		_player.SetTargetAudioSource(0,_audio);
+
+		_pauseButton = transform.GetChild(0).gameObject;
 
 		/* to go to the next video */
 		_player.loopPointReached += OnMovieFinished;
@@ -139,17 +143,6 @@ public class VideoController : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.N))
-			if (_player.canSetTime)
-				_player.time = _player.length - 2.0f;
-		if (Input.GetKeyDown(KeyCode.E))
-		{
-			EndMenu.Instance.WakeUp();
-		}
-		if (Input.GetKeyDown(KeyCode.T))
-		{
-			SetSequence();
-		}
 	}
 
 	/*==== ACCESSOR ====*/

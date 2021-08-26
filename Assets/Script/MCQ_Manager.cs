@@ -229,7 +229,8 @@ public class MCQ_Manager : MonoBehaviour
 		{
 			_rightAnswerCache[_currMCQ._rightAnswerNb[i]] = true;
 		}
-		
+
+		VideoController.Instance._pauseButton.SetActive(false);
 
 		return true;
 	}
@@ -283,6 +284,8 @@ public class MCQ_Manager : MonoBehaviour
 		/* reenabling user input */
 		_camera.enabled = true;
 		_player.enabled = true;
+
+		VideoController.Instance._pauseButton.SetActive(true);
 
 		_OnSubmitEvent?.Invoke();
 	}

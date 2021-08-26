@@ -40,8 +40,6 @@ public class EndMenu : MonoBehaviour
 	private GameObject		_summarySection		= null;
 	private SummaryManager	_summaryManager		= null;
 
-	private GameObject	_buttonGo			= null;
-
 	private GameObject			_scoreSection	= null;
 	private TextMeshProUGUI[]	_scoreText		= null;
 
@@ -57,18 +55,14 @@ public class EndMenu : MonoBehaviour
 	{
 		/* getting the gameobjects we need in the summary section,
 		 * you may want to open the EndMenu prefab to see how it is stored */
-		_summarySection = transform.GetChild(0).transform.GetChild(1).gameObject;
+		_summarySection = transform.GetChild(0).transform.GetChild(0).gameObject;
 		_summaryManager	= GetComponent<SummaryManager>();
 
 		/* we will make appear after */
 		_summarySection.SetActive(false);
 
-		/* getting the gameobject and the text of the button to change it after */
-		_buttonGo	= transform.GetChild(0).transform.GetChild(0).gameObject;
-		_buttonGo.SetActive(false);
-
 		/* get the score section to print score at te end */
-		_scoreSection	= transform.GetChild(0).transform.GetChild(2).gameObject;
+		_scoreSection	= transform.GetChild(0).transform.GetChild(1).gameObject;
 		_scoreText		= _scoreSection.GetComponentsInChildren<TextMeshProUGUI>();
 		_scoreSection.SetActive(false);
 
@@ -86,11 +80,6 @@ public class EndMenu : MonoBehaviour
 		gameObject.SetActive(true);
 		MCQ_Manager.Instance._OnSubmitEvent -= VideoController.Instance.PauseAndResume;
 		MCQ_Manager.Instance._OnSubmitEvent += SetQuestion;
-
-		//if (Input.GetKeyDown(KeyCode.E))
-		//{
-		//	_menuState++;
-		//}
 
 		ChangeState();
 	}
@@ -112,6 +101,7 @@ public class EndMenu : MonoBehaviour
 				SetQuestion();
 				break;
 			case State.SUMMARY:
+				VideoController.Instance._pauseButton.SetActive(false);
 				Camera.main.GetComponent<Player>().enabled = false;
 				_summaryManager.Init();
 				MCQ_Manager.Instance.gameObject.SetActive(false);
@@ -119,7 +109,6 @@ public class EndMenu : MonoBehaviour
 				_menuState++;
 				break;
 			case State.SCORE:
-				_buttonGo.SetActive(true);
 				_summarySection.SetActive(false);
 				_scoreSection.SetActive(true);
 				SetScore();
@@ -190,11 +179,18 @@ Search:
 	/* method that append the score to the string of the text score "_scoreText"*/
 	void SetScore()
 	{
+		int mcqNB = POI_Manager.Instance._mcqs.Count;
+		for (int i = 0; i < POI_Manager.Instance._pois.Count; i++)
+        {
+			if (POI_Manager.Instance._pois[i]._askOnHit)
+				mcqNB++;
+        }
+
 		/* append POI found/POI there was */
-		_scoreText[0].text += _POI_Score.ToString() + "/" + POI_Manager.Instance._pois.Count.ToString();
+		_scoreText[0].text += _POI_Score.ToString() + "/" + POI_Manager.Instance._pois.Count.ToString() + "</color>";
 
 		/* append MCQ well answered/MCQ there was (there should be as much POI than there is MCQ as they're contained in th POI) */
-		_scoreText[1].text += _MCQ_Score.ToString() + "/" + POI_Manager.Instance._mcqs.Count.ToString();
+		_scoreText[1].text += _MCQ_Score.ToString() + "/" + mcqNB.ToString() + "</color>";
 	}
 
 }

@@ -44,9 +44,6 @@ public class DesktopCam : MonoBehaviour
 		_yRot += Input.GetAxis("Horizontal") * Time.deltaTime * _sensibility;
 		_xRot -= Input.GetAxis("Vertical") * Time.deltaTime * _sensibility;
 
-		//_yRot += Input.GetAxis("Mouse X") * Time.deltaTime * _sensibility;
-		//_xRot -= Input.GetAxis("Mouse Y") * Time.deltaTime * _sensibility;
-
 		_xRot = Mathf.Clamp(_xRot, _yBotMaxRot, _yUpMaxRot);
 
 		_tempRot = Quaternion.Euler(_xRot, _yRot, 0.0f);

@@ -126,7 +126,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8466791217503958960}
-  - {fileID: 109391143884925929}
   - {fileID: 109391144125517937}
   - {fileID: 6646932359707310662}
   - {fileID: 8931670386363265334}
@@ -189,101 +188,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!1 &109391143884925928
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 109391143884925929}
-  - component: {fileID: 109391143884925931}
-  - component: {fileID: 109391143884925930}
-  - component: {fileID: 6074212546782536338}
-  m_Layer: 5
-  m_Name: Title
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &109391143884925929
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109391143884925928}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 109391143417426412}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 250, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &109391143884925931
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109391143884925928}
-  m_CullTransparentMesh: 1
---- !u!114 &109391143884925930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109391143884925928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 86206f489f91ae3428e2a0a0751d1fee, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 0
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 09113cff43d0e934f91574555abf70ca, type: 3}
-    m_FontSize: 48
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 4
-    m_MaxSize: 48
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: TeachMod
---- !u!114 &6074212546782536338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109391143884925928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
 --- !u!1 &109391143961269822
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +322,7 @@ RectTransform:
   m_Children:
   - {fileID: 109391143307425276}
   m_Father: {fileID: 109391143417426412}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -553,7 +457,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -9.1}
+  m_AnchoredPosition: {x: 0, y: 5}
   m_SizeDelta: {x: 750, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4244307431018897971
@@ -587,21 +491,24 @@ MonoBehaviour:
   m_text: "\rCommuniquer, interagir,  \xEAtre en relation avec les autres sont des
     \xE9l\xE9ments importants pour l'\xEAtre humain. Dans le domaine de la sant\xE9
     la relation entre le soign\xE9-soignant est la cl\xE9 de vo\xFBte du succ\xE8s
-    th\xE9rapeutique.\r\n TeachMod est une nouvelle fa\xE7on d\u2019apprendre le
-    savoir \xEAtre et savoir-faire dans  la relation soignant soign\xE9.\r\nTeachMod
-    utilise l'exp\xE9rience conjointe de professionnels de la sant\xE9, de l\u2019enseignement,
+    th\xE9rapeutique.\r\nTeachMod est une nouvelle fa\xE7on d\u2019apprendre le savoir
+    \xEAtre et savoir-faire dans  la relation soignant soign\xE9.\r\nTeachMod utilise
+    l'exp\xE9rience conjointe de professionnels de la sant\xE9, de l\u2019enseignement,
     de la recherche et de la r\xE9alit\xE9 virtuelle pour vous offrir une plong\xE9e
-    interactive dans une consultation m\xE9dicale.\r\nGrace \xE0 TeachMod vous pourrez
+    interactive dans une consultation m\xE9dicale.\r\nGrace \xE0 TeachMod, vous allez
     acqu\xE9rir des comp\xE9tences utiles \xE0 tous les \xE9tudiants int\xE9ress\xE9s
     par le monde de la sant\xE9.\r\nTeachMod vous propose d'assister \xE0 2 extraits
-    consultations l'une directement dans un centre m\xE9moire et un autre \xE0 distance.
-    Durant ces extraits (environ 10 minutes chacun) vous devrez rep\xE9rer certaines
-    des attitudes et r\xE9pondre \xE0 des questions sur sur le d\xE9roulement de
-    la consultation. Vous pourrez obtenir un score correspondant aux comp\xE9tences
-    que vous avez acquise. Si celui-ci est insuffisant vous pouvez reprendre la consultation
-    \xE0 fin de rep\xE9rer les points que vous avez manqu\xE9.\r\nLes personnages
-    de chacune des consultations sont jou\xE9s par de vrais professionnels de sant\xE9
-    mais qui sont des acteurs amateurs. Soyez donc indulgent \r\n"
+    consultations l'une directement dans un centre m\xE9moire et un autre \xE0 distance,
+    en controlant la cam\xE9ra avec le gyroscope de la tablette ou les fl\xE8ches
+    du clavier. Vous devrez:\n- Rep\xE9rez certaines attitude (Point d'Int\xE9r\xEAt)
+    en cliquant sur les cercles.\n- R\xE9pondre aux questions qui s'affiche \nDurant
+    ces extraits (environ 10 minutes chacun) vous devrez rep\xE9rer certaines des
+    attitudes (Point d'int\xE9r\xEAts) et r\xE9pondre \xE0 des Questions sur sur
+    le d\xE9roulement de la consultation. Vous obtiendrez un score correspondant
+    aux comp\xE9tences que vous avez acquise. Si celui-ci est insuffisant vous pouvez
+    reprendre la consultation pour vous am\xE9liorez.\r\nLes personnages de chacune
+    des consultations sont jou\xE9s par de vrais professionnels de sant\xE9 mais
+    acteurs amateurs. Soyez donc indulgent !"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56a637891168f454a9a7489bd386c783, type: 2}
   m_sharedMaterial: {fileID: 2520741690466872315, guid: 56a637891168f454a9a7489bd386c783, type: 2}
@@ -628,8 +535,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13
-  m_fontSizeBase: 13
+  m_fontSize: 12.5
+  m_fontSizeBase: 12.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -835,7 +742,7 @@ RectTransform:
   m_Children:
   - {fileID: 76182030784787918}
   m_Father: {fileID: 109391143417426412}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1050,7 +957,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -793, y: 0}
+  m_AnchoredPosition: {x: -900, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8342976636538672210
@@ -1748,7 +1655,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 800, y: 0}
+  m_AnchoredPosition: {x: 900, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6285297999144831875
@@ -2307,7 +2214,7 @@ RectTransform:
   m_Children:
   - {fileID: 2058017772138254175}
   m_Father: {fileID: 109391143417426412}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2440,7 +2347,7 @@ RectTransform:
   m_Children:
   - {fileID: 3989108477468895162}
   m_Father: {fileID: 109391143417426412}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2548,6 +2455,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4721030355119806217}
     m_Modifications:
+    - target: {fileID: 113230611374355971, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 113230611374355971, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2566,7 +2481,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 0.513
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2578,11 +2493,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 95
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2618,7 +2533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1
+      value: -62.5
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2650,6 +2565,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 323979779325687734}
     m_Modifications:
+    - target: {fileID: 113230611374355971, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 113230611374355971, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 113230611374355971, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 113230611374355971, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50
+      objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2716,11 +2647,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -3.8
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -44.5
+      value: -65
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2736,7 +2667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3380548532287300796, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -100
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 4663817726058438699, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_Name
@@ -2745,6 +2676,10 @@ PrefabInstance:
     - target: {fileID: 8498268624224224190, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619903606598893967, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 315
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
@@ -2830,7 +2765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 685685700696926729, guid: 7b3955afd83f0ad4ba813389e20ece7d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1
+      value: 36.5
       objectReference: {fileID: 0}
     - target: {fileID: 685685700696926729, guid: 7b3955afd83f0ad4ba813389e20ece7d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

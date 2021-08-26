@@ -65,11 +65,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "D\xE9veloppement de l\u2019application: Quentin Bleuse\r\nsous la direction
-    technique du Pr Mael Addoum et la direction m\xE9dicale du Pr Philippe Robert\r\n\r\nMerci
-    aux ing\xE9nieurs qui ont contribu\xE9s \xE0 la conception et \xE0 la r\xE9alisation
-    des sc\xE9narios TeachMod\r\n\r\nNadia Bilger\r\nJulie Brousse\r\nAlexandre Derreumaux\r\nRachid
-    Guerchouche\r\nValeria Manera\r\nMagali Templier\r\nMarilou Serris\r\nPaul Galindo"
+  m_text: "D\xE9veloppement de l\u2019application: <b>Quentin Bleuse</b>\r\nSous
+    la direction technique du Pr Mael Addoum et la direction m\xE9dicale du Pr Philippe
+    Robert\r\n\r\nMerci \xE0 tous ceux qui ont contribu\xE9s \xE0 la conception et
+    \xE0 la r\xE9alisation de TeachMod\r\n\r\nNadia Bilger \nJulie Brousse\r\nAlexandre
+    Derreumaux\r\nRachid Guerchouche\r\nValeria Manera\r\nMagali Templier\r\nMarilou
+    Serris\r\nPaul Galindo"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56a637891168f454a9a7489bd386c783, type: 2}
   m_sharedMaterial: {fileID: 2520741690466872315, guid: 56a637891168f454a9a7489bd386c783, type: 2}
@@ -103,7 +104,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0

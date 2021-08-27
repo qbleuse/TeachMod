@@ -457,8 +457,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 5}
-  m_SizeDelta: {x: 750, y: 250}
+  m_AnchoredPosition: {x: 0, y: 30}
+  m_SizeDelta: {x: 750, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4244307431018897971
 CanvasRenderer:
@@ -498,17 +498,15 @@ MonoBehaviour:
     interactive dans une consultation m\xE9dicale.\r\nGrace \xE0 TeachMod, vous allez
     acqu\xE9rir des comp\xE9tences utiles \xE0 tous les \xE9tudiants int\xE9ress\xE9s
     par le monde de la sant\xE9.\r\nTeachMod vous propose d'assister \xE0 2 extraits
-    consultations l'une directement dans un centre m\xE9moire et un autre \xE0 distance,
-    en controlant la cam\xE9ra avec le gyroscope de la tablette ou les fl\xE8ches
-    du clavier. Vous devrez:\n- Rep\xE9rez certaines attitude (Point d'Int\xE9r\xEAt)
-    en cliquant sur les cercles.\n- R\xE9pondre aux questions qui s'affiche \nDurant
-    ces extraits (environ 10 minutes chacun) vous devrez rep\xE9rer certaines des
-    attitudes (Point d'int\xE9r\xEAts) et r\xE9pondre \xE0 des Questions sur sur
-    le d\xE9roulement de la consultation. Vous obtiendrez un score correspondant
-    aux comp\xE9tences que vous avez acquise. Si celui-ci est insuffisant vous pouvez
-    reprendre la consultation pour vous am\xE9liorez.\r\nLes personnages de chacune
-    des consultations sont jou\xE9s par de vrais professionnels de sant\xE9 mais
-    acteurs amateurs. Soyez donc indulgent !"
+    (environ 10 min chacun) consultations l'une directement dans un centre m\xE9moire
+    et un autre \xE0 distance, en controlant la cam\xE9ra avec le gyroscope de la
+    tablette ou les fl\xE8ches du clavier. Vous devrez:\n- Rep\xE9rez certaines attitude
+    (Point d'Int\xE9r\xEAt) en cliquant sur les cercles.\n- R\xE9pondre aux Questions
+    qui s'affiche \nVous obtiendrez un score correspondant aux comp\xE9tences que
+    vous avez acquise. Si celui-ci est insuffisant vous pouvez reprendre la consultation
+    pour vous am\xE9liorez.\r\nLes personnages de chacune des consultations sont
+    jou\xE9s par de vrais professionnels de sant\xE9 mais acteurs amateurs. Soyez
+    donc indulgent !"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56a637891168f454a9a7489bd386c783, type: 2}
   m_sharedMaterial: {fileID: 2520741690466872315, guid: 56a637891168f454a9a7489bd386c783, type: 2}
@@ -2481,7 +2479,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.513
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2497,7 +2495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 95
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2533,7 +2531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -62.5
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2651,7 +2649,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -65
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 1968921358272867000, guid: 4839055a901e2194aad1c9d0bfebd226, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2729,7 +2727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 685685700696926729, guid: 7b3955afd83f0ad4ba813389e20ece7d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 300
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 685685700696926729, guid: 7b3955afd83f0ad4ba813389e20ece7d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2765,7 +2763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 685685700696926729, guid: 7b3955afd83f0ad4ba813389e20ece7d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 36.5
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 685685700696926729, guid: 7b3955afd83f0ad4ba813389e20ece7d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2782,6 +2780,18 @@ PrefabInstance:
     - target: {fileID: 2301504820428653277, guid: 7b3955afd83f0ad4ba813389e20ece7d, type: 3}
       propertyPath: m_Name
       value: Credits
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656713364342237047, guid: 7b3955afd83f0ad4ba813389e20ece7d, type: 3}
+      propertyPath: m_fontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656713364342237047, guid: 7b3955afd83f0ad4ba813389e20ece7d, type: 3}
+      propertyPath: m_margin.y
+      value: -12.247978
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656713364342237047, guid: 7b3955afd83f0ad4ba813389e20ece7d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b3955afd83f0ad4ba813389e20ece7d, type: 3}

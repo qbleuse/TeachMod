@@ -1950,6 +1950,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Credits
       objectReference: {fileID: 0}
+    - target: {fileID: 3656713364342237047, guid: 7b3955afd83f0ad4ba813389e20ece7d, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b3955afd83f0ad4ba813389e20ece7d, type: 3}
 --- !u!224 &4650493102287304950 stripped

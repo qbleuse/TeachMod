@@ -17,7 +17,7 @@ This work has been developed has an internship in the CobTek Lab with the help o
 
 <p float="middle">
 	<img src="Assets/Logo/CHU_Logo.png" width="100" />
-	<img src="Assets/Logo/CobTEk_Logo.png" width="100" /> 
+	<img src="Assets/Logo/CobTek_Logo.png" width="100" /> 
 	<img src="Assets/Logo/Don_Logo.png" width="170" />
 	<img src="Assets/Logo/IA_Logo.png" width="50" />
 	<img src="Assets/Logo/ICP_Logo.png" width="55" />

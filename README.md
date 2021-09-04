@@ -132,4 +132,4 @@ ___
 
 ## License
 
-See the [LICENSE.md](LICENSE.md) file for license rights and limitations (MIT).
+See the [LICENSE.md](LICENSE.md) file for license rights and limitations (GPLv3).

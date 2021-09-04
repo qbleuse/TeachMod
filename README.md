@@ -34,7 +34,7 @@ Alexandre Derreumaux| Technician
 Rachid Guerchouche| Technician
 Paul Galindo| Consultant
 
-Also a much thanks to those who acted in the videos:
+Also much thanks to those who acted in the videos:
 
 - Nadia Bilger
 - Julie Brousse

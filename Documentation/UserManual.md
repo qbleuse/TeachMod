@@ -32,7 +32,7 @@ ___
 
 ## Creating a Scene
 
-Firsr of, to create your own module you need to create a new Scene and put all the prefabs you need in it as shown below
+First of, to create your own module you need to create a new Scene and put all the prefabs you need in it as shown below
 
 ![SceneCreation](media/SceneCreation.gif)
 
@@ -45,7 +45,7 @@ The objects needed to make your Scene work are:
 - A POI_Manager
 - A VideoPlayer
 
-You will have an explation of what each prefabs does. but before that we shall finish to setup the Scene. See Below:
+We need to finish to setup the scene. See Below:
 
 ![SkyBoxChange](media/SkyBoxChange.gif)
 
@@ -56,6 +56,7 @@ You will need to change the Skybox Material to the VideoSkybox in the SkyBox/ Fo
 
 Your Scene will then be able to display a panoramic video.
 
+<br>
 <details>
 <summary>On Video Display...</summary>
 <p>
@@ -72,6 +73,7 @@ You will be able to change the Video Type (360° or 180°) and the Video Resolut
 
 </p>
 </details>
+</br>
 
 But to display a panoramic video it needs to know which one it should display.
 
@@ -107,6 +109,7 @@ Create your own CSVSerializer put your CSV Files path for the POI and questionna
 
 <span style="color:red"> ___/!\ All csv files should be stored in the Streaming Assets/ File, otherwise when building the application the files will not be found /!\ .___ </span>
 
+<br>
 <details>
 <summary>On POI...</summary>
 <p>
@@ -117,6 +120,7 @@ It will just need a collider and the POI script assigned to it.
 
 </p>
 </details>
+</br>
 
 we have a csv serializer but for now, the csv files are empty so it will not do anything, to fill it you have two choices:
 
@@ -145,7 +149,7 @@ Opening a poi csv file in spreadsheet editor will look like this:
 
 Name | sequence |timestamp| end timestamp | ask On Hit| Yaw | Pitch | Size | mcq Id
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|Explanation | which video the poi will appear | what timestamp in this video | when should it disappear | asks the question associated when interacted with? | the rotation around the y axis | the rotation around the x axis | the question associated with
+|Explanation | which video the poi will appear | what timestamp in this video | when should it disappear | asks the question associated when interacted with? | the rotation around the y axis | the rotation around the x axis | the size of the POI | the question associated with
 | how should it be filled | a natural number | a real number | a real number | TRUE or FALSE | a real number | a real number | a real number | the id of the mcq in the other spreadsheet
 Extra Notes||||| the rotation represent the one of the camera to see the POI|therefore it changes the position not the rotation of the POI
 
@@ -172,6 +176,7 @@ The video player is to help choosing the timestamp:
 
 You can choose a video in the list, then play it, hold left mouse button while moving the mouse to move the camera, and move the timestamp.
 
+<br>
 <details>
 <summary>Concerning the videos shown...</summary>
 <p>
@@ -192,6 +197,7 @@ You should change those lines to include your video formats.
 
 </p>
 </details>
+</br>
 
 ### _CSV Editor_
 
@@ -199,7 +205,7 @@ You need to drag and drop the csv serializer in the field for it then:
 
 ![POI_Editor](media/POI_Editor.gif)
 
-You can add or remove a POI or a MCQ by clicking on the + or - buttons, the choose the one you edit by draging the slider.
+You can add or remove a POI or a MCQ by clicking on the + or - buttons, then choose the one you edit by draging the slider.
 
 With the POI Editor you can Edit the same field than in the spreadsheet:
 

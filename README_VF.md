@@ -129,7 +129,7 @@ ___
 
 ## Manuel Utilisateur
 
-Le Manuel Utilisateur est disponible dans le fichier [ManuelUtilisateur.md](ManuelUtilisateur.md).
+Le Manuel Utilisateur est disponible dans le fichier [ManuelUtilisateur.md](Documentation/ManuelUtilisateur.md).
 
 ___
 

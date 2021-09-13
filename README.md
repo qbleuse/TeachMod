@@ -51,14 +51,17 @@ ___
 
 ## Table of Contents
 
-- Techs
-- Inspiration
-- To Build
-- To Run
-- Features
-- User Manual
-- Additional Notes
-- Licensing
+- [_TeachMod_](#teachmod)
+	- [Author](#author)
+	- [Table of Contents](#table-of-contents)
+	- [Techs](#techs)
+	- [Inspiration](#inspiration)
+	- [To Build](#to-build)
+	- [To Run](#to-run)
+	- [Features](#features)
+	- [User Manual](#user-manual)
+	- [Additional Notes](#additional-notes)
+	- [License](#license)
 
 ___
 
@@ -121,7 +124,7 @@ ___
 
 ## User Manual
 
-The User Manual is accessible in the [UserManual.md](UserManual.md) file.
+The User Manual is accessible in the [UserManual.md](Documentation/UserManual.md) file.
 
 ___
 

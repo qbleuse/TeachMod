@@ -51,14 +51,17 @@ ___
 
 ## Table des matières
 
-- Technologies
-- Inspiration
-- Pour Compiler
-- Pour Lancer
-- Fonctionnalités
-- Manuel Utilisateur
-- Notes Additionnel
-- License
+- [_TeachMod_](#teachmod)
+	- [Auteur](#auteur)
+	- [Table des matières](#table-des-matières)
+	- [Technologies](#technologies)
+	- [Inspiration](#inspiration)
+	- [Pour Compiler](#pour-compiler)
+	- [Pour Lancer](#pour-lancer)
+	- [Fonctionnalités](#fonctionnalités)
+	- [Manuel Utilisateur](#manuel-utilisateur)
+	- [Notes Additionnels](#notes-additionnels)
+	- [License](#license)
 
 ___
 
@@ -126,7 +129,7 @@ ___
 
 ## Manuel Utilisateur
 
-Le Manuel Utilisateur est disponible dans le fichier [ManuelUtilisateur.md](ManuelUtilisateur.md).
+Le Manuel Utilisateur est disponible dans le fichier [ManuelUtilisateur.md](Documentation/ManuelUtilisateur.md).
 
 ___
 

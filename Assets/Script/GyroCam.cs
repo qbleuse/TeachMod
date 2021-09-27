@@ -65,16 +65,9 @@ public class GyroCam : MonoBehaviour
 	{
 		_rawGyroRotation.rotation = Input.gyro.attitude;
 
-#if UNITY_ANDROID
-		/* Swap "handedness" of quaternion from gyro. (basically the image is displayed horizontally when holded vertically and vetically when holded horiontally)*/
-		_rawGyroRotation.Rotate(0f, 0f, 180f, Space.Self);
-		/* Rotate to make sense as a camera pointing out the back of your device. */
-		_rawGyroRotation.Rotate(270f, 180f, 180f, Space.World); 
-#else
 		/* Swap "handedness" of quaternion from gyro. (basically the image is displayed horizontally when holded vertically and vetically when holded horiontally) */
 		_rawGyroRotation.Rotate(0f, 0f, 180f, Space.Self);
 		/* Rotate to make sense as a camera pointing out the back of your device. */
 		_rawGyroRotation.Rotate(90f, 180f, 0f, Space.World);
-#endif
 	}
 }

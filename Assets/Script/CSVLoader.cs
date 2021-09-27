@@ -1,7 +1,9 @@
 using System.IO;
+using System.Collections;
 using System.Globalization;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Text;
 
 public class CSVLoader
@@ -15,70 +17,105 @@ public class CSVLoader
 	private NumberStyles _style  = NumberStyles.Float;
 	private CultureInfo _culture;
 
+
 	/* method loading the lines of the csv file in the lines component */
 	public void LoadFile(string filePath_)
 	{
 		_lines.Clear();
 		_culture	= CultureInfo.CurrentCulture;
 
+#if UNITY_ANDROID && !UNITY_EDITOR
+		using (UnityWebRequest request = UnityWebRequest.Get(Application.streamingAssetsPath + '/' + filePath_))
+		{ 
+			request.SendWebRequest();
 
+			while (!request.isDone)
+            {
+				if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.DataProcessingError || request.result == UnityWebRequest.Result.ProtocolError)
+				{
+					Debug.LogError(request.error);
+					return;
+				}
+			}
+
+			if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.DataProcessingError || request.result == UnityWebRequest.Result.ProtocolError)
+			{
+				Debug.LogError(request.error);
+				return;
+			}
+			else
+			{
+				string results = request.downloadHandler.text;
+				using (StringReader reader = new StringReader(results))
+				{
+					ParseCSV(reader);
+				}
+			}
+		}
+#else
 		using (FileStream fStream = new FileStream(Application.streamingAssetsPath + '/' + filePath_, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 		using (StreamReader reader = new StreamReader(fStream))
+        {
+			ParseCSV(reader);
+        }
+
+#endif
+	}
+
+	public void ParseCSV(TextReader reader)
+    {
+		GetReadInfo(reader);
+
+		StringBuilder strBuilder = new StringBuilder();
+		string line = null;
+		string multLineSep = '"'.ToString();
+		bool mulLineText = false;
+		bool hasMulSep = false;
+
+		while ((line = reader.ReadLine()) != null)
 		{
-			GetReadInfo(reader);
+			hasMulSep = line.Contains(multLineSep);
 
-			StringBuilder strBuilder = new StringBuilder();
-			string line = null;
-			string multLineSep = '"'.ToString();
-			bool mulLineText = false;
-			bool hasMulSep = false;
 
-			while (!reader.EndOfStream)
+			/* beginning of a multiline text */
+			if (hasMulSep && !mulLineText)
 			{
-				line = reader.ReadLine();
-				hasMulSep = line.Contains(multLineSep);
-
-
-				/* beginning of a multiline text */
-				if (hasMulSep && !mulLineText)
+				int count = line.Split('"').Length - 1;
+				if (count % 2 == 1)
 				{
-					int count = line.Split('"').Length - 1;
-					if (count % 2 == 1)
-                    {
-						mulLineText = true;
-						strBuilder.Append(line);
-						continue;
-					}
-				}/* in a multi line text */
-				else if (!hasMulSep && mulLineText)
-				{
-					strBuilder.AppendLine();
+					mulLineText = true;
 					strBuilder.Append(line);
-					continue;
-				}/* the end of a multiline text */
-				else if (hasMulSep && mulLineText)
-				{
-					strBuilder.AppendLine();
-					strBuilder.Append(line);
-
-					int count = line.Split('"').Length - 1;
-					if (count % 2 == 1)
-					{
-						_lines.Add(strBuilder.ToString());
-						strBuilder.Clear();
-						mulLineText = false;
-					}
 					continue;
 				}
-				
-				/* a normal other line, without a multiline text */
-				_lines.Add(line);
-				
+			}/* in a multi line text */
+			else if (!hasMulSep && mulLineText)
+			{
+				strBuilder.AppendLine();
+				strBuilder.Append(line);
+				continue;
+			}/* the end of a multiline text */
+			else if (hasMulSep && mulLineText)
+			{
+				strBuilder.AppendLine();
+				strBuilder.Append(line);
+
+				int count = line.Split('"').Length - 1;
+				if (count % 2 == 1)
+				{
+					_lines.Add(strBuilder.ToString());
+					strBuilder.Clear();
+					mulLineText = false;
+				}
+				continue;
 			}
+
+			/* a normal other line, without a multiline text */
+			_lines.Add(line);
+
 		}
 	}
 
-	public void GetReadInfo(StreamReader reader)
+	public void GetReadInfo(TextReader reader)
 	{
 		/* chooses between the french and the english way of parsing float 
 		 * depending on the separating value*/

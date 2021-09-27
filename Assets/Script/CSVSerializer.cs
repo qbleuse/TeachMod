@@ -29,34 +29,39 @@ public class CSVSerializer : ScriptableObject
 
 		if (_mcqList.Length > 1)
 		{
+#if UNITY_EDITOR
 			if (File.Exists(Application.streamingAssetsPath + '/' + _mcqList))
+#endif
 			{
 				loader.LoadFile(_mcqList);
 				loader.PopulateMCQ(this);
 			}
-		#if UNITY_EDITOR
+#if UNITY_EDITOR 
 			else
 			{
 				CSVSaver saver = new CSVSaver();
 				saver.SaveMCQ(this);
             }
-		#endif
+#endif
 		}
+
 
 		if (_poiList.Length > 1)
 		{
+#if UNITY_EDITOR
 			if (File.Exists(Application.streamingAssetsPath + '/' + _poiList))
+#endif
 			{
 				loader.LoadFile(_poiList);
 				loader.PopulatePOI(this);
 			}
-		#if UNITY_EDITOR
+#if UNITY_EDITOR
 			else
 			{
 				CSVSaver saver = new CSVSaver();
 				saver.SavePOI(this);
 			}
-		#endif
+#endif
 		}
 	}
 

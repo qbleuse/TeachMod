@@ -89,6 +89,7 @@ public class VideoController : MonoBehaviour
 	public void SetSequence()
 	{
 		_currentVideoIndex++;
+		_player.Stop();
 
 #if UNITY_ANDROID && !UNITY_EDITOR
 		_player.url = Application.streamingAssetsPath + "/" + _sequences[_currentVideoIndex];
@@ -96,7 +97,23 @@ public class VideoController : MonoBehaviour
 		_player.url = "file://" + Application.streamingAssetsPath + "/" + _sequences[_currentVideoIndex];
 #endif
 
-		_player.Play();
+		StartCoroutine(TryPlay());
+	}
+
+
+	IEnumerator TryPlay()
+    {
+		while (!_player.isPrepared)
+		{
+			yield return null;
+			_player.Prepare();
+		}
+
+		while (!_player.isPlaying)
+		{
+			yield return null;
+			_player.Play();
+		}
 	}
 
 	public void SetVideo(int sequenceNb, float timestamp)
@@ -143,6 +160,7 @@ public class VideoController : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
+
 	}
 
 	/*==== ACCESSOR ====*/

@@ -11,8 +11,17 @@ public class GyroCam : MonoBehaviour
 	private Transform   _rawGyroRotation;
 	private float        _tempSmoothing;
 
+	private float _yRot;
+	private float _xRot;
+	private Quaternion _tempRot;
+
+	public bool useGyro = true;
+
 	/*======== SETTINGS ========*/
 	[SerializeField] private float _smoothing = 0.1f;
+	[SerializeField] private float _sensibility = 10.0f;
+	[SerializeField, Range(0.0f, 90.0f)] private float _yUpMaxRot = 90.0f;
+	[SerializeField, Range(-90.0f, 0.0f)] private float _yBotMaxRot = -90.0f;
 
 	/*======== METHODS ========*/
 	private IEnumerator Start()
@@ -39,10 +48,28 @@ public class GyroCam : MonoBehaviour
 
 	private void Update()
 	{
-		ApplyGyroRotation();
-		ApplyCalibration();
+		if (Input.touches.Length > 0)
+		{
+			Touch touch = Input.GetTouch(0);
 
-		transform.rotation = Quaternion.Slerp(transform.rotation, _rawGyroRotation.rotation, _smoothing);
+			if (touch.phase == TouchPhase.Moved)
+			{
+				_yRot -= touch.deltaPosition.x * Time.deltaTime * _sensibility;
+				_xRot += touch.deltaPosition.y * Time.deltaTime * _sensibility;
+
+				_tempRot = Quaternion.Euler(_xRot, _yRot, 0.0f);
+
+				_xRot = Mathf.Clamp(_xRot, _yBotMaxRot, _yUpMaxRot);
+			}
+		}
+		
+		if (useGyro)
+		{
+			ApplyGyroRotation();
+			ApplyCalibration();
+		}
+
+		transform.rotation = Quaternion.Slerp(transform.rotation, _tempRot, _smoothing);
 	}
 
 	/* make the rotation on the y axis is always compared to the absolute north being forward */
@@ -63,11 +90,22 @@ public class GyroCam : MonoBehaviour
 
 	private void ApplyGyroRotation()
 	{
+		Quaternion tempRot = _rawGyroRotation.rotation;
 		_rawGyroRotation.rotation = Input.gyro.attitude;
 
-		/* Swap "handedness" of quaternion from gyro. (basically the image is displayed horizontally when holded vertically and vetically when holded horiontally) */
+		/* Swap "handedness" of quaternion from gyro. (basically the image is displayed horizontally when holded vertically and vertically when holded horiontally) */
 		_rawGyroRotation.Rotate(0f, 0f, 180f, Space.Self);
 		/* Rotate to make sense as a camera pointing out the back of your device. */
 		_rawGyroRotation.Rotate(90f, 180f, 0f, Space.World);
+
+		ApplyCalibration();
+
+		/* basically recover a delta rather than the absolute rotation */
+		_tempRot *= Quaternion.Inverse(tempRot) * _rawGyroRotation.rotation ;
 	}
+
+	public void ToggleGyro()
+    {
+		useGyro = !useGyro;
+    }
 }

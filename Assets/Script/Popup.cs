@@ -36,4 +36,13 @@ public class Popup : MonoBehaviour
     {
         _trs.anchoredPosition = _prevPos;
     }
+
+    /* switch between prev and target pos*/
+    public void TogglePos()
+    {
+        if (_trs.anchoredPosition == _prevPos)
+            _trs.anchoredPosition = _targetTrs.anchoredPosition;
+        else
+            _trs.anchoredPosition = _prevPos;
+    }
 }

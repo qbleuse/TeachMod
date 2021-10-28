@@ -44,6 +44,7 @@ public class LevelManager : MonoBehaviour
 
 	public void LoadLevel()
 	{
+		Time.timeScale = 1.0f;
 		StartCoroutine(SmoothLoadLevel(_targetLevelId));
 	}
 
